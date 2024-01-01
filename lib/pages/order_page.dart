@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
-class OrderPage extends StatelessWidget {
+class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
 
+  @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  List<String> actionList = <String>['Confirm order', 'Allocate bowser', 'Cancel order', 'Menu item'];
+  List<String> filterList = <String>['All', 'Active', 'Completed', 'Cancelled'];
+  String selectedAction = "Confirm order";
+  String selectedFilter = "All";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +56,7 @@ appBar: AppBar(
 
         ),
         alignment: Alignment.center,
-        child: TextUtil(text: 'Secondary action',color: appColors.greyColor,size: 14,)
+        child: TextUtil(text: 'Create Order',color: appColors.greyColor,size: 14,)
     ),
   ],
  ),
@@ -68,8 +77,24 @@ appBar: AppBar(
           const  SizedBox(height: 32,),
            Container(
              height: 48,
+             padding:const  EdgeInsets.symmetric(horizontal: 52),
              decoration: BoxDecoration(
-               color: Theme.of(context).primaryColor
+               color: Theme.of(context).primaryColor,
+
+             ),
+             child: Row(
+               children: [
+               for(int i=0;i<filterList.length;i++)...[
+                 Container(
+                   height: 48,
+                   padding:const  EdgeInsets.symmetric(horizontal: 32),
+                 decoration: BoxDecoration(
+                   border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                 ),
+                 alignment: Alignment.center,
+                 child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+               )]
+               ],
              ),
            ),
            const  SizedBox(height: 32,),
@@ -91,7 +116,7 @@ appBar: AppBar(
                         Expanded(child:  TextUtil(text: "Value",weight: true,size: 16,),),
                         Expanded(child: TextUtil(text: "Menu",weight: true,size: 16,)),
                         Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
-            
+
                       ],
                     ),
                   ),
@@ -111,8 +136,41 @@ appBar: AppBar(
                           Expanded(child: DescriptionText(text: "Active",)),
                           Expanded(child:  DescriptionText(text: "\$10,000",),),
                           Expanded(child: DescriptionText(text: "Confirm Order",)),
-                          Expanded(child:  DescriptionText(text: "Allocate bowser",))
-            
+                          Expanded(child:  Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            width: double.infinity,
+                            height:32,
+
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              border: Border.all(color: Colors.grey)
+                               ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: selectedAction,
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                ),
+                                elevation: 16,
+                                onChanged: (String? value) {
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    selectedAction = value!;
+                                  });
+                                },
+                                items: actionList
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),)
+
                         ],
                       ),
                     );
@@ -123,7 +181,7 @@ appBar: AppBar(
           )
          ],
        ),
-       
+
      ),
 
     );

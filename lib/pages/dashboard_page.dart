@@ -1,3 +1,4 @@
+import 'package:admin_panel/pages/customer_page.dart';
 import 'package:admin_panel/pages/order_page.dart';
 import 'package:admin_panel/utils/color_utils.dart';
 import 'package:admin_panel/utils/text_utils.dart';
@@ -35,7 +36,7 @@ class DashBoardPage extends StatelessWidget {
           children: [
             SideBarWidget(),
             SizedBox(width: 14,),
-            Expanded(child: OrderPage())
+            Expanded(child: CustomerPage())
 
 
             ],

@@ -10,7 +10,7 @@ class SideBarWidget extends StatefulWidget {
 }
 
 class _SideBarWidgetState extends State<SideBarWidget> {
-  int currentIndex=0;
+  int currentIndex=1;
   @override
   Widget build(BuildContext context) {
     return  Container(
