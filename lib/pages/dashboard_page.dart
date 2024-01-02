@@ -1,10 +1,12 @@
 import 'package:admin_panel/pages/customer_page.dart';
 import 'package:admin_panel/pages/order_page.dart';
+import 'package:admin_panel/pages/transaction_page.dart';
 import 'package:admin_panel/utils/color_utils.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../components/side_bar_component.dart';
+import 'bower_page.dart';
 var appColors=AppColors();
 
 class DashBoardPage extends StatelessWidget {
@@ -36,7 +38,7 @@ class DashBoardPage extends StatelessWidget {
           children: [
             SideBarWidget(),
             SizedBox(width: 14,),
-            Expanded(child: CustomerPage())
+            Expanded(child: TransactionPage())
 
 
             ],

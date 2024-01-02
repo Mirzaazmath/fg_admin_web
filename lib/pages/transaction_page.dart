@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-
-import '../components/dailogs/create_customer.dart';
+import '../components/dailogs/add_bowser_dialog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
-class CustomerPage extends StatefulWidget {
-  const CustomerPage({super.key});
+class TransactionPage extends StatefulWidget {
+  const TransactionPage({super.key});
 
   @override
-  State<CustomerPage> createState() => _CustomerPageState();
+  State<TransactionPage> createState() => _TransactionPage();
 }
 
-class _CustomerPageState extends State<CustomerPage> {
-  List<String> actionList = <String>['View customer details', 'Edit customer', 'List of orders', 'Inactive customer'];
-  List<String> filterList = <String>['All', 'Active', 'Inactive',];
-  String selectedAction = "View customer details";
+class _TransactionPage extends State<TransactionPage> {
+  List<String> actionList = <String>['View details', 'Edit details', 'Delete details', ];
+  List<String> filterList = <String>['All', 'Credited', 'Debit/Refund Initiate',];
+  String selectedAction = "View details";
   String selectedFilter = "All";
   @override
   Widget build(BuildContext context) {
@@ -25,46 +24,8 @@ class _CustomerPageState extends State<CustomerPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Customers",size: 28,),
-          actions: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: appColors.greyColor)
-              ),
-              child: const  Icon(Icons.settings_outlined),
-            ),
-            const SizedBox(width: 10,),
-            Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: appColors.greyColor)
-                ),
-                alignment: Alignment.center,
-                child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
-            ),
-            const  SizedBox(width: 10,),
-            InkWell(
-              onTap: (){
-                _showCreateCustomerDialog();
-              },
-              child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: appColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
+          title: TextUtil(text: "Transactions",size: 28,),
 
-                  ),
-                  alignment: Alignment.center,
-                  child: TextUtil(text: 'New Customer',color: appColors.greyColor,size: 14,)
-              ),
-            ),
-          ],
         ),
         body: Column(
           children: [
@@ -76,7 +37,7 @@ class _CustomerPageState extends State<CustomerPage> {
                   const  SizedBox(width: 8,),
                   const Icon(Icons.arrow_forward_ios_outlined,size: 15,),
                   const  SizedBox(width: 8,),
-                  TextUtil(text: "Customers",size: 16,color: appColors.blueColor,)
+                  TextUtil(text: "Transactions",size: 16,color: appColors.blueColor,)
                 ],
               ),
             ),
@@ -116,12 +77,11 @@ class _CustomerPageState extends State<CustomerPage> {
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Customer ID",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Customer Name",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Email",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Phone",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Pending task",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                          Expanded(child: TextUtil(text: "Transactions ID",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Date",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Value",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
 
                         ],
                       ),
@@ -137,11 +97,11 @@ class _CustomerPageState extends State<CustomerPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "Active",)),
-                                Expanded(child:  DescriptionText(text: "\$10,000",),),
-                                Expanded(child: DescriptionText(text: "Confirm Order",)),
+                                Expanded(child: DescriptionText(text: "#123456789",)),
+                                Expanded(child:  DescriptionText(text: "25-Dec-2023",),),
+                                Expanded(child: DescriptionText(text: "₹ 5,500",)),
+                                Expanded(child: DescriptionText(text: "Credit",)),
+
                                 Expanded(child:  Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
                                   width: double.infinity,
@@ -196,7 +156,7 @@ class _CustomerPageState extends State<CustomerPage> {
     showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return const CreateCustomerDialogBox(
+          return const AddBowserDialogBox(
           );
         }
     );
