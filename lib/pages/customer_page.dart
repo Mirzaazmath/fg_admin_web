@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/dailogs/create_customer.dart';
+import '../components/dailogs/create_customer_dailog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class CustomerPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
   List<String> actionList = <String>['View customer details', 'Edit customer', 'List of orders', 'Inactive customer'];
-  List<String> filterList = <String>['All', 'Active', 'Inactive',];
+  List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
   @override

@@ -5,7 +5,7 @@ import 'package:admin_panel/utils/color_utils.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../components/side_bar_component.dart';
+import '../components/widgets/side_bar_component.dart';
 import 'bower_page.dart';
 var appColors=AppColors();
 
@@ -38,7 +38,7 @@ class DashBoardPage extends StatelessWidget {
           children: [
             SideBarWidget(),
             SizedBox(width: 14,),
-            Expanded(child: TransactionPage())
+            Expanded(child: OrderPage())
 
 
             ],

@@ -1,0 +1,95 @@
+import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/text_btn.dart';
+import 'package:admin_panel/utils/color_utils.dart';
+import 'package:flutter/material.dart';
+
+import '../../utils/text_utils.dart';
+class AllocateBowserDialogBox extends StatefulWidget {
+  const AllocateBowserDialogBox({super.key});
+  @override
+  _AllocateBowserDialogBoxState createState() => _AllocateBowserDialogBoxState();
+}
+class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
+  int? selectedIndex;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 484,
+      padding: const  EdgeInsets.all(36),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const SizedBox(height: 16,),
+          TextUtil(text: 'Allocate bowser',size: 24,),
+          const SizedBox(height: 24,),
+           Container(
+            height: 80,
+             decoration: BoxDecoration(
+                 border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
+             ),
+            child: Row(
+              children: [
+                Expanded(child: TitleText(text: "Vehicle number",)),
+                Expanded(child:  TitleText(text: "Location",),),
+                Expanded(child: TitleText(text: "Load",)),
+                Expanded(child:  TitleText(text: "Actions"),),
+              ],
+            ),
+          ),
+         SizedBox(
+           height: 320,
+           child: ListView.builder(
+             itemCount: 40,
+               shrinkWrap: true,
+               itemBuilder: (context,index){
+             return  Container(
+               height: 64,
+               decoration: BoxDecoration(
+                 border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
+               ),
+               child: Row(
+                 children: [
+                   Expanded(child: DescriptionText(text: "123456789",)),
+                   Expanded(child:  DescriptionText(text: "Madhapur",),),
+                   Expanded(child: DescriptionText(text: "2400Lt",)),
+                   Expanded(child: Align(
+                     alignment:Alignment.centerLeft,
+                     child: Radio(
+                       value: index,
+                       groupValue: selectedIndex,
+                       onChanged: (value) {
+                         setState(() {
+                           selectedIndex = value!;
+                         });
+                       },
+                     ),
+                   ),),
+                 ],
+               ),
+             );
+           }),
+         ),
+         const  SizedBox(height: 24,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextBtn(title: "Cancel", onTap: (){
+                Navigator.pop(context);
+              },width: 150,),
+              ColorBtn(title: "Allocate", onTap: (){},width: 150,),
+
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+}
