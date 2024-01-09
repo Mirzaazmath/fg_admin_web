@@ -1,8 +1,11 @@
+import 'package:admin_panel/components/dailogs/add_bowser_dialog.dart';
 import 'package:admin_panel/components/dailogs/allocate_bowser_dailog.dart';
 import 'package:admin_panel/components/dailogs/cancel_order_dailog.dart';
 import 'package:admin_panel/components/dailogs/confirm_order_dialog.dart';
+import 'package:admin_panel/components/dailogs/create_customer_dailog.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:flutter/material.dart';
+import '../dailogs/add_driver_dailog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
 
@@ -54,9 +57,30 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return const  RefundInitiateDialogBox();
         }
+      case "New Customer":
+        {
+          return const   CreateCustomerDialogBox();
+        }
+      case "Add bowsers":
+        {
+          return const   AddBowserDialogBox();
+        }
+      case "Add Driver":
+        {
+          return const   AddDriverDialogBox();
+        }
+
 
         default: {
-        return Container();
+        return Container(
+          width: 484,
+          padding: const  EdgeInsets.all(36),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+        );
       }
 
     }

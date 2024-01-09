@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
+import '../components/widgets/global_custom_dailog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
-class BowsersPage extends StatefulWidget {
-  const BowsersPage({super.key});
+class DriverPage extends StatefulWidget {
+  const DriverPage({super.key});
 
   @override
-  State<BowsersPage> createState() => _BowsersPageState();
+  State<DriverPage> createState() => _DriverPage();
 }
 
-class _BowsersPageState extends State<BowsersPage> {
-  List<String> actionList = <String>['View details', 'Edit details', 'Delete details', ];
-  List<String> filterList = <String>['All', 'Allocated', 'Unallocated',];
+class _DriverPage extends State<DriverPage> {
+  List<String> actionList = <String>['View details', 'Edit details', 'Delete details',"Deactivate" ];
+  List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
   @override
@@ -24,7 +25,7 @@ class _BowsersPageState extends State<BowsersPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Bowsers",size: 28,),
+          title: TextUtil(text: "Drivers",size: 28,),
           actions: [
             Container(
               height: 40,
@@ -47,9 +48,9 @@ class _BowsersPageState extends State<BowsersPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            InkWell(
+            GestureDetector(
               onTap: (){
-                _showCreateCustomerDialog();
+                showCustomDialog(context,"Add Driver");
               },
               child: Container(
                   height: 40,
@@ -60,7 +61,7 @@ class _BowsersPageState extends State<BowsersPage> {
 
                   ),
                   alignment: Alignment.center,
-                  child: TextUtil(text: 'Add bowsers',color: appColors.greyColor,size: 14,)
+                  child: TextUtil(text: 'Add Driver',color: appColors.greyColor,size: 14,)
               ),
             ),
           ],
@@ -75,7 +76,7 @@ class _BowsersPageState extends State<BowsersPage> {
                   const  SizedBox(width: 8,),
                   const Icon(Icons.arrow_forward_ios_outlined,size: 15,),
                   const  SizedBox(width: 8,),
-                  TextUtil(text: "Bowsers",size: 16,color: appColors.blueColor,)
+                  TextUtil(text: "Drivers",size: 16,color: appColors.blueColor,)
                 ],
               ),
             ),
@@ -115,10 +116,13 @@ class _BowsersPageState extends State<BowsersPage> {
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Vehicle number",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Load",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Insurance date",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                          SizedBox(width: 100,
+                          child: TextUtil(text: "Avatar",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Name",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Phone number",weight: true,size: 16,),),
+                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Out of office",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
 
                         ],
                       ),
@@ -134,42 +138,60 @@ class _BowsersPageState extends State<BowsersPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "Active",)),
+                                Container(width: 100,
+                                  alignment: Alignment.centerLeft,
+                                  child:CircleAvatar(
+                                    backgroundColor: appColors.secondaryColor,
+                                    child: Image.asset("assets/images/profile.png"),
+                                  ),),
+                                Expanded(child: DescriptionText(text: "KIran Naik",)),
+                                Expanded(child:  DescriptionText(text: "9014355577",),),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child:  Container(
+                                    width: 64,
+                                    height: 27,
+                                    alignment:Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: appColors.blueColor,
+                                        borderRadius: BorderRadius.circular(10)
 
-                                Expanded(child:  Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  width: double.infinity,
-                                  height:32,
-
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey)
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<String>(
-                                      value: selectedAction,
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.black,
-                                      ),
-                                      elevation: 16,
-                                      onChanged: (String? value) {
-                                        // This is called when the user selects an item.
-                                        setState(() {
-                                          selectedAction = value!;
-                                        });
-                                      },
-                                      items: actionList
-                                          .map<DropdownMenuItem<String>>((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
                                     ),
+                                    child: DescriptionText(text: "Active",color: appColors.whiteColor,),
+                                  ),
+                                )
+                                ),
+                                Expanded(child: DescriptionText(text: "Yes",)),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child: PopupMenuButton(
+
+                                    itemBuilder: (BuildContext context) => [
+                                      PopupMenuItem(
+                                        enabled: false,
+                                        child:Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8),
+                                          child: Column(
+                                            children: [
+                                              for(int i=0;i<actionList.length;i++)...[
+                                                GestureDetector(
+                                                  onTap:(){
+                                                    Navigator.pop(context);
+                                                    showCustomDialog(context,"");
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 56,width: 200,
+                                                    child: TextUtil(text: actionList[i],size: 16,),
+                                                  ),
+                                                )
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+
+                                      ),
+                                    ],
+
                                   ),
                                 ),)
 

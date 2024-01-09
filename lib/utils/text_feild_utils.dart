@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../pages/dashboard_page.dart';
+import '../presentation/dashboard_page.dart';
+
+
 class Field extends StatelessWidget {
   final  TextEditingController controller;
   final String hintText;
@@ -18,7 +20,7 @@ class Field extends StatelessWidget {
           labelText:hintText,
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(4)),
-            borderSide: BorderSide(width: 1,color: appColors.darkBlue),
+            borderSide: BorderSide(width: 1,color: appColors.blueColor),
           ),
 
           border: const OutlineInputBorder()

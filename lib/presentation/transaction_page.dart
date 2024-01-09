@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
+import '../components/widgets/global_custom_dailog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class TransactionPage extends StatefulWidget {
@@ -79,8 +80,11 @@ class _TransactionPage extends State<TransactionPage> {
                         children: [
                           Expanded(child: TextUtil(text: "Transactions ID",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Date",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Value",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Order ID",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Amount",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Kind",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Payment method",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
 
                         ],
@@ -99,41 +103,42 @@ class _TransactionPage extends State<TransactionPage> {
                               children: [
                                 Expanded(child: DescriptionText(text: "#123456789",)),
                                 Expanded(child:  DescriptionText(text: "25-Dec-2023",),),
+                                Expanded(child: DescriptionText(text: "#2433",)),
                                 Expanded(child: DescriptionText(text: "₹ 5,500",)),
-                                Expanded(child: DescriptionText(text: "Credit",)),
+                                Expanded(child: DescriptionText(text: "Paid",)),
+                                Expanded(child: DescriptionText(text: "Sale",)),
+                                Expanded(child: DescriptionText(text: "FG Credit",)),
 
-                                Expanded(child:  Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  width: double.infinity,
-                                  height:32,
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child: PopupMenuButton(
 
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey)
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<String>(
-                                      value: selectedAction,
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.black,
+                                    itemBuilder: (BuildContext context) => [
+                                      PopupMenuItem(
+                                        enabled: false,
+                                        child:Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8),
+                                          child: Column(
+                                            children: [
+                                              for(int i=0;i<actionList.length;i++)...[
+                                                GestureDetector(
+                                                  onTap:(){
+                                                    Navigator.pop(context);
+                                                    showCustomDialog(context,"");
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 56,width: 200,
+                                                    child: TextUtil(text: actionList[i],size: 16,),
+                                                  ),
+                                                )
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+
                                       ),
-                                      elevation: 16,
-                                      onChanged: (String? value) {
-                                        // This is called when the user selects an item.
-                                        setState(() {
-                                          selectedAction = value!;
-                                        });
-                                      },
-                                      items: actionList
-                                          .map<DropdownMenuItem<String>>((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                    ),
+                                    ],
+
                                   ),
                                 ),)
 

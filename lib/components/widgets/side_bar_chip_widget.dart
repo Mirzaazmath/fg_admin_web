@@ -1,7 +1,7 @@
 import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../pages/dashboard_page.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
 
 class SideBarChipWidget extends StatelessWidget {

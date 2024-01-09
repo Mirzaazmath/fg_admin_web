@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_feild_utils.dart';
 
-class CreateCustomerDialogBox extends StatefulWidget {
-  const CreateCustomerDialogBox({super.key});
+class EditCustomerDialogBox extends StatefulWidget {
+  const EditCustomerDialogBox({super.key});
   @override
-  _CreateCustomerDialogBoxState createState() => _CreateCustomerDialogBoxState();
+  _EditCustomerDialogBoxState createState() => _EditCustomerDialogBoxState();
 }
 
-class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
+class _EditCustomerDialogBoxState extends State<EditCustomerDialogBox> {
   TextEditingController firstNameController=TextEditingController();
   TextEditingController lastNameController=TextEditingController();
   TextEditingController mobileController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
   @override
+
   Widget build(BuildContext context) {
     return Container(
       width: 484,

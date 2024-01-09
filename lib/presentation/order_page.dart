@@ -138,7 +138,21 @@ appBar: AppBar(
                         children: [
                           Expanded(child: DescriptionText(text: "1234567890",)),
                           Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                          Expanded(child: DescriptionText(text: "Active",)),
+                          Expanded(child: Align(
+                            alignment:Alignment.centerLeft,
+                            child:  Container(
+                              width: 64,
+                              height: 27,
+                              alignment:Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: appColors.blueColor,
+                                  borderRadius: BorderRadius.circular(10)
+
+                              ),
+                              child: DescriptionText(text: "Active",color: appColors.whiteColor,),
+                            ),
+                          )
+                         ),
                           Expanded(child:  DescriptionText(text: "\$10,000",),),
                           Expanded(child: DescriptionText(text: "Confirm Order",)),
                           Expanded(child: Align(

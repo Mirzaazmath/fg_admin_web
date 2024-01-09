@@ -14,7 +14,7 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 484,
+      width: 584,
       padding: const  EdgeInsets.all(36),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -36,10 +36,11 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
              ),
             child: Row(
               children: [
+                const   SizedBox(width: 40,),
                 Expanded(child: TitleText(text: "Vehicle number",)),
                 Expanded(child:  TitleText(text: "Location",),),
                 Expanded(child: TitleText(text: "Load",)),
-                Expanded(child:  TitleText(text: "Actions"),),
+
               ],
             ),
           ),
@@ -56,21 +57,20 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
                ),
                child: Row(
                  children: [
+                   Radio(
+                     value: index,
+                     groupValue: selectedIndex,
+                     onChanged: (value) {
+                       setState(() {
+                         selectedIndex = value!;
+                       });
+                     },
+                   ),
+                 const   SizedBox(width: 20,),
                    Expanded(child: DescriptionText(text: "123456789",)),
                    Expanded(child:  DescriptionText(text: "Madhapur",),),
                    Expanded(child: DescriptionText(text: "2400Lt",)),
-                   Expanded(child: Align(
-                     alignment:Alignment.centerLeft,
-                     child: Radio(
-                       value: index,
-                       groupValue: selectedIndex,
-                       onChanged: (value) {
-                         setState(() {
-                           selectedIndex = value!;
-                         });
-                       },
-                     ),
-                   ),),
+
                  ],
                ),
              );

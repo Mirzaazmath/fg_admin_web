@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/dailogs/create_customer_dailog.dart';
+import '../components/widgets/global_custom_dailog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class CustomerPage extends StatefulWidget {
@@ -12,7 +13,7 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
   List<String> actionList = <String>['View customer details', 'Edit customer', 'List of orders', 'Inactive customer'];
-  List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
+  List<String> filterList = <String>['All',"Active","Inactive"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
   @override
@@ -48,9 +49,9 @@ class _CustomerPageState extends State<CustomerPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            InkWell(
+            GestureDetector(
               onTap: (){
-                _showCreateCustomerDialog();
+                showCustomDialog(context,"New Customer");
               },
               child: Container(
                   height: 40,
@@ -117,10 +118,10 @@ class _CustomerPageState extends State<CustomerPage> {
                       child: Row(
                         children: [
                           Expanded(child: TextUtil(text: "Customer ID",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Customer Name",weight: true,size: 16,),),
+                          Expanded(child:  TextUtil(text: "Name",weight: true,size: 16,),),
                           Expanded(child: TextUtil(text: "Email",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Phone",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Pending task",weight: true,size: 16,)),
+                          Expanded(child: TextUtil(text: "No.of orders",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
 
                         ],
@@ -138,42 +139,40 @@ class _CustomerPageState extends State<CustomerPage> {
                             child: Row(
                               children: [
                                 Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "Active",)),
-                                Expanded(child:  DescriptionText(text: "\$10,000",),),
-                                Expanded(child: DescriptionText(text: "Confirm Order",)),
-                                Expanded(child:  Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  width: double.infinity,
-                                  height:32,
+                                Expanded(child:  DescriptionText(text: "Mirza Baig",),),
+                                Expanded(child: DescriptionText(text: "mirza@gmail.com",)),
+                                Expanded(child:  DescriptionText(text: "9746274637",),),
+                                Expanded(child: DescriptionText(text: "12",)),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child: PopupMenuButton(
 
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey)
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<String>(
-                                      value: selectedAction,
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.black,
+                                    itemBuilder: (BuildContext context) => [
+                                      PopupMenuItem(
+                                        enabled: false,
+                                        child:Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8),
+                                          child: Column(
+                                            children: [
+                                              for(int i=0;i<actionList.length;i++)...[
+                                                GestureDetector(
+                                                  onTap:(){
+                                                    Navigator.pop(context);
+                                                    showCustomDialog(context,actionList[i]);
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 56,width: 200,
+                                                    child: TextUtil(text: actionList[i],size: 16,),
+                                                  ),
+                                                )
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+
                                       ),
-                                      elevation: 16,
-                                      onChanged: (String? value) {
-                                        // This is called when the user selects an item.
-                                        setState(() {
-                                          selectedAction = value!;
-                                        });
-                                      },
-                                      items: actionList
-                                          .map<DropdownMenuItem<String>>((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                    ),
+                                    ],
+
                                   ),
                                 ),)
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../pages/dashboard_page.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
 class TextBtn extends StatelessWidget {
   final String title;
@@ -18,7 +17,7 @@ class TextBtn extends StatelessWidget {
               borderRadius: BorderRadius.circular(30), color: appColors.whiteColor
           ),
           alignment: Alignment.center,
-          child: TextUtil(text:title,color:appColors.darkBlue ,size: 14,)
+          child: TextUtil(text:title,color:appColors.blueColor ,size: 14,)
 
       ),
     );

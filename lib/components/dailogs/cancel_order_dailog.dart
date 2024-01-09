@@ -1,7 +1,7 @@
 import 'package:admin_panel/components/widgets/color_btn.dart';
 import 'package:admin_panel/components/widgets/text_btn.dart';
-import 'package:admin_panel/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
 class CancelOrderDialogBox extends StatefulWidget {
   const CancelOrderDialogBox({super.key});

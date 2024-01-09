@@ -1,13 +1,17 @@
-import 'package:admin_panel/pages/customer_page.dart';
-import 'package:admin_panel/pages/order_page.dart';
-import 'package:admin_panel/pages/transaction_page.dart';
+import 'package:admin_panel/presentation/bower_page.dart';
+import 'package:admin_panel/presentation/customer_page.dart';
+import 'package:admin_panel/presentation/transaction_page.dart';
+import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:admin_panel/utils/color_utils.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../components/widgets/side_bar_component.dart';
-import 'bower_page.dart';
+import 'driver_page.dart';
+import 'order_page.dart';
+
 var appColors=AppColors();
+List<Widget>pageList=[const OrderPage(),const CustomerPage(),Container(),Container(),const BowsersPage(),const DriverPage(),const TransactionPage(),Container(),Container(),Container(),Container()];
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});
@@ -32,13 +36,17 @@ class DashBoardPage extends StatelessWidget {
          const  SizedBox(width: 10,),
         ],
       ),
-      body: const Padding(
-        padding:  EdgeInsets.all(14),
+      body:  Padding(
+        padding: const  EdgeInsets.all(14),
         child: Row(
           children: [
-            SideBarWidget(),
-            SizedBox(width: 14,),
-            Expanded(child: OrderPage())
+           const  SideBarWidget(),
+           const  SizedBox(width: 14,),
+            Expanded(child: Consumer<SideBarProvider>(
+              builder: (context,provider,child) {
+                return pageList[provider.currentIndex];
+              }
+            ))
 
 
             ],

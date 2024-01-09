@@ -1,7 +1,7 @@
 import 'package:admin_panel/components/widgets/side_bar_chip_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../pages/dashboard_page.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
 
 class SideBarWidget extends StatelessWidget {

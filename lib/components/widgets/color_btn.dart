@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../pages/dashboard_page.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
 class ColorBtn extends StatelessWidget {
   final String title;
@@ -15,7 +15,7 @@ class ColorBtn extends StatelessWidget {
           height: 40,
           width:width?? double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color:color?? appColors.darkBlue
+              borderRadius: BorderRadius.circular(30), color:color?? appColors.blueColor
           ),
           alignment: Alignment.center,
           child: TextUtil(text:title,color: Colors.white,size: 14,)

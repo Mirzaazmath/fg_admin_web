@@ -28,7 +28,7 @@ class _RefundInitiateDialogBoxState extends State<RefundInitiateDialogBox> {
           const SizedBox(height: 24,),
           ListTile(
             leading: Radio(
-              value: 0,
+              value: 1,
               groupValue: selectedIndex,
               onChanged: (value) {
                 setState(() {

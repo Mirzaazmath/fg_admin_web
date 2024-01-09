@@ -1,5 +1,5 @@
-import 'package:admin_panel/components/widgets/side_bar_component.dart';
-import 'package:admin_panel/pages/dashboard_page.dart';
+
+import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:flutter/material.dart';
