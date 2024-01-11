@@ -1,5 +1,6 @@
 import 'package:admin_panel/presentation/bower_page.dart';
 import 'package:admin_panel/presentation/customer_page.dart';
+import 'package:admin_panel/presentation/team_management_page.dart';
 import 'package:admin_panel/presentation/transaction_page.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:admin_panel/utils/color_utils.dart';
@@ -11,7 +12,7 @@ import 'driver_page.dart';
 import 'order_page.dart';
 
 var appColors=AppColors();
-List<Widget>pageList=[const OrderPage(),const CustomerPage(),Container(),Container(),const BowsersPage(),const DriverPage(),const TransactionPage(),Container(),Container(),Container(),Container()];
+List<Widget>pageList=[const OrderPage(),const CustomerPage(),Container(),Container(),const BowsersPage(),const DriverPage(),const TransactionPage(),Container(),Container(),const TeamManagementPage(),Container()];
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});

@@ -1,21 +1,20 @@
+import 'package:admin_panel/components/dailogs/view_profile_dailog.dart';
 import 'package:flutter/material.dart';
-
-import '../components/dailogs/create_customer_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
-class CustomerPage extends StatefulWidget {
-  const CustomerPage({super.key});
+class TeamManagementPage extends StatefulWidget {
+  const TeamManagementPage({super.key});
 
   @override
-  State<CustomerPage> createState() => _CustomerPageState();
+  State<TeamManagementPage> createState() => _TeamManagementPage();
 }
 
-class _CustomerPageState extends State<CustomerPage> {
-  List<String> actionList = <String>['View customer details', 'Edit customer', 'List of orders', 'Inactive customer'];
-  List<String> filterList = <String>['All',"Active","Inactive"];
-  String selectedAction = "View customer details";
-  String selectedFilter = "All";
+class _TeamManagementPage extends State<TeamManagementPage> {
+  List<String> actionList = <String>['View Profile', 'Edit Profile', 'Delete Profile', ];
+  List<String> filterList = <String>['Team', 'Roles',];
+  String selectedAction = "View Profile";
+  String selectedFilter = "Team";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +25,7 @@ class _CustomerPageState extends State<CustomerPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Customers",size: 28,),
+          title: TextUtil(text: "Team Management",size: 28,),
           actions: [
             Container(
               height: 40,
@@ -51,7 +50,7 @@ class _CustomerPageState extends State<CustomerPage> {
             const  SizedBox(width: 10,),
             GestureDetector(
               onTap: (){
-                showCustomDialog(context,"New Customer");
+                showCustomDialog(context,"Add team member");
               },
               child: Container(
                   height: 40,
@@ -62,7 +61,7 @@ class _CustomerPageState extends State<CustomerPage> {
 
                   ),
                   alignment: Alignment.center,
-                  child: TextUtil(text: 'New Customer',color: appColors.greyColor,size: 14,)
+                  child: TextUtil(text: 'Add team member',color: appColors.greyColor,size: 14,)
               ),
             ),
           ],
@@ -77,7 +76,7 @@ class _CustomerPageState extends State<CustomerPage> {
                   const  SizedBox(width: 8,),
                   const Icon(Icons.arrow_forward_ios_outlined,size: 15,),
                   const  SizedBox(width: 8,),
-                  TextUtil(text: "Customers",size: 16,color: appColors.blueColor,)
+                  TextUtil(text: "Team Management",size: 16,color: appColors.blueColor,)
                 ],
               ),
             ),
@@ -117,19 +116,21 @@ class _CustomerPageState extends State<CustomerPage> {
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Customer ID",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Name",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Email",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Phone",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "No.of orders",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                          SizedBox(width: 100,
+                            child: TitleText(text: "S.No",),),
+                          Expanded(child: TitleText(text: "Name",)),
+                          Expanded(child:  TitleText(text: "Email",),),
+                          Expanded(child:  TitleText(text: "ID",),),
+                          Expanded(child: TitleText(text: "Role",)),
+                          Expanded(child: TitleText(text: "Phone Number",)),
+                          Expanded(child:  TitleText(text: "Actions",)),
 
                         ],
                       ),
                     ),
                     Expanded(child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 100,
+                        itemCount: teamList.length,
                         itemBuilder: (context,index){
                           return  Container(
                             height: 58,
@@ -138,11 +139,27 @@ class _CustomerPageState extends State<CustomerPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "Kiran@gmail.com",)),
-                                Expanded(child:  DescriptionText(text: "9746274637",),),
-                                Expanded(child: DescriptionText(text: "12",)),
+                                SizedBox(width: 100,
+                                  child: TitleText(text: "0${index+1}",),),
+                                Expanded(child: DescriptionText(text: teamList[index].name,)),
+                                Expanded(child:  DescriptionText(text: teamList[index].email,),),
+                                Expanded(child:  DescriptionText(text: teamList[index].id,),),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child:  Container(
+                                    width: 90,
+                                    height: 27,
+                                    alignment:Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: appColors.blueColor,
+                                        borderRadius: BorderRadius.circular(100)
+
+                                    ),
+                                    child: TextUtil(text: teamList[index].role,color: appColors.whiteColor,size: 11,),
+                                  ),
+                                )
+                                ),
+                                Expanded(child: DescriptionText(text: teamList[index].phoneNumber,)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child: PopupMenuButton(
@@ -158,7 +175,13 @@ class _CustomerPageState extends State<CustomerPage> {
                                                 GestureDetector(
                                                   onTap:(){
                                                     Navigator.pop(context);
-                                                    showCustomDialog(context,actionList[i]);
+                                                    if(i>=2){
+                                                      showCustomDialog(context,actionList[i]);
+                                                    }else{
+                                                      _showCreateCustomerDialog(i==1);
+                                                    }
+
+
                                                   },
                                                   child: SizedBox(
                                                     height: 56,width: 200,
@@ -191,14 +214,29 @@ class _CustomerPageState extends State<CustomerPage> {
 
     );
   }
-  _showCreateCustomerDialog(){
+  _showCreateCustomerDialog(bool isEdit){
     showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return const CreateCustomerDialogBox(
+          return ViewProfileDetailDialogBox(isEdit: isEdit,
           );
         }
     );
 
   }
 }
+
+class  TeamMember{
+  String id;
+  String name;
+  String email;
+  String phoneNumber;
+  String role;
+  TeamMember({required this.name,required this.email,required this.id,required this.phoneNumber,required this.role});
+}
+List<TeamMember>teamList=[
+  TeamMember(id: "Anand@123",name: "Anand",email: "Anand@fuelgenie.in",role: "Admin",phoneNumber: "9014355577"),
+  TeamMember(id: "Kiran@123",name: "Kiran",email: "kiran@fuelgenie.in",role: "Assistant",phoneNumber: "6014355577"),
+  TeamMember(id: "Mirza@123",name: "Mirza",email: "Mirza@fuelgenie.in",role: "Sales",phoneNumber: "8014355577"),
+
+];
