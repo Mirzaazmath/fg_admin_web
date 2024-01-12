@@ -6,12 +6,10 @@ import 'package:admin_panel/components/dailogs/create_customer_dailog.dart';
 import 'package:admin_panel/components/dailogs/delete_profile_dailog.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:flutter/material.dart';
-import '../dailogs/AddDriverDialogBox.dart';
 import '../dailogs/add_driver_dailog.dart';
+import '../dailogs/add_team_member_dailog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
-
-import '../dailogs/view_customer_details_dailog.dart';
 
 
 showCustomDialog(context,selectedOption){
@@ -69,10 +67,6 @@ class GlobalCustomDialogBox extends StatelessWidget {
       case "Add bowsers":
         {
           return const   AddBowserDialogBox();
-        }
-      case "View customer details":
-        {
-          return const   ViewCustomerDetailDialogBox();
         }
 
       case "Add Driver":

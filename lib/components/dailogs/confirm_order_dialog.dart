@@ -1,7 +1,9 @@
 import 'package:admin_panel/components/widgets/border_btn.dart';
+import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import '../widgets/color_btn.dart';
+import '../widgets/global_custom_dailog.dart';
 import '../widgets/text_btn.dart';
 
 class ConfirmOrderDialogBox extends StatefulWidget {
@@ -99,11 +101,20 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
           const SizedBox(height: 8,),
           DescriptionText(text: "15 Sep 2023 • Between 12pm to 3pm"),
           const SizedBox(height: 24,),
-          ColorBtn(title: 'Confirm Order',onTap: (){},),
+          ColorBtn(title: 'Confirm Order',onTap: (){
+            Navigator.pop(context);
+            showSnackBar(context,"Order is confirmed");
+          },),
           const  SizedBox(height: 8,),
-          BorderBtn(title: "Allocate bowser", onTap: (){}),
+          BorderBtn(title: "Allocate bowser", onTap: (){
+            Navigator.pop(context);
+            showCustomDialog(context,"Allocate bowser");
+          }),
           const  SizedBox(height: 8,),
-          TextBtn(title: 'Cancel Order',onTap: (){}),
+          TextBtn(title: 'Cancel Order',onTap: (){
+            Navigator.pop(context);
+            showCustomDialog(context,"Cancel order");
+          }),
         ],
       ),
     );

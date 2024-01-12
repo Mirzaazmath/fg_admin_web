@@ -3,6 +3,7 @@ import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_feild_utils.dart';
+import '../widgets/toast_widget.dart';
 
 class CreateCustomerDialogBox extends StatefulWidget {
   const CreateCustomerDialogBox({super.key});
@@ -61,7 +62,11 @@ class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
             ),
           ),
           const SizedBox(height: 40,),
-          ColorBtn(title: "Create Customer", onTap: (){}),
+          ColorBtn(title: "Create Customer", onTap: (){
+            Navigator.pop(context);
+            showSnackBar(context,"New Customer Created");
+
+          }),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../components/dailogs/create_customer_dailog.dart';
+import '../components/dailogs/view_customer_details_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
+import '../components/widgets/pagination_widget.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class CustomerPage extends StatefulWidget {
@@ -16,6 +16,14 @@ class _CustomerPageState extends State<CustomerPage> {
   List<String> filterList = <String>['All',"Active","Inactive"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
+  bool isLoad=false;
+  void updateFilter(){
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        isLoad=false;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,14 +100,24 @@ class _CustomerPageState extends State<CustomerPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    Container(
-                      height: 48,
-                      padding:const  EdgeInsets.symmetric(horizontal: 32),
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          selectedFilter=filterList[i];
+                          isLoad=true;
+                          updateFilter();
+                        });
+
+                      },
+                      child: Container(
+                        height: 48,
+                        padding:const  EdgeInsets.symmetric(horizontal: 32),
+                        decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                        ),
+                        alignment: Alignment.center,
+                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
-                      alignment: Alignment.center,
-                      child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                     )]
                 ],
               ),
@@ -127,7 +145,7 @@ class _CustomerPageState extends State<CustomerPage> {
                         ],
                       ),
                     ),
-                    Expanded(child: ListView.builder(
+                    Expanded(child: isLoad?const Center(child: CircularProgressIndicator(),): ListView.builder(
                         shrinkWrap: true,
                         itemCount: 100,
                         itemBuilder: (context,index){
@@ -158,7 +176,12 @@ class _CustomerPageState extends State<CustomerPage> {
                                                 GestureDetector(
                                                   onTap:(){
                                                     Navigator.pop(context);
-                                                    showCustomDialog(context,actionList[i]);
+                                                    if(i<2){
+                                                      _showCreateCustomerDialog(i==1);
+                                                    }else{
+                                                      showCustomDialog(context,actionList[i]);
+                                                    }
+
                                                   },
                                                   child: SizedBox(
                                                     height: 56,width: 200,
@@ -179,7 +202,8 @@ class _CustomerPageState extends State<CustomerPage> {
                               ],
                             ),
                           );
-                        }))
+                        })),
+                    const PaginationWidget(),
                   ],
                 ),
               ),
@@ -191,11 +215,11 @@ class _CustomerPageState extends State<CustomerPage> {
 
     );
   }
-  _showCreateCustomerDialog(){
+  _showCreateCustomerDialog(bool isEdit){
     showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return const CreateCustomerDialogBox(
+          return  ViewCustomerDetailDialogBox(isEdit: isEdit,
           );
         }
     );

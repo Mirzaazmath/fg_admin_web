@@ -3,6 +3,7 @@ import 'package:admin_panel/components/widgets/text_btn.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
+import '../widgets/toast_widget.dart';
 class CancelOrderDialogBox extends StatefulWidget {
   const CancelOrderDialogBox({super.key});
   @override
@@ -26,9 +27,14 @@ class _CancelOrderDialogBoxState extends State<CancelOrderDialogBox> {
           const SizedBox(height: 16,),
           TextUtil(text: 'Are you sure want to Cancel the order: #123456789',size: 22,),
           const SizedBox(height: 24,),
-          ColorBtn(title: "Cancel order", onTap: (){},color: appColors.redColor,),
+          ColorBtn(title: "Cancel order", onTap: (){
+            Navigator.pop(context);
+            showSnackBar(context,"Order Cancelled");
+          },color: appColors.redColor,),
           const SizedBox(height: 16,),
-          TextBtn(title: "Cancel", onTap: (){})
+          TextBtn(title: "Cancel", onTap: (){
+            Navigator.pop(context);
+          })
         ],
       ),
     );

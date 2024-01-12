@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/widgets/global_custom_dailog.dart';
+import '../components/widgets/pagination_widget.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 
@@ -15,6 +16,14 @@ class _OrderPageState extends State<OrderPage> {
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   String selectedAction = "Confirm order";
   String selectedFilter = "All";
+  bool isLoad=false;
+  void updateFilter(){
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        isLoad=false;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,6 +97,13 @@ appBar: AppBar(
                  children: [
                  for(int i=0;i<filterList.length;i++)...[
                    GestureDetector(
+                     onTap:(){
+                       setState(() {
+                         selectedFilter=filterList[i];
+                         isLoad=true;
+                         updateFilter();
+                       });
+                       },
                      child: Container(
                        height: 48,
                        padding:const  EdgeInsets.symmetric(horizontal: 32),
@@ -125,7 +141,8 @@ appBar: AppBar(
                       ],
                     ),
                   ),
-                  Expanded(child: ListView.builder(
+                  Expanded(child:
+                  isLoad?const Center(child: CircularProgressIndicator(),):ListView.builder(
                     shrinkWrap: true,
                       itemCount: 100,
                       itemBuilder: (context,index){
@@ -146,7 +163,7 @@ appBar: AppBar(
                               alignment:Alignment.center,
                               decoration: BoxDecoration(
                                   color: appColors.blueColor,
-                                  borderRadius: BorderRadius.circular(10)
+                                  borderRadius: BorderRadius.circular(100)
 
                               ),
                               child: DescriptionText(text: "Active",color: appColors.whiteColor,),
@@ -187,13 +204,13 @@ appBar: AppBar(
 
                             ),
                           ),)
-
-
-
                         ],
                       ),
                     );
-                  }))
+                  })),
+                  const PaginationWidget(),
+
+
                 ],
               ),
             ),
@@ -205,5 +222,4 @@ appBar: AppBar(
 
     );
   }
-
 }

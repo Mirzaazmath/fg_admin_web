@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
 import '../components/widgets/global_custom_dailog.dart';
+import '../components/widgets/pagination_widget.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class DriverPage extends StatefulWidget {
@@ -15,6 +16,14 @@ class _DriverPage extends State<DriverPage> {
   List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
+  bool isLoad=false;
+  void updateFilter(){
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        isLoad=false;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,14 +100,23 @@ class _DriverPage extends State<DriverPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    Container(
-                      height: 48,
-                      padding:const  EdgeInsets.symmetric(horizontal: 32),
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                    GestureDetector(
+                      onTap:(){
+                        setState(() {
+                          selectedFilter=filterList[i];
+                          isLoad=true;
+                          updateFilter();
+                        });
+                      },
+                      child: Container(
+                        height: 48,
+                        padding:const  EdgeInsets.symmetric(horizontal: 32),
+                        decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                        ),
+                        alignment: Alignment.center,
+                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
-                      alignment: Alignment.center,
-                      child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                     )]
                 ],
               ),
@@ -127,7 +145,7 @@ class _DriverPage extends State<DriverPage> {
                         ],
                       ),
                     ),
-                    Expanded(child: ListView.builder(
+                    Expanded(child:isLoad?const Center(child: CircularProgressIndicator(),):  ListView.builder(
                         shrinkWrap: true,
                         itemCount: 100,
                         itemBuilder: (context,index){
@@ -154,7 +172,7 @@ class _DriverPage extends State<DriverPage> {
                                     alignment:Alignment.center,
                                     decoration: BoxDecoration(
                                         color: appColors.blueColor,
-                                        borderRadius: BorderRadius.circular(10)
+                                        borderRadius: BorderRadius.circular(100)
 
                                     ),
                                     child: DescriptionText(text: "Active",color: appColors.whiteColor,),
@@ -198,7 +216,8 @@ class _DriverPage extends State<DriverPage> {
                               ],
                             ),
                           );
-                        }))
+                        })),
+                    const PaginationWidget(),
                   ],
                 ),
               ),

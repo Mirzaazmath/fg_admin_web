@@ -17,6 +17,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
   TextEditingController phoneController=TextEditingController();
   TextEditingController bloodGroupController=TextEditingController();
   TextEditingController dateOfJoinController=TextEditingController();
+  TextEditingController dateOfBirthController=TextEditingController();
   TextEditingController accountNumberController=TextEditingController();
   TextEditingController confirmAccountNoController=TextEditingController();
   TextEditingController ifscController=TextEditingController();
@@ -29,7 +30,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
   Widget build(BuildContext context) {
     return Container(
       width: 584,
-        height: 700,
+        height: 600,
       padding: const  EdgeInsets.all(36),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -40,22 +41,17 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              for(int i=0;i<3;i++)...[
-                Expanded(child: Container(
-                  margin: EdgeInsets.only(right: i ==2?0:20),
-                  height: 10,decoration: BoxDecoration(
-                  color:selectedIndex<i? Colors.grey:appColors.blueColor,
-                  borderRadius: BorderRadius.circular(10),
-
-                ),))
-              ]
-
-            ],
-          ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Chip(
+              side:const  BorderSide(color: Colors.transparent),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+            backgroundColor: appColors.lightPurple,
+              label:TextUtil(text: "${selectedIndex+1}/3",size: 14,color: Colors.white,) ),
+        ),
           Expanded(
             child: PageView(
+
               onPageChanged: (index){
                 setState(() {
                   selectedIndex=index;
@@ -82,26 +78,36 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 16,),
+
         TextUtil(text: 'Driver Personal details',size: 24,),
         const SizedBox(height: 24,),
-        Field(controller: firstNameController, hintText: 'First Name',),
-        const SizedBox(height: 24,),
-        Field(controller: lastNameController, hintText: 'Last Name',),
-        const SizedBox(height: 24,),
+        Row(
+          children: [
+            Expanded(child: Field(controller: firstNameController, hintText: 'First Name',)),
+            const SizedBox(width: 16,),
+            Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',)),
+          ],
+        ),
+        const SizedBox(height: 16,),
+        Field(controller: dateOfBirthController, hintText: 'Date of Birth',),
+        const SizedBox(height: 16,),
         Field(controller: emailController, hintText: 'Email',),
-        const SizedBox(height: 24,),
+        const SizedBox(height: 16,),
         Field(controller: phoneController, hintText: 'Phone Number',),
-        const SizedBox(height: 24,),
-        Field(controller: bloodGroupController, hintText: 'Blood Group',),
-        const SizedBox(height: 24,),
-        Field(controller: dateOfJoinController, hintText: 'Join Date',),
-        const SizedBox(height: 24,),
+        const SizedBox(height: 16,),
+        Row(
+          children: [
+            Expanded(child: Field(controller: dateOfJoinController, hintText: 'Join Date',),),
+            const SizedBox(width: 16,),
+            Expanded(child: Field(controller: bloodGroupController, hintText: 'Blood Group',)),
+          ],
+        ),
+        const SizedBox(height: 16,),
         const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ColorBtn(title: "Save and Continue", onTap: (){
+            ColorBtn(title: "Next", onTap: (){
               pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
 
             },width: 250,),
@@ -138,7 +144,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
 
             },width: 150,),
 
-            ColorBtn(title: "Save and Continue", onTap: (){
+            ColorBtn(title: "Next", onTap: (){
               pageController.animateToPage(2, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
 
             },width: 250,),
@@ -160,11 +166,31 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
         const SizedBox(height: 16,),
         TextUtil(text: 'Upload documents',size: 24,),
         const SizedBox(height: 24,),
-        Field(controller: adhaarController, hintText: 'Aadhaar Number',),
+        Row(
+          children: [
+            Expanded(child: Field(controller: adhaarController, hintText: 'Aadhaar Number',),),
+           const  SizedBox(width: 20,),
+            BorderBtn(title: "Upload document", onTap: (){},width: 180,)
+          ],
+        ),
         const SizedBox(height: 24,),
-        Field(controller: panController, hintText: 'Pan Number',),
+        Row(
+          children: [
+            Expanded(child:  Field(controller: panController, hintText: 'Pan Number',),),
+            const  SizedBox(width: 20,),
+            BorderBtn(title: "Upload document", onTap: (){},width: 180,)
+          ],
+        ),
+
         const SizedBox(height: 24,),
-        Field(controller: drivingLicenseController, hintText: 'Driving License',),
+        Row(
+          children: [
+            Expanded(child:  Field(controller: drivingLicenseController, hintText: 'Driving License',),),
+            const  SizedBox(width: 20,),
+            BorderBtn(title: "Upload document", onTap: (){},width: 180,)
+          ],
+        ),
+
         const SizedBox(height: 24,),
         const Spacer(),
         Row(

@@ -1,9 +1,8 @@
-import 'package:admin_panel/components/widgets/border_btn.dart';
 import 'package:admin_panel/components/widgets/color_btn.dart';
-import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
 import '../../utils/text_utils.dart';
+import '../widgets/toast_widget.dart';
 class AddTeamMemberDialogBox extends StatefulWidget {
   const AddTeamMemberDialogBox({super.key});
   @override
@@ -15,15 +14,17 @@ class _AddDriverDialogBoxState extends State<AddTeamMemberDialogBox> {
   TextEditingController lastNameController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController phoneController=TextEditingController();
-  TextEditingController bloodGroupController=TextEditingController();
-  TextEditingController dateOfJoinController=TextEditingController();
+  TextEditingController roleController=TextEditingController();
+  TextEditingController idController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         width: 584,
-        height: 700,
+
         padding: const  EdgeInsets.all(36),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -56,23 +57,25 @@ class _AddDriverDialogBoxState extends State<AddTeamMemberDialogBox> {
             Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',)),
           ],
         ),
-        const SizedBox(height: 24,),
-        Field(controller: emailController, hintText: 'Email',),
-        const SizedBox(height: 24,),
+        const SizedBox(height: 16,),
         Field(controller: phoneController, hintText: 'Phone Number',),
-        const SizedBox(height: 24,),
-        Field(controller: bloodGroupController, hintText: 'Blood Group',),
-        const SizedBox(height: 24,),
-        Field(controller: dateOfJoinController, hintText: 'Join Date',),
-        const SizedBox(height: 24,),
-        const Spacer(),
+        const SizedBox(height: 16,),
+        Field(controller: emailController, hintText: 'Email',),
+        const SizedBox(height: 16,),
+        Field(controller: roleController, hintText: 'Role',),
+        const SizedBox(height: 16,),
+        Field(controller: idController, hintText: 'Set ID',),
+        const SizedBox(height: 16,),
+        Field(controller: passwordController, hintText: 'Set Password',),
+        const SizedBox(height: 16,),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ColorBtn(title: "Create and Save", onTap: (){
-
-
-            },width: 250,),
+              Navigator.pop(context);
+              showSnackBar(context,"Successfully Added");
+              },width: 250,),
 
           ],
         )

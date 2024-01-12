@@ -4,6 +4,7 @@ import 'package:admin_panel/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/text_utils.dart';
+import '../widgets/toast_widget.dart';
 class AllocateBowserDialogBox extends StatefulWidget {
   const AllocateBowserDialogBox({super.key});
   @override
@@ -83,7 +84,10 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
               TextBtn(title: "Cancel", onTap: (){
                 Navigator.pop(context);
               },width: 150,),
-              ColorBtn(title: "Allocate", onTap: (){},width: 150,),
+              ColorBtn(title: "Allocate", onTap: (){
+                Navigator.pop(context);
+                showSnackBar(context,"Bowser Allocated");
+              },width: 150,),
 
             ],
           )

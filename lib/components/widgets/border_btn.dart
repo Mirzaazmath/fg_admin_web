@@ -5,7 +5,8 @@ class BorderBtn extends StatelessWidget {
   final String title;
   final  VoidCallback onTap;
   final double? width;
-  const BorderBtn({super.key,required this.title, required this.onTap,this.width});
+  final Color? color;
+  const BorderBtn({super.key,required this.title, required this.onTap,this.width,this.color});
   @override
   Widget build(BuildContext context) {
     return   GestureDetector(
@@ -15,7 +16,7 @@ class BorderBtn extends StatelessWidget {
           width:width?? double.infinity,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(30), color: appColors.whiteColor
+              borderRadius: BorderRadius.circular(30), color:color?? appColors.whiteColor
           ),
           alignment: Alignment.center,
           child: TextUtil(text:title,color:appColors.blueColor ,size: 14,)

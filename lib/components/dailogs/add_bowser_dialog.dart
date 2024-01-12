@@ -2,6 +2,7 @@ import 'package:admin_panel/components/widgets/color_btn.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
+import '../widgets/toast_widget.dart';
 
 class AddBowserDialogBox extends StatefulWidget {
   const AddBowserDialogBox({super.key});
@@ -38,7 +39,10 @@ class _AddBowserDialogBoxBoxState extends State<AddBowserDialogBox> {
           const SizedBox(height: 16,),
           Field(controller: insuranceController, hintText: 'Insurance Details',),
           const SizedBox(height: 40,),
-        ColorBtn(title: "Save Bowser", onTap: (){})
+        ColorBtn(title: "Save Bowser", onTap: (){
+          Navigator.pop(context);
+          showSnackBar(context,"Bowser Added Successfully");
+        })
         ],
       ),
     );

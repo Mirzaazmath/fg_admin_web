@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../provider/dialog_provider.dart';
 import '../../utils/text_feild_utils.dart';
 import '../widgets/color_btn.dart';
+import '../widgets/toast_widget.dart';
 
 class ViewProfileDetailDialogBox extends StatefulWidget {
   bool isEdit;
@@ -85,7 +86,10 @@ class _ViewProfileDetailDialogBoxState extends State<ViewProfileDetailDialogBox>
 
         widget.isEdit?  Align(
           alignment: Alignment.centerRight,
-            child: ColorBtn(title: "Save",width: 150, onTap: (){})):const SizedBox()
+            child: ColorBtn(title: "Save",width: 150, onTap: (){
+              Navigator.pop(context);
+              showSnackBar(context,"Edit Successfully");
+            })):const SizedBox()
       ],
     );
   }

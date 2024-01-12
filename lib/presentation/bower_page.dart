@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../components/dailogs/add_bowser_dialog.dart';
+import '../components/dailogs/view_bowser_details_dialog.dart';
 import '../components/widgets/global_custom_dailog.dart';
+import '../components/widgets/pagination_widget.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class BowsersPage extends StatefulWidget {
@@ -15,6 +16,13 @@ class _BowsersPageState extends State<BowsersPage> {
   List<String> filterList = <String>['All', 'Allocated', 'Unallocated',"Under repair"];
   String selectedAction = "View details";
   String selectedFilter = "All";
+  bool isLoad=false;
+  void updateFilter(){
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        isLoad=false;
+      });
+    });}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,14 +99,24 @@ class _BowsersPageState extends State<BowsersPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    Container(
-                      height: 48,
-                      padding:const  EdgeInsets.symmetric(horizontal: 32),
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          selectedFilter=filterList[i];
+                          isLoad=true;
+                          updateFilter();
+                        });
+
+                      },
+                      child: Container(
+                        height: 48,
+                        padding:const  EdgeInsets.symmetric(horizontal: 32),
+                        decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                        ),
+                        alignment: Alignment.center,
+                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
-                      alignment: Alignment.center,
-                      child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                     )]
                 ],
               ),
@@ -125,7 +143,7 @@ class _BowsersPageState extends State<BowsersPage> {
                         ],
                       ),
                     ),
-                    Expanded(child: ListView.builder(
+                    Expanded(child:isLoad?const Center(child: CircularProgressIndicator(),):  ListView.builder(
                         shrinkWrap: true,
                         itemCount: 100,
                         itemBuilder: (context,index){
@@ -155,7 +173,8 @@ class _BowsersPageState extends State<BowsersPage> {
                                                 GestureDetector(
                                                   onTap:(){
                                                     Navigator.pop(context);
-                                                    showCustomDialog(context,"Add bowsers");
+                                                    _showCreateCustomerDialog(i==1);
+                                                    //showCustomDialog(context,"Add bowsers");
                                                   },
                                                   child: SizedBox(
                                                     height: 56,width: 200,
@@ -176,7 +195,8 @@ class _BowsersPageState extends State<BowsersPage> {
                               ],
                             ),
                           );
-                        }))
+                        })),
+                    const PaginationWidget(),
                   ],
                 ),
               ),
@@ -188,14 +208,14 @@ class _BowsersPageState extends State<BowsersPage> {
 
     );
   }
-  // _showCreateCustomerDialog(){
-  //   showDialog(context: context,
-  //       barrierDismissible: true,
-  //       builder: (BuildContext context){
-  //         return const AddBowserDialogBox(
-  //         );
-  //       }
-  //   );
-  //
-  // }
+  _showCreateCustomerDialog(bool isEdit){
+    showDialog(context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return  ViewBowserDetailDialogBox(isEdit:isEdit
+          );
+        }
+    );
+
+  }
 }
