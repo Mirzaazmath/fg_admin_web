@@ -8,8 +8,12 @@ import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:flutter/material.dart';
 import '../dailogs/add_driver_dailog.dart';
 import '../dailogs/add_team_member_dailog.dart';
+import '../dailogs/allocated_driver.dart';
+import '../dailogs/delete_driver_dailog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
+
+import '../dailogs/view_order_dailog.dart';
 
 
 showCustomDialog(context,selectedOption){
@@ -81,6 +85,20 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return   const AddTeamMemberDialogBox();
         }
+      case "View Order":
+        {
+          return   const ViewOrderDialogBox();
+        }
+      case "Allocate Driver":
+        {
+          return   const AllocateDriverDialogBox();
+        }
+      case "Delete Driver":
+        {
+          return   const DeleteDriverDialogBox();
+        }
+//DeleteDriverDialogBox
+
 
         default: {
         return Container(

@@ -19,7 +19,7 @@ class ViewCustomerDetailDialogBox extends StatefulWidget {
 
 class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBox> {
 
-  List<String>optionList=["Personal info","Business profile","Delivery location"];
+  List<String>optionList=["Personal info","Business profile","Delivery location","Order history"];
   int selectedOption=0;
   TextEditingController firstNameController=TextEditingController(text: "Kiran");
   TextEditingController lastNameController=TextEditingController(text: "Naik");
@@ -43,7 +43,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
         child: Consumer<DialogProvider>(
             builder: (BuildContext context, provider, Widget? child) {
               return Container(
-                width: 600,
+                width: 777,
                 padding: const  EdgeInsets.all(36),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
@@ -64,7 +64,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                       child: Row(
                         children: [
                           for(int i =0; i<optionList.length;i++)...[
-                            Expanded(child: GestureDetector(
+                            widget.isEdit && i==3?const SizedBox():   Expanded(child: GestureDetector(
                               onTap: (){
                                 setState(() {
                                   selectedOption=i;
@@ -105,6 +105,9 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
         return businessInfo();
       case 2:
         return locationInfo();
+      case 3:
+        return orderHistoryInfo();
+
       default: {
         return Container(
           width: 484,
@@ -150,9 +153,14 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
         const SizedBox(height: 16,),
         Field(controller: legalNameController, hintText: 'Legal Name',),
         const SizedBox(height: 16,),
-        Field(controller: cinController, hintText: "CIN"),
-        const SizedBox(height: 16,),
-        Field(controller: gstinController, hintText: 'GSTIN',),
+        Row(
+          children: [
+            Expanded(child: Field(controller: cinController, hintText: "CIN"),),
+          const   SizedBox(width: 16,),
+            Expanded(child: Field(controller: gstinController, hintText: 'GSTIN',)),
+
+          ],
+        ),
         const SizedBox(height: 16,),
         Field(controller: companyPanController, hintText: 'Company PAN',),
         const SizedBox(height: 16,),
@@ -217,7 +225,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                        BorderBtn(title: "Edit", onTap: (){},width: 100,color: Colors.transparent,)
                      ],
                    ),
-                   
+
                  ):const SizedBox()
                ],
              ))
@@ -226,6 +234,76 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
          ),
        );
      }),
+
+        widget.isEdit? Align(
+            alignment: Alignment.centerRight,
+            child: ColorBtn(title: "Save Edit",width: 200, onTap: (){
+              Navigator.pop(context);
+              showSnackBar(context,"Edit Successfully");
+            },)): const  SizedBox(),
+      ],
+    );
+  }
+  Widget orderHistoryInfo(){
+    return Column(
+      children: [
+        ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            itemBuilder: (context,index){
+              return  Container(
+                height:  widget.isEdit?156: 100,
+                margin: const EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(12)
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const  Icon(Icons.location_on_outlined),
+                    const  SizedBox(width: 16,),
+                    Expanded(child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            TitleText(text: "Gachibowli Hospital"),
+                            index==0? Container(
+                              margin:const  EdgeInsets.only(left: 10),
+                              width: 50,
+                              height: 16,
+                              alignment:Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: appColors.blueColor,
+                                  borderRadius: BorderRadius.circular(100)
+
+                              ),
+                              child: TextUtil(text: "Default",color: appColors.whiteColor,size: 11,),
+                            ):const SizedBox()
+                          ],
+                        ),
+                        const  SizedBox(height: 4,),
+                        DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
+                        widget.isEdit?Container(
+                          margin:const  EdgeInsets.only(top: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextBtn(title: "Delete", onTap: (){},width: 100,color: Colors.transparent,),
+                              BorderBtn(title: "Edit", onTap: (){},width: 100,color: Colors.transparent,)
+                            ],
+                          ),
+
+                        ):const SizedBox()
+                      ],
+                    ))
+
+                  ],
+                ),
+              );
+            }),
 
         widget.isEdit? Align(
             alignment: Alignment.centerRight,

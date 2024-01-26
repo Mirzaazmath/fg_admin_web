@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/view_customer_details_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class CustomerPage extends StatefulWidget {
@@ -12,7 +13,8 @@ class CustomerPage extends StatefulWidget {
 }
 
 class _CustomerPageState extends State<CustomerPage> {
-  List<String> actionList = <String>['View customer details', 'Edit customer', 'List of orders', 'Inactive customer'];
+
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.list_alt_outlined, title: "List of orders"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
   List<String> filterList = <String>['All',"Active","Inactive"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
@@ -139,6 +141,7 @@ class _CustomerPageState extends State<CustomerPage> {
                           Expanded(child:  TextUtil(text: "Name",weight: true,size: 16,),),
                           Expanded(child: TextUtil(text: "Email",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Phone",weight: true,size: 16,),),
+                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
                           Expanded(child: TextUtil(text: "No.of orders",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
 
@@ -160,42 +163,69 @@ class _CustomerPageState extends State<CustomerPage> {
                                 Expanded(child:  DescriptionText(text: "Kiran Naik",),),
                                 Expanded(child: DescriptionText(text: "Kiran@gmail.com",)),
                                 Expanded(child:  DescriptionText(text: "9746274637",),),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child:  Container(
+                                    width: 64,
+                                    height: 20,
+                                    alignment:Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color:selectedFilter=="Inactive"?appColors.redColor: appColors.blueColor,
+                                        borderRadius: BorderRadius.circular(100)
+
+                                    ),
+                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
+                                  ),
+                                )
+                                ),
                                 Expanded(child: DescriptionText(text: "12",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child: PopupMenuButton(
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
+                                        _showCreateCustomerDialog(false);
+                                      }, icon:const  Icon(Icons.visibility_outlined)),
+                                      PopupMenuButton(
+                                        itemBuilder: (BuildContext context) => [
+                                          PopupMenuItem(
+                                            enabled: false,
+                                            child:Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              child: Column(
+                                                children: [
+                                                  for(int i=0;i<actionList.length;i++)...[
+                                                    GestureDetector(
+                                                      onTap:(){
+                                                        Navigator.pop(context);
+                                                        if(i==1){
+                                                          _showCreateCustomerDialog(true);
+                                                        }else{
+                                                          showCustomDialog(context,actionList[i].title);
+                                                        }
 
-                                    itemBuilder: (BuildContext context) => [
-                                      PopupMenuItem(
-                                        enabled: false,
-                                        child:Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Column(
-                                            children: [
-                                              for(int i=0;i<actionList.length;i++)...[
-                                                GestureDetector(
-                                                  onTap:(){
-                                                    Navigator.pop(context);
-                                                    if(i<2){
-                                                      _showCreateCustomerDialog(i==1);
-                                                    }else{
-                                                      showCustomDialog(context,actionList[i]);
-                                                    }
+                                                      },
+                                                      child: SizedBox(
+                                                        height: 56,width: 200,
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                            const  SizedBox(width: 12,),
+                                                            TextUtil(text: actionList[i].title,size: 16,),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
 
-                                                  },
-                                                  child: SizedBox(
-                                                    height: 56,width: 200,
-                                                    child: TextUtil(text: actionList[i],size: 16,),
-                                                  ),
-                                                )
-                                              ]
-                                            ],
                                           ),
-                                        ),
+                                        ],
 
                                       ),
                                     ],
-
                                   ),
                                 ),)
 

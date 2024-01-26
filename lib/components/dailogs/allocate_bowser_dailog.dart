@@ -40,7 +40,7 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
                 const   SizedBox(width: 40,),
                 Expanded(child: TitleText(text: "Vehicle number",)),
                 Expanded(child:  TitleText(text: "Location",),),
-                Expanded(child: TitleText(text: "Load",)),
+                Expanded(child: TitleText(text: "Fuel left",)),
 
               ],
             ),
@@ -70,7 +70,7 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
                  const   SizedBox(width: 20,),
                    Expanded(child: DescriptionText(text: "123456789",)),
                    Expanded(child:  DescriptionText(text: "Madhapur",),),
-                   Expanded(child: DescriptionText(text: "2400Lt",)),
+                   Expanded(child: DescriptionText(text: "500/2400 Lt",)),
 
                  ],
                ),

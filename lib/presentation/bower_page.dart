@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/view_bowser_details_dialog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class BowsersPage extends StatefulWidget {
@@ -12,7 +13,8 @@ class BowsersPage extends StatefulWidget {
 }
 
 class _BowsersPageState extends State<BowsersPage> {
-  List<String> actionList = <String>['View details', 'Edit details', 'Delete details', ];
+
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),];
   List<String> filterList = <String>['All', 'Allocated', 'Unallocated',"Under repair"];
   String selectedAction = "View details";
   String selectedFilter = "All";
@@ -135,8 +137,9 @@ class _BowsersPageState extends State<BowsersPage> {
                       child: Row(
                         children: [
                           Expanded(child: TextUtil(text: "Vehicle number",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Load",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Insurance date",weight: true,size: 16,)),
+                          Expanded(child:  TextUtil(text: "Allocated driver",weight: true,size: 16,),),
+                          Expanded(child:  TextUtil(text: "Fuel left",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Active orders",weight: true,size: 16,)),
                           Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
 
@@ -155,40 +158,83 @@ class _BowsersPageState extends State<BowsersPage> {
                             child: Row(
                               children: [
                                 Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "23/12/22",)),
-                                Expanded(child: DescriptionText(text: "Active",)),
+                                Expanded(child:  Row(
+                                  children: [
+                                    CircleAvatar(
+                                backgroundColor: appColors.secondaryColor,
+                                child: Image.asset("assets/images/profile.png"),
+                                ),
+                                  const   SizedBox(width: 8,),
+                                    Expanded(child: DescriptionText(text: "Kiran Naik",),)
+                                  ],
+                                )),
+                                Expanded(child: DescriptionText(text: "500/2500 lt",)),
+                                Expanded(child: DescriptionText(text: "6",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child: PopupMenuButton(
+                                  child:  Container(
+                                    width: 64,
+                                    height: 20,
+                                    alignment:Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color:selectedFilter=="Under repair"?appColors.redColor: appColors.blueColor,
+                                        borderRadius: BorderRadius.circular(100)
 
-                                    itemBuilder: (BuildContext context) => [
-                                      PopupMenuItem(
-                                        enabled: false,
-                                        child:Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Column(
-                                            children: [
-                                              for(int i=0;i<actionList.length;i++)...[
-                                                GestureDetector(
-                                                  onTap:(){
-                                                    Navigator.pop(context);
-                                                    _showCreateCustomerDialog(i==1);
-                                                    //showCustomDialog(context,"Add bowsers");
-                                                  },
-                                                  child: SizedBox(
-                                                    height: 56,width: 200,
-                                                    child: TextUtil(text: actionList[i],size: 16,),
-                                                  ),
-                                                )
-                                              ]
-                                            ],
+                                    ),
+                                    child: TextUtil(text:selectedFilter=="Under repair"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
+                                  ),
+                                )
+                                ),
+                                Expanded(child: Align(
+                                  alignment:Alignment.centerLeft,
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
+                                        _showCreateCustomerDialog(false);
+                                        //View details
+                                      }, icon:const  Icon(Icons.visibility_outlined)),
+                                      PopupMenuButton(
+
+                                        itemBuilder: (BuildContext context) => [
+                                          PopupMenuItem(
+                                            enabled: false,
+                                            child:Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              child: Column(
+                                                children: [
+                                                  for(int i=0;i<actionList.length;i++)...[
+                                                    GestureDetector(
+                                                      onTap:(){
+                                                        Navigator.pop(context);
+                                                        if(i==0){
+                                                          _showCreateCustomerDialog(true);
+                                                        }else{
+                                                          showCustomDialog(context,"Allocate Driver");
+
+                                                        }
+
+                                                      },
+                                                      child: SizedBox(
+                                                        height: 56,width: 200,
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                            const  SizedBox(width: 12,),
+                                                            TextUtil(text: actionList[i].title,size: 16,),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
+
                                           ),
-                                        ),
+                                        ],
 
                                       ),
                                     ],
-
                                   ),
                                 ),)
 

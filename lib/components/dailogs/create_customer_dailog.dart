@@ -48,19 +48,19 @@ class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
           const SizedBox(height: 16,),
           Field(controller: passwordController, hintText: ' Set Password',),
           const SizedBox(height: 16,),
-          RichText(
-            text: TextSpan(
-              text: 'By continuing you agree with our\n',
-              style:const TextStyle( color:Colors.black,fontSize: 14,
-                  fontWeight: FontWeight.w400,fontFamily: "Poppins"
-              ),
-              children:  <TextSpan>[
-                TextSpan(text: 'Terms & Conditions ', style: TextStyle(color: appColors.blueColor)),
-                const  TextSpan(text: ' and '),
-                TextSpan(text: "Privacy Policy",style: TextStyle(color: appColors.blueColor)),
-              ],
-            ),
-          ),
+          // RichText(
+          //   text: TextSpan(
+          //     text: 'By continuing you agree with our\n',
+          //     style:const TextStyle( color:Colors.black,fontSize: 14,
+          //         fontWeight: FontWeight.w400,fontFamily: "Poppins"
+          //     ),
+          //     children:  <TextSpan>[
+          //       TextSpan(text: 'Terms & Conditions ', style: TextStyle(color: appColors.blueColor)),
+          //       const  TextSpan(text: ' and '),
+          //       TextSpan(text: "Privacy Policy",style: TextStyle(color: appColors.blueColor)),
+          //     ],
+          //   ),
+          // ),
           const SizedBox(height: 40,),
           ColorBtn(title: "Create Customer", onTap: (){
             Navigator.pop(context);

@@ -40,15 +40,23 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Chip(
-              side:const  BorderSide(color: Colors.transparent),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-            backgroundColor: appColors.lightPurple,
-              label:TextUtil(text: "${selectedIndex+1}/3",size: 14,color: Colors.white,) ),
-        ),
+          TextUtil(text:selectedIndex==0? 'Add driver details':selectedIndex==1?"Add bank details":"Upload documents",size: 22,),
+          const SizedBox(height: 16,),
+        LinearProgressIndicator(
+         color: appColors.blueColor,
+          borderRadius: BorderRadius.circular(30),
+          value: selectedIndex==0?0.35:selectedIndex==1?0.70:1
+        ),  const SizedBox(height: 24,),
+        // Align(
+        //   alignment: Alignment.centerRight,
+        //   child: Chip(
+        //       side:const  BorderSide(color: Colors.transparent),
+        //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        //     backgroundColor: appColors.lightPurple,
+        //       label:TextUtil(text: "${selectedIndex+1}/3",size: 14,color: Colors.white,) ),
+        // ),
           Expanded(
             child: PageView(
 
@@ -79,8 +87,8 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        TextUtil(text: 'Driver Personal details',size: 24,),
-        const SizedBox(height: 24,),
+        // TextUtil(text: 'Driver Personal details',size: 24,),
+        // const SizedBox(height: 24,),
         Row(
           children: [
             Expanded(child: Field(controller: firstNameController, hintText: 'First Name',)),
@@ -124,9 +132,9 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 16,),
-        TextUtil(text: 'Driver Bank details',size: 24,),
-        const SizedBox(height: 24,),
+        // const SizedBox(height: 16,),
+        // TextUtil(text: 'Driver Bank details',size: 24,),
+        // const SizedBox(height: 24,),
         Field(controller: accountNumberController, hintText: 'Account Number',),
         const SizedBox(height: 24,),
         Field(controller: confirmAccountNoController, hintText: 'Confirm Account Number',),
@@ -163,9 +171,9 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 16,),
-        TextUtil(text: 'Upload documents',size: 24,),
-        const SizedBox(height: 24,),
+        // const SizedBox(height: 16,),
+        // TextUtil(text: 'Upload documents',size: 24,),
+        // const SizedBox(height: 24,),
         Row(
           children: [
             Expanded(child: Field(controller: adhaarController, hintText: 'Aadhaar Number',),),

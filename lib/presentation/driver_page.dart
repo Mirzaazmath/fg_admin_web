@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class DriverPage extends StatefulWidget {
@@ -12,7 +13,8 @@ class DriverPage extends StatefulWidget {
 }
 
 class _DriverPage extends State<DriverPage> {
-  List<String> actionList = <String>['View details', 'Edit details', 'Delete details',"Deactivate" ];
+ // List<String> actionList = <String>['View details', 'Edit details', 'Delete details',"Deactivate" ];
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit driver"),MenuModel(icon: Icons.delete_outline, title: "Delete Driver"),MenuModel(icon: Icons.lock_outline, title: "Deactivate Driver"),];
   List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
@@ -134,10 +136,12 @@ class _DriverPage extends State<DriverPage> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(width: 100,
-                          child: TextUtil(text: "Avatar",weight: true,size: 16,),),
+                          // SizedBox(width: 100,
+                          // child: TextUtil(text: "Avatar",weight: true,size: 16,),),
                           Expanded(child: TextUtil(text: "Name",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Phone number",weight: true,size: 16,),),
+                          Expanded(child: TextUtil(text: "Truck",weight: true,size: 16,)),
+                          Expanded(child: TextUtil(text: "Blood group",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
                           Expanded(child: TextUtil(text: "Out of office",weight: true,size: 16,)),
                           Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
@@ -156,60 +160,75 @@ class _DriverPage extends State<DriverPage> {
                             ),
                             child: Row(
                               children: [
-                                Container(width: 100,
-                                  alignment: Alignment.centerLeft,
-                                  child:CircleAvatar(
-                                    backgroundColor: appColors.secondaryColor,
-                                    child: Image.asset("assets/images/profile.png"),
-                                  ),),
+                                // Container(width: 100,
+                                //   alignment: Alignment.centerLeft,
+                                //   child:CircleAvatar(
+                                //     backgroundColor: appColors.secondaryColor,
+                                //     child: Image.asset("assets/images/profile.png"),
+                                //   ),),
                                 Expanded(child: DescriptionText(text: "KIran Naik",)),
                                 Expanded(child:  DescriptionText(text: "9014355577",),),
+                                Expanded(child:  DescriptionText(text: "Allocated",),),
+                                Expanded(child:  DescriptionText(text: "B+",),),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child:  Container(
                                     width: 64,
-                                    height: 27,
+                                    height: 20,
                                     alignment:Alignment.center,
                                     decoration: BoxDecoration(
-                                        color: appColors.blueColor,
+                                        color:selectedFilter=="Inactive"?appColors.redColor: appColors.blueColor,
                                         borderRadius: BorderRadius.circular(100)
 
                                     ),
-                                    child: DescriptionText(text: "Active",color: appColors.whiteColor,),
+                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
                                   ),
                                 )
                                 ),
                                 Expanded(child: DescriptionText(text: "Yes",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child: PopupMenuButton(
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
+                                        showCustomDialog(context,"");
+                                        //View details
+                                      }, icon:const  Icon(Icons.visibility_outlined)),
+                                      PopupMenuButton(
+                                        itemBuilder: (BuildContext context) => [
+                                          PopupMenuItem(
+                                            enabled: false,
+                                            child:Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              child: Column(
+                                                children: [
+                                                  for(int i=0;i<actionList.length;i++)...[
+                                                    GestureDetector(
+                                                      onTap:(){
+                                                        Navigator.pop(context);
+                                                        showCustomDialog(context,actionList[i].title);
+                                                      },
+                                                      child: SizedBox(
+                                                        height: 56,width: 200,
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                            const  SizedBox(width: 12,),
+                                                            TextUtil(text: actionList[i].title,size: 16,),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
 
-                                    itemBuilder: (BuildContext context) => [
-                                      PopupMenuItem(
-                                        enabled: false,
-                                        child:Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Column(
-                                            children: [
-                                              for(int i=0;i<actionList.length;i++)...[
-                                                GestureDetector(
-                                                  onTap:(){
-                                                    Navigator.pop(context);
-                                                    showCustomDialog(context,"");
-                                                  },
-                                                  child: SizedBox(
-                                                    height: 56,width: 200,
-                                                    child: TextUtil(text: actionList[i],size: 16,),
-                                                  ),
-                                                )
-                                              ]
-                                            ],
                                           ),
-                                        ),
+                                        ],
 
                                       ),
                                     ],
-
                                   ),
                                 ),)
 

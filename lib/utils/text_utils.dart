@@ -11,7 +11,7 @@ class TextUtil extends StatelessWidget {
     return  Text(text,
 
       style: TextStyle(color:color?? Colors.black,fontSize:size?? 18,
-          fontWeight:weight==null?FontWeight.w400: FontWeight.w500,fontFamily: "Poppins"
+          fontWeight:weight==null?FontWeight.w400: FontWeight.w700,fontFamily: "Poppins"
       ),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,

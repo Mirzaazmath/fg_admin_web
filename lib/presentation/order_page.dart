@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 
@@ -12,7 +13,8 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  List<String> actionList = <String>['Confirm order', 'Allocate bowser', 'Cancel order', 'Initiate refund'];
+
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   String selectedAction = "Confirm order";
   String selectedFilter = "All";
@@ -135,7 +137,7 @@ appBar: AppBar(
                         Expanded(child:  TextUtil(text: "Customer",weight: true,size: 16,),),
                         Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
                         Expanded(child:  TextUtil(text: "Value",weight: true,size: 16,),),
-                        Expanded(child: TextUtil(text: "Menu",weight: true,size: 16,)),
+                        Expanded(child: TextUtil(text: "Payment status",weight: true,size: 16,)),
                         Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
 
                       ],
@@ -171,37 +173,52 @@ appBar: AppBar(
                           )
                          ),
                           Expanded(child:  DescriptionText(text: "\$10,000",),),
-                          Expanded(child: DescriptionText(text: "Confirm Order",)),
+                          Expanded(child: DescriptionText(text: "Paid",)),
                           Expanded(child: Align(
                             alignment:Alignment.centerLeft,
-                            child: PopupMenuButton(
+                            child: Row(
+                              children: [
+                                IconButton(onPressed: (){
+                                  showCustomDialog(context,"View Order");
+                                }, icon:const  Icon(Icons.visibility_outlined)),
 
-                              itemBuilder: (BuildContext context) => [
-                                PopupMenuItem(
-                                  enabled: false,
-                                    child:Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8),
-                                      child: Column(
-                                        children: [
-                                          for(int i=0;i<actionList.length;i++)...[
-                                            GestureDetector(
-                                              onTap:(){
-                                                Navigator.pop(context);
-                                                showCustomDialog(context,actionList[i]);
-                                                },
-                                              child: SizedBox(
-                                                height: 56,width: 200,
-                                                child: TextUtil(text: actionList[i],size: 16,),
-                                              ),
-                                            )
-                                          ]
-                                        ],
-                                      ),
+                                PopupMenuButton(
+
+                                  itemBuilder: (BuildContext context) => [
+                                    PopupMenuItem(
+
+                                      enabled: false,
+                                        child:Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8),
+                                          child: Column(
+                                            children: [
+                                              for(int i=0;i<actionList.length;i++)...[
+                                                GestureDetector(
+                                                  onTap:(){
+                                                    Navigator.pop(context);
+                                                    showCustomDialog(context,actionList[i].title);
+                                                    },
+                                                  child: SizedBox(
+                                                    height: 56,width: 200,
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                       const  SizedBox(width: 12,),
+                                                        TextUtil(text: actionList[i].title,size: 16,),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+
                                     ),
+                                  ],
 
                                 ),
                               ],
-
                             ),
                           ),)
                         ],
