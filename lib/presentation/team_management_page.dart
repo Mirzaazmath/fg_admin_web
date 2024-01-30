@@ -11,7 +11,7 @@ class TeamManagementPage extends StatefulWidget {
 }
 
 class _TeamManagementPage extends State<TeamManagementPage> {
-  List<String> actionList = <String>['View Profile', 'Edit Profile', 'Delete Profile', ];
+  List<String> actionList = <String>[ 'Edit Profile', 'Delete Profile', ];
   List<String> filterList = <String>['Team', 'Roles',];
   String selectedAction = "View Profile";
   String selectedFilter = "Team";
@@ -37,6 +37,7 @@ class _TeamManagementPage extends State<TeamManagementPage> {
               child: const  Icon(Icons.settings_outlined),
             ),
             const SizedBox(width: 10,),
+
             Container(
                 height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -48,22 +49,32 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            GestureDetector(
-              onTap: (){
-                showCustomDialog(context,"Add team member");
-              },
-              child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: appColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
-
+            SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: appColors.secondaryColor,
                   ),
-                  alignment: Alignment.center,
-                  child: TextUtil(text: 'Add team member',color: appColors.greyColor,size: 14,)
-              ),
+                  onPressed: (){
+                    showCustomDialog(context,"Add team member");
+                  }, child: TextUtil(text: 'Add team member',color: appColors.brownColor,size: 14,)),
             ),
+            // GestureDetector(
+            //   onTap: (){
+            //     showCustomDialog(context,"Add team member");
+            //   },
+            //   child: Container(
+            //       height: 40,
+            //       padding: const EdgeInsets.symmetric(horizontal: 20),
+            //       decoration: BoxDecoration(
+            //         color: appColors.secondaryColor,
+            //         borderRadius: BorderRadius.circular(20),
+            //
+            //       ),
+            //       alignment: Alignment.center,
+            //       child: TextUtil(text: 'Add team member',color: appColors.greyColor,size: 14,)
+            //   ),
+            // ),
           ],
         ),
         body: Column(
@@ -98,7 +109,7 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                           border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
                       ),
                       alignment: Alignment.center,
-                      child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+                      child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                     )]
                 ],
               ),
@@ -162,40 +173,49 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                                 Expanded(child: DescriptionText(text: teamList[index].phoneNumber,)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child: PopupMenuButton(
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
+                                        _showCreateCustomerDialog(false);
+                                        //View Profile
+                                        //View details
+                                      }, icon:const  Icon(Icons.visibility_outlined)),
+                                      PopupMenuButton(
 
-                                    itemBuilder: (BuildContext context) => [
-                                      PopupMenuItem(
-                                        enabled: false,
-                                        child:Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Column(
-                                            children: [
-                                              for(int i=0;i<actionList.length;i++)...[
-                                                GestureDetector(
-                                                  onTap:(){
-                                                    Navigator.pop(context);
-                                                    if(i>=2){
-                                                      showCustomDialog(context,actionList[i]);
-                                                    }else{
-                                                      _showCreateCustomerDialog(i==1);
-                                                    }
+                                        itemBuilder: (BuildContext context) => [
+                                          PopupMenuItem(
+                                            enabled: false,
+                                            child:Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              child: Column(
+                                                children: [
+                                                  for(int i=0;i<actionList.length;i++)...[
+                                                    GestureDetector(
+                                                      onTap:(){
+                                                        Navigator.pop(context);
+                                                        if(i>=1){
+                                                          showCustomDialog(context,actionList[i]);
+                                                        }else{
+                                                          _showCreateCustomerDialog(true);
+                                                        }
 
 
-                                                  },
-                                                  child: SizedBox(
-                                                    height: 56,width: 200,
-                                                    child: TextUtil(text: actionList[i],size: 16,),
-                                                  ),
-                                                )
-                                              ]
-                                            ],
+                                                      },
+                                                      child: SizedBox(
+                                                        height: 56,width: 200,
+                                                        child: TextUtil(text: actionList[i],size: 16,),
+                                                      ),
+                                                    )
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
+
                                           ),
-                                        ),
+                                        ],
 
                                       ),
                                     ],
-
                                   ),
                                 ),)
 

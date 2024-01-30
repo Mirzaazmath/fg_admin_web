@@ -1,5 +1,6 @@
 import 'package:admin_panel/components/widgets/border_btn.dart';
 import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
@@ -88,7 +89,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       children: <Widget>[
 
         // TextUtil(text: 'Driver Personal details',size: 24,),
-        // const SizedBox(height: 24,),
+        const SizedBox(height: 16,),
         Row(
           children: [
             Expanded(child: Field(controller: firstNameController, hintText: 'First Name',)),
@@ -132,7 +133,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // const SizedBox(height: 16,),
+         const SizedBox(height: 16,),
         // TextUtil(text: 'Driver Bank details',size: 24,),
         // const SizedBox(height: 24,),
         Field(controller: accountNumberController, hintText: 'Account Number',),
@@ -171,7 +172,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // const SizedBox(height: 16,),
+         const SizedBox(height: 16,),
         // TextUtil(text: 'Upload documents',size: 24,),
         // const SizedBox(height: 24,),
         Row(
@@ -210,6 +211,8 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
             },width: 150,),
 
             ColorBtn(title: "Save", onTap: (){
+              Navigator.pop(context);
+              showSnackBar(context, "Driver Added Successfully");
              // pageController.animateToPage(3, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
 
             },width: 250,),

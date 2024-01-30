@@ -69,19 +69,19 @@ class _ViewProfileDetailDialogBoxState extends State<ViewProfileDetailDialogBox>
       children: [
         Row(
           children: [
-            Expanded(child: Field(controller: firstNameController, hintText: 'First Name',)),
+            Expanded(child: Field(controller: firstNameController, hintText: 'First Name',isEnable: !widget.isEdit)),
             const SizedBox(width: 16,),
-            Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',)),
+            Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',isEnable: !widget.isEdit)),
           ],
         ),
         const SizedBox(height: 24,),
-        Field(controller: mobileController, hintText: 'Mobile Number',isNumberType: true,),
+        Field(controller: mobileController, hintText: 'Mobile Number',isNumberType: true,isEnable: !widget.isEdit),
         const SizedBox(height: 16,),
-        Field(controller: emailController, hintText: 'Email Address',),
+        Field(controller: emailController, hintText: 'Email Address',isEnable: !widget.isEdit),
         const SizedBox(height: 16,),
-        Field(controller: roleController, hintText: 'Role',),
+        Field(controller: roleController, hintText: 'Role',isEnable: !widget.isEdit),
         const SizedBox(height: 16,),
-        Field(controller: idController, hintText: 'ID',),
+        Field(controller: idController, hintText: 'ID',isEnable: !widget.isEdit),
         const SizedBox(height: 16,),
 
         widget.isEdit?  Align(

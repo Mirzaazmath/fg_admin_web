@@ -14,9 +14,10 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
 
-  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
+  List<MenuModel>actionListAll=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
+
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
-  String selectedAction = "Confirm order";
+  //String selectedAction = "Confirm order";
   String selectedFilter = "All";
   bool isLoad=false;
   void updateFilter(){
@@ -58,17 +59,25 @@ appBar: AppBar(
       child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
     ),
     const  SizedBox(width: 10,),
-    Container(
-        height: 40,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          color: appColors.secondaryColor,
-            borderRadius: BorderRadius.circular(20),
-
-        ),
-        alignment: Alignment.center,
-        child: TextUtil(text: 'Create Order',color: appColors.greyColor,size: 14,)
-    ),
+    SizedBox(
+      height: 40,
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: appColors.secondaryColor,
+          ),
+          onPressed: (){}, child: TextUtil(text: 'Create Order',color: appColors.brownColor,size: 14,)),
+    )
+    // Container(
+    //     height: 40,
+    //     padding: const EdgeInsets.symmetric(horizontal: 20),
+    //     decoration: BoxDecoration(
+    //       color: appColors.secondaryColor,
+    //         borderRadius: BorderRadius.circular(20),
+    //
+    //     ),
+    //     alignment: Alignment.center,
+    //     child: TextUtil(text: 'Create Order',color: appColors.greyColor,size: 14,)
+    // ),
   ],
  ),
        body: Column(
@@ -113,7 +122,7 @@ appBar: AppBar(
                        border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
                      ),
                      alignment: Alignment.center,
-                     child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+                     child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                                       ),
                    )]
                  ],
@@ -160,18 +169,18 @@ appBar: AppBar(
                           Expanded(child: Align(
                             alignment:Alignment.centerLeft,
                             child:  Container(
-                              width: 64,
-                              height: 27,
+                              width: 74,
+                              height: 20,
                               alignment:Alignment.center,
                               decoration: BoxDecoration(
-                                  color: appColors.blueColor,
+                                  color:selectedFilter=="Cancelled"?appColors.redColor: appColors.blueColor,
                                   borderRadius: BorderRadius.circular(100)
 
                               ),
-                              child: DescriptionText(text: "Active",color: appColors.whiteColor,),
+                              child: TextUtil(text:selectedFilter=="Cancelled"?"Cancelled": "Active",color: appColors.whiteColor,size: 11,),
                             ),
                           )
-                         ),
+                          ),
                           Expanded(child:  DescriptionText(text: "\$10,000",),),
                           Expanded(child: DescriptionText(text: "Paid",)),
                           Expanded(child: Align(
@@ -179,7 +188,7 @@ appBar: AppBar(
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){
-                                  showCustomDialog(context,"View Order");
+                                  showCustomDialog(context,"Confirm order");
                                 }, icon:const  Icon(Icons.visibility_outlined)),
 
                                 PopupMenuButton(
@@ -192,19 +201,19 @@ appBar: AppBar(
                                           padding: const EdgeInsets.symmetric(vertical: 8),
                                           child: Column(
                                             children: [
-                                              for(int i=0;i<actionList.length;i++)...[
+                                              for(int i=0;i<actionListAll.length;i++)...[
                                                 GestureDetector(
                                                   onTap:(){
                                                     Navigator.pop(context);
-                                                    showCustomDialog(context,actionList[i].title);
+                                                    showCustomDialog(context,actionListAll[i].title);
                                                     },
                                                   child: SizedBox(
                                                     height: 56,width: 200,
                                                     child: Row(
                                                       children: [
-                                                        Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                        Icon(actionListAll[i].icon,color: appColors.blackColor,),
                                                        const  SizedBox(width: 12,),
-                                                        TextUtil(text: actionList[i].title,size: 16,),
+                                                        TextUtil(text: actionListAll[i].title,size: 16,),
                                                       ],
                                                     ),
                                                   ),

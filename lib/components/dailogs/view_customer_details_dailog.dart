@@ -126,15 +126,15 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
       children: [
         Row(
           children: [
-            Expanded(child: Field(controller: firstNameController, hintText: 'First Name',)),
+            Expanded(child: Field(controller: firstNameController, hintText: 'First Name',isEnable: !widget.isEdit,)),
             const SizedBox(width: 16,),
-            Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',)),
+            Expanded(child: Field(controller: lastNameController, hintText: 'Last Name',isEnable: !widget.isEdit,)),
           ],
         ),
         const SizedBox(height: 24,),
-        Field(controller: mobileController, hintText: 'Mobile Number',isNumberType: true,),
+        Field(controller: mobileController, hintText: 'Mobile Number',isNumberType: true,isEnable: !widget.isEdit,),
         const SizedBox(height: 16,),
-        Field(controller: emailController, hintText: 'Email Address',),
+        Field(controller: emailController, hintText: 'Email Address',isEnable: !widget.isEdit,),
         const SizedBox(height: 16,),
 
         widget.isEdit? Align(
@@ -149,20 +149,20 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
   Widget businessInfo(){
     return Column(
       children: [
-      Field(controller: companyNameController, hintText: "Company Name",),
+      Field(controller: companyNameController, hintText: "Company Name",isEnable: !widget.isEdit,),
         const SizedBox(height: 16,),
-        Field(controller: legalNameController, hintText: 'Legal Name',),
+        Field(controller: legalNameController, hintText: 'Legal Name',isEnable: !widget.isEdit,),
         const SizedBox(height: 16,),
         Row(
           children: [
-            Expanded(child: Field(controller: cinController, hintText: "CIN"),),
+            Expanded(child: Field(controller: cinController, hintText: "CIN",isEnable: !widget.isEdit,),),
           const   SizedBox(width: 16,),
-            Expanded(child: Field(controller: gstinController, hintText: 'GSTIN',)),
+            Expanded(child: Field(controller: gstinController, hintText: 'GSTIN',isEnable: !widget.isEdit,)),
 
           ],
         ),
         const SizedBox(height: 16,),
-        Field(controller: companyPanController, hintText: 'Company PAN',),
+        Field(controller: companyPanController, hintText: 'Company PAN',isEnable: !widget.isEdit,),
         const SizedBox(height: 16,),
 
         widget.isEdit? Align(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
+import '../components/dailogs/view_driver_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../components/widgets/toast_widget.dart';
 import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
@@ -59,22 +61,32 @@ class _DriverPage extends State<DriverPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            GestureDetector(
-              onTap: (){
-                showCustomDialog(context,"Add Driver");
-              },
-              child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: appColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
-
+            SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: appColors.secondaryColor,
                   ),
-                  alignment: Alignment.center,
-                  child: TextUtil(text: 'Add Driver',color: appColors.greyColor,size: 14,)
-              ),
+                  onPressed: (){
+                    showCustomDialog(context,"Add Driver");
+                  }, child: TextUtil(text: 'Add Driver',color: appColors.brownColor,size: 14,)),
             ),
+            // GestureDetector(
+            //   onTap: (){
+            //     showCustomDialog(context,"Add Driver");
+            //   },
+            //   child: Container(
+            //       height: 40,
+            //       padding: const EdgeInsets.symmetric(horizontal: 20),
+            //       decoration: BoxDecoration(
+            //         color: appColors.secondaryColor,
+            //         borderRadius: BorderRadius.circular(20),
+            //
+            //       ),
+            //       alignment: Alignment.center,
+            //       child: TextUtil(text: 'Add Driver',color: appColors.greyColor,size: 14,)
+            //   ),
+            // ),
           ],
         ),
         body: Column(
@@ -117,7 +129,7 @@ class _DriverPage extends State<DriverPage> {
                             border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
                         ),
                         alignment: Alignment.center,
-                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+                        child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
                     )]
                 ],
@@ -191,7 +203,7 @@ class _DriverPage extends State<DriverPage> {
                                   child: Row(
                                     children: [
                                       IconButton(onPressed: (){
-                                        showCustomDialog(context,"");
+                                        _showCreateCustomerDialog(false);
                                         //View details
                                       }, icon:const  Icon(Icons.visibility_outlined)),
                                       PopupMenuButton(
@@ -206,7 +218,15 @@ class _DriverPage extends State<DriverPage> {
                                                     GestureDetector(
                                                       onTap:(){
                                                         Navigator.pop(context);
-                                                        showCustomDialog(context,actionList[i].title);
+                                                        if(i==0){
+                                                          _showCreateCustomerDialog(true);
+                                                        }else if (i==actionList.length-1){
+                                                          showSnackBar(context,"Driver Deactivated");
+
+                                                        }else{
+                                                          showCustomDialog(context,actionList[i].title);
+                                                        }
+                                                        // showCustomDialog(context,actionList[i].title);
                                                       },
                                                       child: SizedBox(
                                                         height: 56,width: 200,
@@ -248,11 +268,11 @@ class _DriverPage extends State<DriverPage> {
 
     );
   }
-  _showCreateCustomerDialog(){
+  _showCreateCustomerDialog(bool isEdit){
     showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return const AddBowserDialogBox(
+          return  ViewDriverDetailDialogBox(isEdit: isEdit,
           );
         }
     );

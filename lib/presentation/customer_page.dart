@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/view_customer_details_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../components/widgets/toast_widget.dart';
 import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
@@ -14,7 +15,7 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
 
-  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.list_alt_outlined, title: "List of orders"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.list_alt_outlined, title: "List of orders"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
   List<String> filterList = <String>['All',"Active","Inactive"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
@@ -59,22 +60,32 @@ class _CustomerPageState extends State<CustomerPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            GestureDetector(
-              onTap: (){
-                showCustomDialog(context,"New Customer");
-              },
-              child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: appColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
-
+            SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: appColors.secondaryColor,
                   ),
-                  alignment: Alignment.center,
-                  child: TextUtil(text: 'New Customer',color: appColors.greyColor,size: 14,)
-              ),
+                  onPressed: (){
+                    showCustomDialog(context,"New Customer");
+                  }, child: TextUtil(text: 'New Customer',color: appColors.brownColor,size: 14,)),
             ),
+            // GestureDetector(
+            //   onTap: (){
+            //     showCustomDialog(context,"New Customer");
+            //   },
+            //   child: Container(
+            //       height: 40,
+            //       padding: const EdgeInsets.symmetric(horizontal: 20),
+            //       decoration: BoxDecoration(
+            //         color: appColors.secondaryColor,
+            //         borderRadius: BorderRadius.circular(20),
+            //
+            //       ),
+            //       alignment: Alignment.center,
+            //       child: TextUtil(text: 'New Customer',color: appColors.greyColor,size: 14,)
+            //   ),
+            // ),
           ],
         ),
         body: Column(
@@ -118,7 +129,7 @@ class _CustomerPageState extends State<CustomerPage> {
                             border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
                         ),
                         alignment: Alignment.center,
-                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+                        child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
                     )]
                 ],
@@ -170,11 +181,11 @@ class _CustomerPageState extends State<CustomerPage> {
                                     height: 20,
                                     alignment:Alignment.center,
                                     decoration: BoxDecoration(
-                                        color:selectedFilter=="Inactive"?appColors.redColor: appColors.blueColor,
+                                        color:selectedFilter=="Inactive"?appColors.redColor:index.isEven&&selectedFilter=="All"?appColors.redColor: appColors.blueColor,
                                         borderRadius: BorderRadius.circular(100)
 
                                     ),
-                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
+                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive":index.isEven&&selectedFilter=="All"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
                                   ),
                                 )
                                 ),
@@ -198,8 +209,11 @@ class _CustomerPageState extends State<CustomerPage> {
                                                     GestureDetector(
                                                       onTap:(){
                                                         Navigator.pop(context);
-                                                        if(i==1){
+                                                        if(i==0){
                                                           _showCreateCustomerDialog(true);
+                                                        }else if (i==actionList.length-1){
+                                                          showSnackBar(context,"Customer Deactivated");
+
                                                         }else{
                                                           showCustomDialog(context,actionList[i].title);
                                                         }

@@ -15,7 +15,7 @@ class BowsersPage extends StatefulWidget {
 class _BowsersPageState extends State<BowsersPage> {
 
   List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),];
-  List<String> filterList = <String>['All', 'Allocated', 'Unallocated',"Under repair"];
+  List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
   bool isLoad=false;
@@ -58,22 +58,32 @@ class _BowsersPageState extends State<BowsersPage> {
                 child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
             ),
             const  SizedBox(width: 10,),
-            GestureDetector(
-              onTap: (){
-                showCustomDialog(context,"Add bowsers");
-              },
-              child: Container(
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: appColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(20),
-
+            SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: appColors.secondaryColor,
                   ),
-                  alignment: Alignment.center,
-                  child: TextUtil(text: 'Add bowsers',color: appColors.greyColor,size: 14,)
-              ),
+                  onPressed: (){
+                    showCustomDialog(context,"Add bowsers");
+                  }, child: TextUtil(text: 'New Customer',color: appColors.brownColor,size: 14,)),
             ),
+            // GestureDetector(
+            //   onTap: (){
+            //     showCustomDialog(context,"Add bowsers");
+            //   },
+            //   child: Container(
+            //       height: 40,
+            //       padding: const EdgeInsets.symmetric(horizontal: 20),
+            //       decoration: BoxDecoration(
+            //         color: appColors.secondaryColor,
+            //         borderRadius: BorderRadius.circular(20),
+            //
+            //       ),
+            //       alignment: Alignment.center,
+            //       child: TextUtil(text: 'Add bowsers',color: appColors.greyColor,size: 14,)
+            //   ),
+            // ),
           ],
         ),
         body: Column(
@@ -117,7 +127,7 @@ class _BowsersPageState extends State<BowsersPage> {
                             border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
                         ),
                         alignment: Alignment.center,
-                        child: TextUtil(text: filterList[i],weight: true,color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
+                        child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
                     )]
                 ],
@@ -158,30 +168,22 @@ class _BowsersPageState extends State<BowsersPage> {
                             child: Row(
                               children: [
                                 Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  Row(
-                                  children: [
-                                    CircleAvatar(
-                                backgroundColor: appColors.secondaryColor,
-                                child: Image.asset("assets/images/profile.png"),
-                                ),
-                                  const   SizedBox(width: 8,),
-                                    Expanded(child: DescriptionText(text: "Kiran Naik",),)
-                                  ],
-                                )),
+                                Expanded(child:  Expanded(child: DescriptionText(text: "Kiran Naik",),)),
                                 Expanded(child: DescriptionText(text: "500/2500 lt",)),
                                 Expanded(child: DescriptionText(text: "6",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child:  Container(
+                                  child:
+                                  Container(
                                     width: 64,
                                     height: 20,
                                     alignment:Alignment.center,
                                     decoration: BoxDecoration(
-                                        color:selectedFilter=="Under repair"?appColors.redColor: appColors.blueColor,
+                                        color:selectedFilter=="Inactive"?appColors.redColor:index.isEven&&selectedFilter=="All"?appColors.redColor: appColors.blueColor,
                                         borderRadius: BorderRadius.circular(100)
 
                                     ),
-                                    child: TextUtil(text:selectedFilter=="Under repair"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
+                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive":index.isEven&&selectedFilter=="All"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
                                   ),
                                 )
                                 ),
@@ -208,9 +210,10 @@ class _BowsersPageState extends State<BowsersPage> {
                                                         Navigator.pop(context);
                                                         if(i==0){
                                                           _showCreateCustomerDialog(true);
-                                                        }else{
+                                                        }else if(i==actionList.length-1) {
                                                           showCustomDialog(context,"Allocate Driver");
-
+                                                        }else{
+                                                          showCustomDialog(context,"");
                                                         }
 
                                                       },
