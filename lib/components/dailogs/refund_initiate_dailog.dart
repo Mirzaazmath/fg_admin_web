@@ -27,31 +27,43 @@ class _RefundInitiateDialogBoxState extends State<RefundInitiateDialogBox> {
           const SizedBox(height: 16,),
           TextUtil(text: 'Initiate refund',size: 24,),
           const SizedBox(height: 24,),
-          ListTile(
-            leading: Radio(
-              value: 1,
-              groupValue: selectedIndex,
-              onChanged: (value) {
-                setState(() {
-                  selectedIndex = value!;
-                });
-              },
+          GestureDetector(
+            onTap: (){
+              selectedIndex=1;
+            },
+            child: ListTile(
+
+              leading: Radio(
+                value: 1,
+                groupValue: selectedIndex,
+                onChanged: (value) {
+                  setState(() {
+                    selectedIndex = value!;
+                  });
+                },
+              ),
+              title: const Text("Same payment method"),
+              subtitle:const Text("Rs. 1,43,900") ,
             ),
-            title: const Text("Same payment method"),
-            subtitle:const Text("Rs. 1,43,900") ,
           ),
-          ListTile(
-            leading: Radio(
-              value: 0,
-              groupValue: selectedIndex,
-              onChanged: (value) {
-                setState(() {
-                  selectedIndex = value!;
-                });
-              },
+          GestureDetector(
+            onTap: (){
+              selectedIndex=0;
+            },
+            child: ListTile(
+
+              leading: Radio(
+                value: 0,
+                groupValue: selectedIndex,
+                onChanged: (value) {
+                  setState(() {
+                    selectedIndex = value!;
+                  });
+                },
+              ),
+              title:const  Text("Same payment method"),
+              subtitle:const  Text("Rs. 1,43,900") ,
             ),
-            title: Text("Same payment method"),
-            subtitle:Text("Rs. 1,43,900") ,
           ),
           const SizedBox(height: 24,),
           ColorBtn(title: "Initiate refund", onTap: (){

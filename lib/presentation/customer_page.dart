@@ -15,7 +15,7 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
 
-  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.list_alt_outlined, title: "List of orders"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+  //List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.list_alt_outlined, title: "List of orders"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
   List<String> filterList = <String>['All',"Active","Inactive"];
   String selectedAction = "View customer details";
   String selectedFilter = "All";
@@ -29,6 +29,7 @@ class _CustomerPageState extends State<CustomerPage> {
   }
   @override
   Widget build(BuildContext context) {
+    List<MenuModel>actionList=menuItems(selectedFilter);
     return Container(
       padding:const  EdgeInsets.only(left: 24,right: 24,bottom: 24),
       child: Scaffold(
@@ -70,22 +71,7 @@ class _CustomerPageState extends State<CustomerPage> {
                     showCustomDialog(context,"New Customer");
                   }, child: TextUtil(text: 'New Customer',color: appColors.brownColor,size: 14,)),
             ),
-            // GestureDetector(
-            //   onTap: (){
-            //     showCustomDialog(context,"New Customer");
-            //   },
-            //   child: Container(
-            //       height: 40,
-            //       padding: const EdgeInsets.symmetric(horizontal: 20),
-            //       decoration: BoxDecoration(
-            //         color: appColors.secondaryColor,
-            //         borderRadius: BorderRadius.circular(20),
-            //
-            //       ),
-            //       alignment: Alignment.center,
-            //       child: TextUtil(text: 'New Customer',color: appColors.greyColor,size: 14,)
-            //   ),
-            // ),
+
           ],
         ),
         body: Column(
@@ -212,7 +198,7 @@ class _CustomerPageState extends State<CustomerPage> {
                                                         if(i==0){
                                                           _showCreateCustomerDialog(true);
                                                         }else if (i==actionList.length-1){
-                                                          showSnackBar(context,"Customer Deactivated");
+                                                          showSnackBar(context,selectedFilter=="Active"?"Customer Deactivated":"Customer Activated");
 
                                                         }else{
                                                           showCustomDialog(context,actionList[i].title);
@@ -267,6 +253,24 @@ class _CustomerPageState extends State<CustomerPage> {
           );
         }
     );
+
+  }
+}
+
+List<MenuModel> menuItems(String filter ){
+  switch(filter){
+    case "All":{
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+    }
+    case "Active":{
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+    }
+    case "Inactive":{
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_outlined, title: "Active customer"),];
+    }
+    default:{
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+    }
 
   }
 }

@@ -1,5 +1,8 @@
 import 'package:admin_panel/presentation/bower_page.dart';
 import 'package:admin_panel/presentation/customer_page.dart';
+import 'package:admin_panel/presentation/partner_page.dart';
+import 'package:admin_panel/presentation/payment_method_page.dart';
+import 'package:admin_panel/presentation/role_permission_page.dart';
 import 'package:admin_panel/presentation/team_management_page.dart';
 import 'package:admin_panel/presentation/transaction_page.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
@@ -8,11 +11,13 @@ import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/widgets/side_bar_component.dart';
+import 'appsetting_page.dart';
+import 'business_profile.dart';
 import 'driver_page.dart';
 import 'order_page.dart';
 
 var appColors=AppColors();
-List<Widget>pageList=[const OrderPage(),const CustomerPage(),Container(),Container(),const BowsersPage(),const DriverPage(),const TransactionPage(),Container(),Container(),const TeamManagementPage(),Container()];
+List<Widget>pageList=[const OrderPage(),const CustomerPage(),const BusinessPage(),const PartnersPage(),const BowsersPage(),const DriverPage(),const TransactionPage(),const AppSettingPage(),const RoleAndPermissionPage(),const TeamManagementPage(),const PaymentMethodPage()];
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});

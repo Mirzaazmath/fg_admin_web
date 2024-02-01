@@ -57,36 +57,50 @@ class _AllocateDriverDialogBoxState extends State<AllocateDriverDialogBox> {
                     decoration: BoxDecoration(
                         border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
                     ),
-                    child: Row(
-                      children: [
-                        Radio(
-                          value: index,
-                          groupValue: selectedIndex,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedIndex = value!;
-                            });
-                          },
-                        ),
-                        const   SizedBox(width: 20,),
-                        Expanded(child: DescriptionText(text: "Kiran Naik",)),
-                        Expanded(child:   Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            width: 64,
-                            height: 20,
-                            alignment:Alignment.center,
-                            decoration: BoxDecoration(
-                                color: appColors.blueColor,
-                                borderRadius: BorderRadius.circular(100)
+                    child: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          if(index.isEven){
+                            selectedIndex=null;
+                          }else{
+                            selectedIndex = index;
+                          }
 
-                            ),
-                            child: TextUtil(text:"Active",color: appColors.whiteColor,size: 11,),
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Radio(
+
+                            value: index,
+                            groupValue: selectedIndex,
+                            onChanged: (value) {
+                              // setState(() {
+                              //
+                              //   selectedIndex = value!;
+                              // });
+                            },
                           ),
-                        ),),
-                        Expanded(child: DescriptionText(text: index.isEven?"Yes":"No",)),
+                          const   SizedBox(width: 20,),
+                          Expanded(child: DescriptionText(text: "Kiran Naik",color: index.isEven?appColors.greyColor.withOpacity(0.3):appColors.blackColor,)),
+                          Expanded(child:   Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              width: 64,
+                              height: 20,
+                              alignment:Alignment.center,
+                              decoration: BoxDecoration(
+                                  color:index.isEven?appColors.redColor: appColors.blueColor,
+                                  borderRadius: BorderRadius.circular(100)
 
-                      ],
+                              ),
+                              child: TextUtil(text:index.isEven?"Inactive":"Active",color: appColors.whiteColor,size: 11,),
+                            ),
+                          ),),
+                          Expanded(child: DescriptionText(text: index.isEven?"Yes":"No",)),
+
+                        ],
+                      ),
                     ),
                   );
                 }),

@@ -56,23 +56,30 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
                decoration: BoxDecoration(
                  border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
                ),
-               child: Row(
-                 children: [
-                   Radio(
-                     value: index,
-                     groupValue: selectedIndex,
-                     onChanged: (value) {
-                       setState(() {
-                         selectedIndex = value!;
-                       });
-                     },
-                   ),
-                 const   SizedBox(width: 20,),
-                   Expanded(child: DescriptionText(text: "123456789",)),
-                   Expanded(child:  DescriptionText(text: "Madhapur",),),
-                   Expanded(child: DescriptionText(text: "500/2400 Lt",)),
+               child: GestureDetector(
+                 onTap: (){
+                   setState(() {
+                     selectedIndex = index;
+                   });
+                 },
+                 child: Row(
+                   children: [
+                     Radio(
+                       value: index,
+                       groupValue: selectedIndex,
+                       onChanged: (value) {
+                         setState(() {
+                           selectedIndex = value!;
+                         });
+                       },
+                     ),
+                   const   SizedBox(width: 20,),
+                     Expanded(child: DescriptionText(text: "123456789",)),
+                     Expanded(child:  DescriptionText(text: "Madhapur",),),
+                     Expanded(child: DescriptionText(text: "500/2400 Lt",)),
 
-                 ],
+                   ],
+                 ),
                ),
              );
            }),

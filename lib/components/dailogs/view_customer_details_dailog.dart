@@ -8,6 +8,7 @@ import '../../presentation/dashboard_page.dart';
 import '../../provider/dialog_provider.dart';
 import '../../utils/text_feild_utils.dart';
 import '../widgets/color_btn.dart';
+import '../widgets/global_custom_dailog.dart';
 import '../widgets/toast_widget.dart';
 
 class ViewCustomerDetailDialogBox extends StatefulWidget {
@@ -247,63 +248,106 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
   Widget orderHistoryInfo(){
     return Column(
       children: [
-        ListView.builder(
-            itemCount: 3,
-            shrinkWrap: true,
-            itemBuilder: (context,index){
-              return  Container(
-                height:  widget.isEdit?156: 100,
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(12)
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const  Icon(Icons.location_on_outlined),
-                    const  SizedBox(width: 16,),
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            TitleText(text: "Gachibowli Hospital"),
-                            index==0? Container(
-                              margin:const  EdgeInsets.only(left: 10),
-                              width: 50,
-                              height: 16,
-                              alignment:Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: appColors.blueColor,
-                                  borderRadius: BorderRadius.circular(100)
+        Container(
+          height: 58,
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+          ),
+          child: Row(
+            children: [
+              Expanded(child: TextUtil(text: "Order ID",weight: true,size: 16,)),
+              Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
+              Expanded(child:  TextUtil(text: "Value",weight: true,size: 16,),),
+              Expanded(child: TextUtil(text: "Payment status",weight: true,size: 16,)),
+              Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
 
-                              ),
-                              child: TextUtil(text: "Default",color: appColors.whiteColor,size: 11,),
-                            ):const SizedBox()
-                          ],
-                        ),
-                        const  SizedBox(height: 4,),
-                        DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
-                        widget.isEdit?Container(
-                          margin:const  EdgeInsets.only(top: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextBtn(title: "Delete", onTap: (){},width: 100,color: Colors.transparent,),
-                              BorderBtn(title: "Edit", onTap: (){},width: 100,color: Colors.transparent,)
-                            ],
-                          ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 300,
+          child: ListView.builder(
+               shrinkWrap: true,
+               itemCount: 100,
+               itemBuilder: (context,index){
+                 return  Container(
+                   height: 58,
+                   decoration: BoxDecoration(
+                       border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                   ),
+                   child: Row(
+                     children: [
+                       Expanded(child: DescriptionText(text: "1234567890",)),
 
-                        ):const SizedBox()
-                      ],
-                    ))
+                       Expanded(child: Align(
+                         alignment:Alignment.centerLeft,
+                         child:  Container(
+                           width: 74,
+                           height: 20,
+                           alignment:Alignment.center,
+                           decoration: BoxDecoration(
+                               color: appColors.blueColor,
+                               borderRadius: BorderRadius.circular(100)
 
-                  ],
-                ),
-              );
-            }),
+                           ),
+                           child: TextUtil(text:"Active",color: appColors.whiteColor,size: 11,),
+                         ),
+                       )
+                       ),
+                       Expanded(child:  DescriptionText(text: "\$10,000",),),
+                       Expanded(child: DescriptionText(text: "Paid",)),
+                       Expanded(child: Align(
+                         alignment:Alignment.centerLeft,
+                         child: Row(
+                           children: [
+                             IconButton(onPressed: (){
+                               showCustomDialog(context,"Confirm order");
+                             }, icon:const  Icon(Icons.visibility_outlined)),
+
+                             // PopupMenuButton(
+                             //
+                             //   itemBuilder: (BuildContext context) => [
+                             //     PopupMenuItem(
+                             //
+                             //       enabled: false,
+                             //       child:Padding(
+                             //         padding: const EdgeInsets.symmetric(vertical: 8),
+                             //         child: Column(
+                             //           children: [
+                             //             for(int i=0;i<actionListAll.length;i++)...[
+                             //               GestureDetector(
+                             //                 onTap:(){
+                             //                   Navigator.pop(context);
+                             //                   showCustomDialog(context,actionListAll[i].title);
+                             //                 },
+                             //                 child: SizedBox(
+                             //                   height: 56,width: 200,
+                             //                   child: Row(
+                             //                     children: [
+                             //                       Icon(actionListAll[i].icon,color: appColors.blackColor,),
+                             //                       const  SizedBox(width: 12,),
+                             //                       TextUtil(text: actionListAll[i].title,size: 16,),
+                             //                     ],
+                             //                   ),
+                             //                 ),
+                             //               )
+                             //             ]
+                             //           ],
+                             //         ),
+                             //       ),
+                             //
+                             //     ),
+                             //   ],
+                             //
+                             // ),
+                           ],
+                         ),
+                       ),)
+                     ],
+                   ),
+                 );
+               }),
+        ),
 
         widget.isEdit? Align(
             alignment: Alignment.centerRight,

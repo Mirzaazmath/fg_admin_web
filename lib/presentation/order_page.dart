@@ -14,10 +14,8 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
 
-  List<MenuModel>actionListAll=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
-
+//  List<MenuModel>actionListAll=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
-  //String selectedAction = "Confirm order";
   String selectedFilter = "All";
   bool isLoad=false;
   void updateFilter(){
@@ -29,6 +27,7 @@ class _OrderPageState extends State<OrderPage> {
   }
   @override
   Widget build(BuildContext context) {
+    List<MenuModel>actionListAll=menuItems(selectedFilter);
     return Container(
     padding:const  EdgeInsets.only(left: 24,right: 24,bottom: 24),
      child: Scaffold(
@@ -67,17 +66,7 @@ appBar: AppBar(
           ),
           onPressed: (){}, child: TextUtil(text: 'Create Order',color: appColors.brownColor,size: 14,)),
     )
-    // Container(
-    //     height: 40,
-    //     padding: const EdgeInsets.symmetric(horizontal: 20),
-    //     decoration: BoxDecoration(
-    //       color: appColors.secondaryColor,
-    //         borderRadius: BorderRadius.circular(20),
-    //
-    //     ),
-    //     alignment: Alignment.center,
-    //     child: TextUtil(text: 'Create Order',color: appColors.greyColor,size: 14,)
-    // ),
+
   ],
  ),
        body: Column(
@@ -169,7 +158,7 @@ appBar: AppBar(
                           Expanded(child: Align(
                             alignment:Alignment.centerLeft,
                             child:  Container(
-                              width: 74,
+                              width: 120,
                               height: 20,
                               alignment:Alignment.center,
                               decoration: BoxDecoration(
@@ -177,7 +166,7 @@ appBar: AppBar(
                                   borderRadius: BorderRadius.circular(100)
 
                               ),
-                              child: TextUtil(text:selectedFilter=="Cancelled"?"Cancelled": "Active",color: appColors.whiteColor,size: 11,),
+                              child: TextUtil(text:selectedFilter=="All"?"Active": selectedFilter,color: appColors.whiteColor,size: 11,),
                             ),
                           )
                           ),
@@ -247,5 +236,43 @@ appBar: AppBar(
      ),
 
     );
+  }
+}
+List<MenuModel> menuItems(String filter ){
+  switch(filter){
+    case "All":{
+      return [MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
+    }
+    case "New":{
+
+      return [MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),];
+    }
+    case "Confirmed":{
+
+      return [MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),];
+    }
+    case "Truck allocated":{
+
+      return [MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),];
+    }
+    case "Out for delivery":{
+
+      return [MenuModel(icon: Icons.visibility_outlined, title: "View Order"),];
+    }
+    case "Delivered":{
+
+      return [MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice"),];
+    }
+    case "Cancelled":{
+
+      return [MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),];
+    }
+
+
+    default :{
+      return [MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
+    }
+
+
   }
 }
