@@ -99,7 +99,7 @@ class _CustomerPageState extends State<CustomerPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    GestureDetector(
+                    InkWell(
                       onTap: (){
                         setState(() {
                           selectedFilter=filterList[i];

@@ -16,7 +16,7 @@ class SideBarChipWidget extends StatelessWidget {
 
     return Consumer<SideBarProvider>(
         builder: (BuildContext context, provider, Widget? child) {
-      return GestureDetector(
+      return InkWell(
         onTap: (){
           context.read<SideBarProvider>().updateMenu(index);
           },
@@ -28,12 +28,15 @@ class SideBarChipWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50)
             ),
             alignment: Alignment.center,
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Icon(icon,color: appColors.blackColor,),
-              title: TextUtil(text: title,color: appColors.blackColor,weight: provider.currentIndex==index?true: null,size: 12,),
-              trailing:  TextUtil(text: count??"",color: appColors.blackColor,weight:provider.currentIndex==index?true: null,size: 12,),
+            child: AbsorbPointer(
 
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(icon,color: appColors.blackColor,),
+                title: TextUtil(text: title,color: appColors.blackColor,weight: provider.currentIndex==index?true: null,size: 12,),
+                trailing:  TextUtil(text: count??"",color: appColors.blackColor,weight:provider.currentIndex==index?true: null,size: 12,),
+              
+              ),
             )
         ),
       );

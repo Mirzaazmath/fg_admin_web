@@ -29,56 +29,86 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
   int selectedIndex=0;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 584,
-        height: 600,
-      padding: const  EdgeInsets.all(36),
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+    return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      child: Container(
+        width: 584,
+          height: 600,
+        padding: const  EdgeInsets.all(36),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
 
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextUtil(text:selectedIndex==0? 'Add driver details':selectedIndex==1?"Add bank details":"Upload documents",size: 22,),
-          const SizedBox(height: 16,),
-        LinearProgressIndicator(
-         color: appColors.blueColor,
-          borderRadius: BorderRadius.circular(30),
-          value: selectedIndex==0?0.35:selectedIndex==1?0.70:1
-        ),  const SizedBox(height: 24,),
-        // Align(
-        //   alignment: Alignment.centerRight,
-        //   child: Chip(
-        //       side:const  BorderSide(color: Colors.transparent),
-        //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        //     backgroundColor: appColors.lightPurple,
-        //       label:TextUtil(text: "${selectedIndex+1}/3",size: 14,color: Colors.white,) ),
-        // ),
-          Expanded(
-            child: PageView(
-
-              onPageChanged: (index){
-                setState(() {
-                  selectedIndex=index;
-                });
-              },
-              physics: const NeverScrollableScrollPhysics(),
-              padEnds: true,
-              controller: pageController,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                personalInfoWidget(),
-                bankInfoWidget(),
-                documentInfoWidget(),
-
+                TextUtil(text:selectedIndex==0? 'Add driver details':selectedIndex==1?"Add bank details":"Upload documents",size: 22,),
+                IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon:const Icon(Icons.close))
               ],
             ),
-          ),
-        ],
-      )
+            const SizedBox(height: 16,),
+          LinearProgressIndicator(
+           color: appColors.blueColor,
+            borderRadius: BorderRadius.circular(30),
+            value: selectedIndex==0?0.35:selectedIndex==1?0.70:1
+          ),  const SizedBox(height: 24,),
+
+            Expanded(
+              child: PageView(
+
+                onPageChanged: (index){
+                  setState(() {
+                    selectedIndex=index;
+                  });
+                },
+                physics: const NeverScrollableScrollPhysics(),
+                padEnds: true,
+                controller: pageController,
+                children: [
+                  personalInfoWidget(),
+                  bankInfoWidget(),
+                  documentInfoWidget(),
+
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                selectedIndex==0? const SizedBox():  BorderBtn(title: "Back", onTap: (){
+                  pageController.animateToPage(selectedIndex-1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+
+                },width: 150,),
+
+                ColorBtn(title:selectedIndex==2?"Save": "Next", onTap: (){
+                  if(selectedIndex==2){
+                    Navigator.pop(context);
+                    showSnackBar(context, "Driver Added Successfully");
+                  }else{
+                    pageController.animateToPage(selectedIndex+1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+                  }
+
+
+                },width: 250,),
+
+              ],
+            )
+
+          ],
+        )
+      ),
     );
   }
   ///// Personal Info ///
@@ -113,16 +143,16 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
         ),
         const SizedBox(height: 16,),
         const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ColorBtn(title: "Next", onTap: (){
-              pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-
-            },width: 250,),
-
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     ColorBtn(title: "Next", onTap: (){
+        //       pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+        //
+        //     },width: 250,),
+        //
+        //   ],
+        // )
       ],
     );
   }
@@ -145,21 +175,21 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
         Field(controller: accountHolderNameController, hintText: 'Account Holder Name',),
         const SizedBox(height: 24,),
          const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            BorderBtn(title: "Back", onTap: (){
-              pageController.animateToPage(0, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-
-            },width: 150,),
-
-            ColorBtn(title: "Next", onTap: (){
-              pageController.animateToPage(2, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-
-            },width: 250,),
-
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     BorderBtn(title: "Back", onTap: (){
+        //       pageController.animateToPage(0, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+        //
+        //     },width: 150,),
+        //
+        //     ColorBtn(title: "Next", onTap: (){
+        //       pageController.animateToPage(2, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+        //
+        //     },width: 250,),
+        //
+        //   ],
+        // )
       ],
     );
   }
@@ -202,23 +232,23 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
 
         const SizedBox(height: 24,),
         const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            BorderBtn(title: "Back", onTap: (){
-              pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-
-            },width: 150,),
-
-            ColorBtn(title: "Save", onTap: (){
-              Navigator.pop(context);
-              showSnackBar(context, "Driver Added Successfully");
-             // pageController.animateToPage(3, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-
-            },width: 250,),
-
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     BorderBtn(title: "Back", onTap: (){
+        //       pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+        //
+        //     },width: 150,),
+        //
+        //     ColorBtn(title: "Save", onTap: (){
+        //       Navigator.pop(context);
+        //       showSnackBar(context, "Driver Added Successfully");
+        //      // pageController.animateToPage(3, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+        //
+        //     },width: 250,),
+        //
+        //   ],
+        // )
       ],
     );
   }

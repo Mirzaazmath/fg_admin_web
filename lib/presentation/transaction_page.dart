@@ -62,7 +62,7 @@ class _TransactionPage extends State<TransactionPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    GestureDetector(
+                    InkWell(
                       onTap:(){
                         setState(() {
                           selectedFilter=filterList[i];
@@ -129,34 +129,42 @@ class _TransactionPage extends State<TransactionPage> {
 
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child: PopupMenuButton(
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
 
-                                    itemBuilder: (BuildContext context) => [
-                                      PopupMenuItem(
-                                        enabled: false,
-                                        child:Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Column(
-                                            children: [
-                                              for(int i=0;i<actionList.length;i++)...[
-                                                GestureDetector(
-                                                  onTap:(){
-                                                    Navigator.pop(context);
-                                                    showCustomDialog(context,"");
-                                                  },
-                                                  child: SizedBox(
-                                                    height: 56,width: 200,
-                                                    child: TextUtil(text: actionList[i],size: 16,),
-                                                  ),
-                                                )
-                                              ]
-                                            ],
+                                        //View details
+                                      }, icon:const  Icon(Icons.visibility_outlined)),
+                                      PopupMenuButton(
+
+                                        itemBuilder: (BuildContext context) => [
+                                          PopupMenuItem(
+                                            enabled: false,
+                                            child:Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              child: Column(
+                                                children: [
+                                                  for(int i=0;i<actionList.length;i++)...[
+                                                    GestureDetector(
+                                                      onTap:(){
+                                                        Navigator.pop(context);
+                                                        showCustomDialog(context,"");
+                                                      },
+                                                      child: SizedBox(
+                                                        height: 56,width: 200,
+                                                        child: TextUtil(text: actionList[i],size: 16,),
+                                                      ),
+                                                    )
+                                                  ]
+                                                ],
+                                              ),
+                                            ),
+
                                           ),
-                                        ),
+                                        ],
 
                                       ),
                                     ],
-
                                   ),
                                 ),)
 

@@ -1,5 +1,6 @@
 
 import 'package:admin_panel/presentation/dashboard_page.dart';
+import 'package:admin_panel/presentation/logiin_page.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color(0xffF6F2F7),
           scaffoldBackgroundColor: Colors.white
         ),
-        home: const DashBoardPage(),
+        home:const  LoginPage()
+        //const DashBoardPage(),
 
       ),
     );

@@ -111,7 +111,7 @@ class _BowsersPageState extends State<BowsersPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    GestureDetector(
+                    InkWell(
                       onTap: (){
                         setState(() {
                           selectedFilter=filterList[i];
@@ -213,7 +213,7 @@ class _BowsersPageState extends State<BowsersPage> {
                                                         }else if(i==actionList.length-1) {
                                                           showCustomDialog(context,"Allocate Driver");
                                                         }else{
-                                                          showCustomDialog(context,"");
+                                                          showCustomDialog(context,actionList[i].title);
                                                         }
 
                                                       },

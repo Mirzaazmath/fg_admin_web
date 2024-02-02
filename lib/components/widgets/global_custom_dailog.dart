@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../dailogs/add_driver_dailog.dart';
 import '../dailogs/add_team_member_dailog.dart';
 import '../dailogs/allocated_driver.dart';
+import '../dailogs/delete_bowser_dailog.dart';
 import '../dailogs/delete_driver_dailog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +98,11 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return   const DeleteDriverDialogBox();
         }
-//DeleteDriverDialogBox
+      case "Delete details":
+        {
+          return   const DeleteBowserDialogBox();
+        }
+
 
 
         default: {

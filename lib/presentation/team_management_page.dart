@@ -59,22 +59,7 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                     showCustomDialog(context,"Add team member");
                   }, child: TextUtil(text: 'Add team member',color: appColors.brownColor,size: 14,)),
             ),
-            // GestureDetector(
-            //   onTap: (){
-            //     showCustomDialog(context,"Add team member");
-            //   },
-            //   child: Container(
-            //       height: 40,
-            //       padding: const EdgeInsets.symmetric(horizontal: 20),
-            //       decoration: BoxDecoration(
-            //         color: appColors.secondaryColor,
-            //         borderRadius: BorderRadius.circular(20),
-            //
-            //       ),
-            //       alignment: Alignment.center,
-            //       child: TextUtil(text: 'Add team member',color: appColors.greyColor,size: 14,)
-            //   ),
-            // ),
+
           ],
         ),
         body: Column(
@@ -102,14 +87,21 @@ class _TeamManagementPage extends State<TeamManagementPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    Container(
-                      height: 48,
-                      padding:const  EdgeInsets.symmetric(horizontal: 32),
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                    InkWell(
+                      onTap: (){
+                       setState(() {
+                         selectedFilter=filterList[i];
+                       });
+                      },
+                      child: Container(
+                        height: 48,
+                        padding:const  EdgeInsets.symmetric(horizontal: 32),
+                        decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
+                        ),
+                        alignment: Alignment.center,
+                        child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                       ),
-                      alignment: Alignment.center,
-                      child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
                     )]
                 ],
               ),
@@ -118,113 +110,114 @@ class _TeamManagementPage extends State<TeamManagementPage> {
             Expanded(
               child: Padding(
                 padding:const  EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 58,
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 100,
-                            child: TitleText(text: "S.No",),),
-                          Expanded(child: TitleText(text: "Name",)),
-                          Expanded(child:  TitleText(text: "Email",),),
-                          Expanded(child:  TitleText(text: "ID",),),
-                          Expanded(child: TitleText(text: "Role",)),
-                          Expanded(child: TitleText(text: "Phone Number",)),
-                          Expanded(child:  TitleText(text: "Actions",)),
-
-                        ],
-                      ),
-                    ),
-                    Expanded(child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: teamList.length,
-                        itemBuilder: (context,index){
-                          return  Container(
-                            height: 58,
-                            decoration: BoxDecoration(
-                                border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 100,
-                                  child: TitleText(text: "0${index+1}",),),
-                                Expanded(child: DescriptionText(text: teamList[index].name,)),
-                                Expanded(child:  DescriptionText(text: teamList[index].email,),),
-                                Expanded(child:  DescriptionText(text: teamList[index].id,),),
-                                Expanded(child: Align(
-                                  alignment:Alignment.centerLeft,
-                                  child:  Container(
-                                    width: 90,
-                                    height: 27,
-                                    alignment:Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: appColors.blueColor,
-                                        borderRadius: BorderRadius.circular(100)
-
-                                    ),
-                                    child: TextUtil(text: teamList[index].role,color: appColors.whiteColor,size: 11,),
-                                  ),
-                                )
-                                ),
-                                Expanded(child: DescriptionText(text: teamList[index].phoneNumber,)),
-                                Expanded(child: Align(
-                                  alignment:Alignment.centerLeft,
-                                  child: Row(
-                                    children: [
-                                      IconButton(onPressed: (){
-                                        _showCreateCustomerDialog(false);
-                                        //View Profile
-                                        //View details
-                                      }, icon:const  Icon(Icons.visibility_outlined)),
-                                      PopupMenuButton(
-
-                                        itemBuilder: (BuildContext context) => [
-                                          PopupMenuItem(
-                                            enabled: false,
-                                            child:Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8),
-                                              child: Column(
-                                                children: [
-                                                  for(int i=0;i<actionList.length;i++)...[
-                                                    GestureDetector(
-                                                      onTap:(){
-                                                        Navigator.pop(context);
-                                                        if(i>=1){
-                                                          showCustomDialog(context,actionList[i]);
-                                                        }else{
-                                                          _showCreateCustomerDialog(true);
-                                                        }
-
-
-                                                      },
-                                                      child: SizedBox(
-                                                        height: 56,width: 200,
-                                                        child: TextUtil(text: actionList[i],size: 16,),
-                                                      ),
-                                                    )
-                                                  ]
-                                                ],
-                                              ),
-                                            ),
-
-                                          ),
-                                        ],
-
-                                      ),
-                                    ],
-                                  ),
-                                ),)
-
-                              ],
-                            ),
-                          );
-                        }))
-                  ],
-                ),
+                child:selectedFilter=="Team"? teamWidget():roleWidget()
+                // Column(
+                //   children: [
+                //     Container(
+                //       height: 58,
+                //       decoration: BoxDecoration(
+                //           border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                //       ),
+                //       child: Row(
+                //         children: [
+                //           SizedBox(width: 100,
+                //             child: TitleText(text: "S.No",),),
+                //           Expanded(child: TitleText(text: "Name",)),
+                //           Expanded(child:  TitleText(text: "Email",),),
+                //           Expanded(child:  TitleText(text: "ID",),),
+                //           Expanded(child: TitleText(text: "Role",)),
+                //           Expanded(child: TitleText(text: "Phone Number",)),
+                //           Expanded(child:  TitleText(text: "Actions",)),
+                //
+                //         ],
+                //       ),
+                //     ),
+                //     Expanded(child: ListView.builder(
+                //         shrinkWrap: true,
+                //         itemCount: teamList.length,
+                //         itemBuilder: (context,index){
+                //           return  Container(
+                //             height: 58,
+                //             decoration: BoxDecoration(
+                //                 border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                //             ),
+                //             child: Row(
+                //               children: [
+                //                 SizedBox(width: 100,
+                //                   child: TitleText(text: "0${index+1}",),),
+                //                 Expanded(child: DescriptionText(text: teamList[index].name,)),
+                //                 Expanded(child:  DescriptionText(text: teamList[index].email,),),
+                //                 Expanded(child:  DescriptionText(text: teamList[index].id,),),
+                //                 Expanded(child: Align(
+                //                   alignment:Alignment.centerLeft,
+                //                   child:  Container(
+                //                     width: 90,
+                //                     height: 27,
+                //                     alignment:Alignment.center,
+                //                     decoration: BoxDecoration(
+                //                         color: appColors.blueColor,
+                //                         borderRadius: BorderRadius.circular(100)
+                //
+                //                     ),
+                //                     child: TextUtil(text: teamList[index].role,color: appColors.whiteColor,size: 11,),
+                //                   ),
+                //                 )
+                //                 ),
+                //                 Expanded(child: DescriptionText(text: teamList[index].phoneNumber,)),
+                //                 Expanded(child: Align(
+                //                   alignment:Alignment.centerLeft,
+                //                   child: Row(
+                //                     children: [
+                //                       IconButton(onPressed: (){
+                //                         _showCreateCustomerDialog(false);
+                //                         //View Profile
+                //                         //View details
+                //                       }, icon:const  Icon(Icons.visibility_outlined)),
+                //                       PopupMenuButton(
+                //
+                //                         itemBuilder: (BuildContext context) => [
+                //                           PopupMenuItem(
+                //                             enabled: false,
+                //                             child:Padding(
+                //                               padding: const EdgeInsets.symmetric(vertical: 8),
+                //                               child: Column(
+                //                                 children: [
+                //                                   for(int i=0;i<actionList.length;i++)...[
+                //                                     GestureDetector(
+                //                                       onTap:(){
+                //                                         Navigator.pop(context);
+                //                                         if(i>=1){
+                //                                           showCustomDialog(context,actionList[i]);
+                //                                         }else{
+                //                                           _showCreateCustomerDialog(true);
+                //                                         }
+                //
+                //
+                //                                       },
+                //                                       child: SizedBox(
+                //                                         height: 56,width: 200,
+                //                                         child: TextUtil(text: actionList[i],size: 16,),
+                //                                       ),
+                //                                     )
+                //                                   ]
+                //                                 ],
+                //                               ),
+                //                             ),
+                //
+                //                           ),
+                //                         ],
+                //
+                //                       ),
+                //                     ],
+                //                   ),
+                //                 ),)
+                //
+                //               ],
+                //             ),
+                //           );
+                //         }))
+                //   ],
+                // ),
               ),
             )
           ],
@@ -234,6 +227,208 @@ class _TeamManagementPage extends State<TeamManagementPage> {
 
     );
   }
+
+  Widget teamWidget(){
+    return   Column(
+      children: [
+        Container(
+          height: 58,
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+          ),
+          child: Row(
+            children: [
+              SizedBox(width: 100,
+                child: TitleText(text: "S.No",),),
+              Expanded(child: TitleText(text: "Name",)),
+              Expanded(child:  TitleText(text: "Email",),),
+              Expanded(child:  TitleText(text: "ID",),),
+              Expanded(child: TitleText(text: "Role",)),
+              Expanded(child: TitleText(text: "Phone Number",)),
+              Expanded(child:  TitleText(text: "Actions",)),
+
+            ],
+          ),
+        ),
+        Expanded(child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: teamList.length,
+            itemBuilder: (context,index){
+              return  Container(
+                height: 58,
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 100,
+                      child: TitleText(text: "0${index+1}",),),
+                    Expanded(child: DescriptionText(text: teamList[index].name,)),
+                    Expanded(child:  DescriptionText(text: teamList[index].email,),),
+                    Expanded(child:  DescriptionText(text: teamList[index].id,),),
+                    Expanded(child: Align(
+                      alignment:Alignment.centerLeft,
+                      child:  Container(
+                        width: 90,
+                        height: 27,
+                        alignment:Alignment.center,
+                        decoration: BoxDecoration(
+                            color: appColors.blueColor,
+                            borderRadius: BorderRadius.circular(100)
+
+                        ),
+                        child: TextUtil(text: teamList[index].role,color: appColors.whiteColor,size: 11,),
+                      ),
+                    )
+                    ),
+                    Expanded(child: DescriptionText(text: teamList[index].phoneNumber,)),
+                    Expanded(child: Align(
+                      alignment:Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          IconButton(onPressed: (){
+                            _showCreateCustomerDialog(false);
+                            //View Profile
+                            //View details
+                          }, icon:const  Icon(Icons.visibility_outlined)),
+                          PopupMenuButton(
+
+                            itemBuilder: (BuildContext context) => [
+                              PopupMenuItem(
+                                enabled: false,
+                                child:Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  child: Column(
+                                    children: [
+                                      for(int i=0;i<actionList.length;i++)...[
+                                        GestureDetector(
+                                          onTap:(){
+                                            Navigator.pop(context);
+                                            if(i>=1){
+                                              showCustomDialog(context,actionList[i]);
+                                            }else{
+                                              _showCreateCustomerDialog(true);
+                                            }
+
+
+                                          },
+                                          child: SizedBox(
+                                            height: 56,width: 200,
+                                            child: TextUtil(text: actionList[i],size: 16,),
+                                          ),
+                                        )
+                                      ]
+                                    ],
+                                  ),
+                                ),
+
+                              ),
+                            ],
+
+                          ),
+                        ],
+                      ),
+                    ),)
+
+                  ],
+                ),
+              );
+            }))
+      ],
+    );
+  }
+  Widget roleWidget(){
+    return   Column(
+      children: [
+        Container(
+          height: 58,
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+          ),
+          child: Row(
+            children: [
+
+              Expanded(child: TitleText(text: "Role",)),
+              Expanded(child:  TitleText(text: "Permission",),),
+              Expanded(child:  Align(
+                alignment: Alignment.centerRight,
+                  child: TitleText(text: "Actions",))),
+
+            ],
+          ),
+        ),
+        Expanded(child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: teamList.length,
+            itemBuilder: (context,index){
+              return  Container(
+                height: 58,
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                ),
+                child: Row(
+                  children: [
+
+                    Expanded(child: DescriptionText(text: "Admin",)),
+                    Expanded(child:  DescriptionText(text: "99 Permissions"),),
+
+                    Expanded(child: Align(
+                      alignment:Alignment.centerRight,
+                      child: Row(
+                        mainAxisAlignment:MainAxisAlignment.end,
+                        children: [
+                          IconButton(onPressed: (){
+                            _showCreateCustomerDialog(false);
+                            //View Profile
+                            //View details
+                          }, icon:const  Icon(Icons.visibility_outlined)),
+                          PopupMenuButton(
+
+                            itemBuilder: (BuildContext context) => [
+                              PopupMenuItem(
+                                enabled: false,
+                                child:Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  child: Column(
+                                    children: [
+                                      for(int i=0;i<actionList.length;i++)...[
+                                        GestureDetector(
+                                          onTap:(){
+                                            Navigator.pop(context);
+                                            if(i>=1){
+                                              showCustomDialog(context,actionList[i]);
+                                            }else{
+                                              _showCreateCustomerDialog(true);
+                                            }
+
+
+                                          },
+                                          child: SizedBox(
+                                            height: 56,width: 200,
+                                            child: TextUtil(text: actionList[i],size: 16,),
+                                          ),
+                                        )
+                                      ]
+                                    ],
+                                  ),
+                                ),
+
+                              ),
+                            ],
+
+                          ),
+                        ],
+                      ),
+                    ),)
+
+                  ],
+                ),
+              );
+            }))
+      ],
+    );
+  }
+
   _showCreateCustomerDialog(bool isEdit){
     showDialog(context: context,
         barrierDismissible: true,

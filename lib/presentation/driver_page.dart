@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/dailogs/add_bowser_dialog.dart';
+import '../components/dailogs/add_driver_dailog.dart';
 import '../components/dailogs/view_driver_dailog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
@@ -15,7 +15,7 @@ class DriverPage extends StatefulWidget {
 }
 
 class _DriverPage extends State<DriverPage> {
- // List<String> actionList = <String>['View details', 'Edit details', 'Delete details',"Deactivate" ];
+
   List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit driver"),MenuModel(icon: Icons.delete_outline, title: "Delete Driver"),MenuModel(icon: Icons.lock_outline, title: "Deactivate Driver"),];
   List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
@@ -68,25 +68,11 @@ class _DriverPage extends State<DriverPage> {
                     backgroundColor: appColors.secondaryColor,
                   ),
                   onPressed: (){
-                    showCustomDialog(context,"Add Driver");
+                    _showCreateDriverDialog();
+                    //showCustomDialog(context,"Add Driver");
                   }, child: TextUtil(text: 'Add Driver',color: appColors.brownColor,size: 14,)),
             ),
-            // GestureDetector(
-            //   onTap: (){
-            //     showCustomDialog(context,"Add Driver");
-            //   },
-            //   child: Container(
-            //       height: 40,
-            //       padding: const EdgeInsets.symmetric(horizontal: 20),
-            //       decoration: BoxDecoration(
-            //         color: appColors.secondaryColor,
-            //         borderRadius: BorderRadius.circular(20),
-            //
-            //       ),
-            //       alignment: Alignment.center,
-            //       child: TextUtil(text: 'Add Driver',color: appColors.greyColor,size: 14,)
-            //   ),
-            // ),
+
           ],
         ),
         body: Column(
@@ -114,7 +100,7 @@ class _DriverPage extends State<DriverPage> {
               child: Row(
                 children: [
                   for(int i=0;i<filterList.length;i++)...[
-                    GestureDetector(
+                    InkWell(
                       onTap:(){
                         setState(() {
                           selectedFilter=filterList[i];
@@ -172,28 +158,24 @@ class _DriverPage extends State<DriverPage> {
                             ),
                             child: Row(
                               children: [
-                                // Container(width: 100,
-                                //   alignment: Alignment.centerLeft,
-                                //   child:CircleAvatar(
-                                //     backgroundColor: appColors.secondaryColor,
-                                //     child: Image.asset("assets/images/profile.png"),
-                                //   ),),
+
                                 Expanded(child: DescriptionText(text: "KIran Naik",)),
                                 Expanded(child:  DescriptionText(text: "9014355577",),),
                                 Expanded(child:  DescriptionText(text: "Allocated",),),
                                 Expanded(child:  DescriptionText(text: "B+",),),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
-                                  child:  Container(
+                                  child:
+                                  Container(
                                     width: 64,
                                     height: 20,
                                     alignment:Alignment.center,
                                     decoration: BoxDecoration(
-                                        color:selectedFilter=="Inactive"?appColors.redColor: appColors.blueColor,
+                                        color:selectedFilter=="Inactive"?appColors.redColor:index.isEven&&selectedFilter=="All"?appColors.redColor: appColors.blueColor,
                                         borderRadius: BorderRadius.circular(100)
 
                                     ),
-                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
+                                    child: TextUtil(text:selectedFilter=="Inactive"?"Inactive":index.isEven&&selectedFilter=="All"?"Inactive": "Active",color: appColors.whiteColor,size: 11,),
                                   ),
                                 )
                                 ),
@@ -274,6 +256,15 @@ class _DriverPage extends State<DriverPage> {
         builder: (BuildContext context){
           return  ViewDriverDetailDialogBox(isEdit: isEdit,
           );
+        }
+    );
+
+  }
+  _showCreateDriverDialog(){
+    showDialog(context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return const  AddDriverDialogBox();
         }
     );
 

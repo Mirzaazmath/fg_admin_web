@@ -3,6 +3,8 @@ import 'package:admin_panel/components/widgets/text_btn.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
+import '../widgets/border_btn.dart';
+import '../widgets/toast_widget.dart';
 class DeleteProfileDialogBox extends StatefulWidget {
   const DeleteProfileDialogBox({super.key});
   @override
@@ -26,11 +28,28 @@ class _DeleteProfileDialogBoxState extends State<DeleteProfileDialogBox> {
           const SizedBox(height: 16,),
           TextUtil(text: 'Are you sure want to delete the Kiran - sales profile',size: 22,),
           const SizedBox(height: 24,),
-          ColorBtn(title: "Delete", onTap: (){},color: appColors.redColor,),
-          const SizedBox(height: 16,),
-          TextBtn(title: "Cancel", onTap: (){
-            Navigator.pop(context);
-          })
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              BorderBtn(
+                  width: 150,
+                  title: "Cancel", onTap: (){
+                Navigator.pop(context);
+              }),
+              const SizedBox(width: 16,),
+              ColorBtn(
+                width: 150,
+                title: "Delete", onTap: (){
+                Navigator.pop(context);
+                showSnackBar(context,"Profile Deleted");
+              },color: appColors.redColor,),
+            ],
+          )
+          // ColorBtn(title: "Delete", onTap: (){},color: appColors.redColor,),
+          // const SizedBox(height: 16,),
+          // TextBtn(title: "Cancel", onTap: (){
+          //   Navigator.pop(context);
+          // })
         ],
       ),
     );
