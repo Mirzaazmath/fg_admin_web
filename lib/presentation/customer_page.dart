@@ -132,15 +132,15 @@ class _CustomerPageState extends State<CustomerPage> {
                       decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                       ),
-                      child: Row(
+                      child:const  Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Customer ID",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Name",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Email",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Phone",weight: true,size: 16,),),
-                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "No.of orders",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                          Expanded(child: HeadingText(text: "Customer ID",)),
+                          Expanded(child:  HeadingText(text: "Name",),),
+                          Expanded(child: HeadingText(text: "Email",)),
+                          Expanded(child:  HeadingText(text: "Phone",),),
+                          Expanded(child:  HeadingText(text: "Status",),),
+                          Expanded(child: HeadingText(text: "No.of orders",)),
+                          Expanded(child:  HeadingText(text: "Actions",))
 
                         ],
                       ),
@@ -156,10 +156,10 @@ class _CustomerPageState extends State<CustomerPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  DescriptionText(text: "Kiran Naik",),),
-                                Expanded(child: DescriptionText(text: "Kiran@gmail.com",)),
-                                Expanded(child:  DescriptionText(text: "9746274637",),),
+                               const  Expanded(child: DescriptionText(text: "1234567890",)),
+                               const  Expanded(child:  DescriptionText(text: "Kiran Naik",),),
+                               const  Expanded(child: DescriptionText(text: "Kiran@gmail.com",)),
+                              const   Expanded(child:  DescriptionText(text: "9746274637",),),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child:  Container(

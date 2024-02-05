@@ -25,7 +25,7 @@ class _CancelOrderDialogBoxState extends State<CancelOrderDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Are you sure want to Cancel the order: #123456789',size: 22,),
+        const   TextUtil(text: 'Are you sure want to Cancel the order: #123456789',size: 22,),
           const SizedBox(height: 24,),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

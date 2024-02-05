@@ -30,7 +30,7 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Order: #123456789',size: 24,),
+        const   TextUtil(text: 'Order: #123456789',size: 24,),
           const SizedBox(height: 24,),
           Expanded(
             child: Row(
@@ -39,7 +39,7 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                  TitleText(text: "Order items",),
+               const    TitleText(text: "Order items",),
                   const SizedBox(height: 8,),
                   ListView.builder(
                       itemCount: 5,
@@ -51,7 +51,7 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               DescriptionText(text: "item one x $index"),
-                              DescriptionText(text: "Rs. 1220"),
+                             const  DescriptionText(text: "Rs. 1220"),
             
                             ],
                           ),
@@ -59,8 +59,8 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
             
                       }),
                   const  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0,top: 8.0),
+                 const  Padding(
+                    padding:  EdgeInsets.only(bottom: 8.0,top: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -70,8 +70,8 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0,),
+                    const   Padding(
+                    padding:  EdgeInsets.only(bottom: 8.0,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -81,8 +81,8 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16,),
+                    const   Padding(
+                    padding:  EdgeInsets.only(bottom: 16,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -92,7 +92,7 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                       ],
                     ),
                   ),
-                  Row(
+                    const  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TitleText(text: "Total Bill"),
@@ -103,11 +103,11 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                   const  Divider(
                     height: 32,
                   ),
-            
-            
-                  TitleText(text: "Payment Summary"),
+
+
+                    const    TitleText(text: "Payment Summary"),
                   const SizedBox(height: 16,),
-                    Row(
+                    const     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         DescriptionText(text: "Credit/Debit card"),
@@ -116,9 +116,9 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                       ],
                     ),
                   const SizedBox(height: 4,),
-                  DescriptionText(text: "Completed",),
+                    const    DescriptionText(text: "Completed",),
                   const SizedBox(height: 8,),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         DescriptionText(text: "Fuel Genie Credits"),
@@ -127,7 +127,7 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                       ],
                     ),
                   const SizedBox(height: 4,),
-                  DescriptionText(text: "Completed"),
+                    const  DescriptionText(text: "Completed"),
             
                 ],)),
                 VerticalDivider(
@@ -136,16 +136,15 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
                 ),Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TitleText(text: "Delivery info"),
+                  children: [const  TitleText(text: "Delivery info"),
                   const SizedBox(height: 16,),
-                  DescriptionText(text: "Delivery location"),
+                    const DescriptionText(text: "Delivery location"),
                   const SizedBox(height: 8,),
-                  DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
+                    const DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
                   const SizedBox(height: 16,),
-                  DescriptionText(text: "Delivery slot"),
+                    const DescriptionText(text: "Delivery slot"),
                   const SizedBox(height: 8,),
-                  DescriptionText(text: "15 Sep 2023 • Between 12pm to 3pm"),
+                    const  DescriptionText(text: "15 Sep 2023 • Between 12pm to 3pm"),
                   const SizedBox(height: 24,),
                  const  Spacer(),
                   ColorBtn(title: 'Confirm Order',onTap: (){

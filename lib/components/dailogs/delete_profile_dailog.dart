@@ -26,7 +26,7 @@ class _DeleteProfileDialogBoxState extends State<DeleteProfileDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Are you sure want to delete the Kiran - sales profile',size: 22,),
+          const  TextUtil(text: 'Are you sure want to delete the Kiran - sales profile',size: 22,),
           const SizedBox(height: 24,),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

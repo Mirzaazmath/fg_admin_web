@@ -177,8 +177,7 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 16,),
-        // TextUtil(text: 'Driver Bank details',size: 24,),
-        // const SizedBox(height: 24,),
+
         Field(controller: accountNumberController, hintText: 'Account Number',isEnable: !widget.isEdit),
         const SizedBox(height: 24,),
         Field(controller: confirmAccountNoController, hintText: 'Confirm Account Number',isEnable: !widget.isEdit),
@@ -187,33 +186,19 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
         const SizedBox(height: 24,),
         Field(controller: accountHolderNameController, hintText: 'Account Holder Name',isEnable: !widget.isEdit),
         const SizedBox(height: 24,),
-       // const Spacer(),
+
          widget.isEdit?   Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ColorBtn(title: "Save", onTap: (){
               showSnackBar(context, "Updated");
-              // pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+
 
             },width: 250,),
 
           ],
         ):const SizedBox(),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     BorderBtn(title: "Back", onTap: (){
-        //       pageController.animateToPage(0, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 150,),
-        //
-        //     ColorBtn(title: "Next", onTap: (){
-        //       pageController.animateToPage(2, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 250,),
-        //
-        //   ],
-        // )
+
       ],
     );
   }
@@ -227,8 +212,7 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 16,),
-        // TextUtil(text: 'Upload documents',size: 24,),
-        // const SizedBox(height: 24,),
+
         Row(
           children: [
             Expanded(child: Field(controller: adhaarController, hintText: 'Aadhaar Number',isEnable: !widget.isEdit),),
@@ -261,29 +245,13 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
           children: [
             ColorBtn(title: "Save", onTap: (){
               showSnackBar(context, "Updated");
-              // pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+
 
             },width: 250,),
 
           ],
         ):const SizedBox(),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     BorderBtn(title: "Back", onTap: (){
-        //       pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 150,),
-        //
-        //     ColorBtn(title: "Save", onTap: (){
-        //       Navigator.pop(context);
-        //       showSnackBar(context, "Driver Added Successfully");
-        //       // pageController.animateToPage(3, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 250,),
-        //
-        //   ],
-        // )
+
       ],
     );
   }

@@ -12,22 +12,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<FormState>();
+  bool _isHidden=true;
+
+  void handleFormSubmit() {
+    if (_loginFormKey.currentState!.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const DashBoardPage()));
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Processing Data')),
+      // );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
     final ColorScheme _colorScheme = Theme.of(context).colorScheme;
 
-    void handleFormSubmit() {
-      if (_loginFormKey.currentState!.validate()) {
-        // If the form is valid, display a snackbar. In the real world,
-        // you'd often call a server or save the information in a database.
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const DashBoardPage()));
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Processing Data')),
-        // );
-      }
-    }
+
+
 
     return Center(
       child: Card(
@@ -73,11 +77,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration:  InputDecoration(
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(onPressed: (){
+                      setState(() {
+                      _isHidden=!_isHidden;
+                      });
+                    }, icon:  Icon(_isHidden?Icons.visibility_outlined:Icons.visibility_off_outlined),),
                     hintText: 'Password',
-                    prefixIcon: Icon(Icons.password_outlined),
-                    isDense: true,
+                    prefixIcon:const  Icon(Icons.password_outlined),
+                   // isDense: true,
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -85,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     return null;
                   },
-                  obscureText: true,
+                  obscureText: _isHidden,
                   onFieldSubmitted: (value) => handleFormSubmit(),
                 ),
                 const SizedBox(height: 16.0),

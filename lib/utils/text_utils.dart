@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+/// This Class is for all Types of text
 class TextUtil extends StatelessWidget {
-  String text;
-  Color? color;
-  double? size;
-  bool? weight;
-  TextUtil({super.key,required this.text,this.size,this.color,this.weight});
+ final  String text;
+ final  Color? color;
+ final  double? size;
+ final  bool? weight;
+const   TextUtil({super.key,required this.text,this.size,this.color,this.weight});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,11 @@ class TextUtil extends StatelessWidget {
     );
   }
 }
-
+/// This class mainly used for row type of text
 class DescriptionText extends StatelessWidget {
-  String text;
-  Color? color;
-
-
-
-
-  DescriptionText({super.key,required this.text,this.color});
+ final  String text;
+  final Color? color;
+  const  DescriptionText({super.key,required this.text,this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -40,20 +37,36 @@ class DescriptionText extends StatelessWidget {
     );
   }
 }
-
+/// This class is Used for mostly Title in dialogs
 class TitleText extends StatelessWidget {
-  String text;
-
-
-
-  TitleText({super.key,required this.text,});
+  final String text;
+ const TitleText({super.key,required this.text});
 
   @override
   Widget build(BuildContext context) {
     return  Text(text,
 
-      style:const TextStyle(color:  Color(0xff1A1C1E),fontSize: 16,
+      style:const  TextStyle(color:   Color(0xff1A1C1E),fontSize: 16,
           fontWeight:FontWeight.w500,fontFamily: "Poppins"
+      ),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
+
+
+/// This class is used for table heading in every page
+class HeadingText extends StatelessWidget {
+  final String text;
+  const HeadingText({super.key,required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Text(text,
+
+      style:const  TextStyle(color:  Color(0xff1A1C1E),fontSize: 16,
+          fontWeight:FontWeight.w700,fontFamily: "Poppins"
       ),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,

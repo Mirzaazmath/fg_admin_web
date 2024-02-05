@@ -9,17 +9,27 @@ class ColorBtn extends StatelessWidget {
  const ColorBtn({super.key,required this.title, required this.onTap,this.width,this.color});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-          height: 40,
-          width:width?? double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color:color?? appColors.blueColor
+    return  SizedBox(
+      height: 40,
+      width:width?? double.infinity,
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color?? appColors.blueColor,
           ),
-          alignment: Alignment.center,
-          child: TextUtil(text:title,color: Colors.white,size: 14,)
-      ),
+          onPressed: onTap,
+          child: TextUtil(text: title,color: appColors.whiteColor,size: 14,)),
     );
+    //   InkWell(
+    //   onTap: onTap,
+    //   child: Container(
+    //       height: 40,
+    //       width:width?? double.infinity,
+    //       decoration: BoxDecoration(
+    //           borderRadius: BorderRadius.circular(30), color:color?? appColors.blueColor
+    //       ),
+    //       alignment: Alignment.center,
+    //       child: TextUtil(text:title,color: Colors.white,size: 14,)
+    //   ),
+    // );
   }
 }

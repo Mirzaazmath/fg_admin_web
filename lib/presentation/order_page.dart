@@ -14,7 +14,6 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
 
-//  List<MenuModel>actionListAll=<MenuModel>[MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   String selectedFilter = "All";
   bool isLoad=false;
@@ -35,7 +34,7 @@ appBar: AppBar(
   surfaceTintColor: Colors.transparent,
   backgroundColor: appColors.whiteColor,
   centerTitle: false,
-  title: TextUtil(text: "Order",size: 28,),
+  title:const  TextUtil(text: "Order",size: 28,),
   actions: [
     Container(
       height: 40,
@@ -129,14 +128,14 @@ appBar: AppBar(
                     decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                     ),
-                    child: Row(
+                    child:const  Row(
                       children: [
-                        Expanded(child: TextUtil(text: "Order ID",weight: true,size: 16,)),
-                        Expanded(child:  TextUtil(text: "Customer",weight: true,size: 16,),),
-                        Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
-                        Expanded(child:  TextUtil(text: "Value",weight: true,size: 16,),),
-                        Expanded(child: TextUtil(text: "Payment status",weight: true,size: 16,)),
-                        Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                        Expanded(child: HeadingText(text: "Order ID",)),
+                        Expanded(child:  HeadingText(text: "Customer",),),
+                        Expanded(child: HeadingText(text: "Status",)),
+                        Expanded(child:  HeadingText(text: "Value",),),
+                        Expanded(child: HeadingText(text: "Payment status",)),
+                        Expanded(child:  HeadingText(text: "Actions",))
 
                       ],
                     ),
@@ -153,8 +152,8 @@ appBar: AppBar(
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: DescriptionText(text: "1234567890",)),
-                          Expanded(child:  DescriptionText(text: "Kiran Naik",),),
+                         const  Expanded(child: DescriptionText(text: "1234567890",)),
+                         const  Expanded(child:  DescriptionText(text: "Kiran Naik",),),
                           Expanded(child: Align(
                             alignment:Alignment.centerLeft,
                             child:  Container(
@@ -170,8 +169,8 @@ appBar: AppBar(
                             ),
                           )
                           ),
-                          Expanded(child:  DescriptionText(text: "\$10,000",),),
-                          Expanded(child: DescriptionText(text: "Paid",)),
+                       const    Expanded(child:  DescriptionText(text: "\$10,000",),),
+                         const  Expanded(child: DescriptionText(text: "Paid",)),
                           Expanded(child: Align(
                             alignment:Alignment.centerLeft,
                             child: Row(

@@ -48,7 +48,7 @@ class _AddDriverDialogBoxState extends State<AddTeamMemberDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 16,),
-        TextUtil(text: 'Add Team Member',size: 24,),
+        const TextUtil(text: 'Add Team Member',size: 24,),
         const SizedBox(height: 24,),
         Row(
           children: [

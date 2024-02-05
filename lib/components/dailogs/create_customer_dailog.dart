@@ -1,7 +1,7 @@
 import 'package:admin_panel/components/widgets/color_btn.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
-import '../../presentation/dashboard_page.dart';
+
 import '../../utils/text_feild_utils.dart';
 import '../widgets/toast_widget.dart';
 
@@ -32,7 +32,7 @@ class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Add customer',size: 24,),
+          const TextUtil(text: 'Add customer',size: 24,),
           const SizedBox(height: 24,),
           Row(
             children: [

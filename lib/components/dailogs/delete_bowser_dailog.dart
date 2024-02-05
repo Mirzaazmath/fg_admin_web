@@ -25,7 +25,7 @@ class _DeleteBowserDialogBoxState extends State<DeleteBowserDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Are you sure want to delete the Bowser - Kiran',size: 22,),
+          const TextUtil(text: 'Are you sure want to delete the Bowser - Kiran',size: 22,),
           const SizedBox(height: 24,),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

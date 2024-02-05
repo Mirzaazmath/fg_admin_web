@@ -25,7 +25,7 @@ class _RefundInitiateDialogBoxState extends State<RefundInitiateDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Initiate refund',size: 24,),
+          const TextUtil(text: 'Initiate refund',size: 24,),
           const SizedBox(height: 24,),
           GestureDetector(
             onTap: (){

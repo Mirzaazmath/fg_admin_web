@@ -28,16 +28,16 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Allocate bowser',size: 24,),
+         const TextUtil(text: 'Allocate bowser',size: 24,),
           const SizedBox(height: 24,),
            Container(
             height: 80,
              decoration: BoxDecoration(
                  border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
              ),
-            child: Row(
+            child: const Row(
               children: [
-                const   SizedBox(width: 40,),
+                   SizedBox(width: 40,),
                 Expanded(child: TitleText(text: "Vehicle number",)),
                 Expanded(child:  TitleText(text: "Location",),),
                 Expanded(child: TitleText(text: "Fuel left",)),
@@ -74,9 +74,9 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
                        },
                      ),
                    const   SizedBox(width: 20,),
-                     Expanded(child: DescriptionText(text: "123456789",)),
-                     Expanded(child:  DescriptionText(text: "Madhapur",),),
-                     Expanded(child: DescriptionText(text: "500/2400 Lt",)),
+                  const    Expanded(child: DescriptionText(text: "123456789",)),
+                   const   Expanded(child:  DescriptionText(text: "Madhapur",),),
+                   const   Expanded(child: DescriptionText(text: "500/2400 Lt",)),
 
                    ],
                  ),

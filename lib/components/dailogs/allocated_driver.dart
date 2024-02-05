@@ -29,16 +29,16 @@ class _AllocateDriverDialogBoxState extends State<AllocateDriverDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Allocate Driver',size: 24,),
+         const  TextUtil(text: 'Allocate Driver',size: 24,),
           const SizedBox(height: 24,),
           Container(
             height: 80,
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: AppColors().lightGreyColor))
             ),
-            child: Row(
+            child:const  Row(
               children: [
-                const   SizedBox(width: 40,),
+                   SizedBox(width: 40,),
                 Expanded(child: TitleText(text: "Name",)),
                 Expanded(child:  TitleText(text: "Status",),),
                 Expanded(child: TitleText(text: "Out of office",)),

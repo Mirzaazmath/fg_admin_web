@@ -200,7 +200,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                children: [
                  Row(
                    children: [
-                     TitleText(text: "Gachibowli Hospital"),
+                     const   TitleText(text: "Gachibowli Hospital"),
                     index==0? Container(
                       margin:const  EdgeInsets.only(left: 10),
                        width: 50,
@@ -216,7 +216,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                    ],
                  ),
                  const  SizedBox(height: 4,),
-                 DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
+                 const  DescriptionText(text: "Apollo Hospitals Gachibowli, #123, Street, Main, Cross, Karnataka, Bengaluru, India"),
                  widget.isEdit?Container(
                    margin:const  EdgeInsets.only(top: 16),
                    child: Row(
@@ -253,7 +253,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
           ),
-          child: Row(
+          child:const Row(
             children: [
               Expanded(child: TextUtil(text: "Order ID",weight: true,size: 16,)),
               Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
@@ -277,7 +277,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                    ),
                    child: Row(
                      children: [
-                       Expanded(child: DescriptionText(text: "1234567890",)),
+                       const  Expanded(child: DescriptionText(text: "1234567890",)),
 
                        Expanded(child: Align(
                          alignment:Alignment.centerLeft,
@@ -294,8 +294,8 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                          ),
                        )
                        ),
-                       Expanded(child:  DescriptionText(text: "\$10,000",),),
-                       Expanded(child: DescriptionText(text: "Paid",)),
+                       const  Expanded(child:  DescriptionText(text: "\$10,000",),),
+                       const  Expanded(child: DescriptionText(text: "Paid",)),
                        Expanded(child: Align(
                          alignment:Alignment.centerLeft,
                          child: Row(

@@ -118,7 +118,6 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        // TextUtil(text: 'Driver Personal details',size: 24,),
         const SizedBox(height: 16,),
         Row(
           children: [
@@ -143,16 +142,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
         ),
         const SizedBox(height: 16,),
         const Spacer(),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: [
-        //     ColorBtn(title: "Next", onTap: (){
-        //       pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 250,),
-        //
-        //   ],
-        // )
+
       ],
     );
   }
@@ -164,8 +154,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
          const SizedBox(height: 16,),
-        // TextUtil(text: 'Driver Bank details',size: 24,),
-        // const SizedBox(height: 24,),
+
         Field(controller: accountNumberController, hintText: 'Account Number',),
         const SizedBox(height: 24,),
         Field(controller: confirmAccountNoController, hintText: 'Confirm Account Number',),
@@ -175,21 +164,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
         Field(controller: accountHolderNameController, hintText: 'Account Holder Name',),
         const SizedBox(height: 24,),
          const Spacer(),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     BorderBtn(title: "Back", onTap: (){
-        //       pageController.animateToPage(0, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 150,),
-        //
-        //     ColorBtn(title: "Next", onTap: (){
-        //       pageController.animateToPage(2, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 250,),
-        //
-        //   ],
-        // )
+
       ],
     );
   }
@@ -203,8 +178,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
          const SizedBox(height: 16,),
-        // TextUtil(text: 'Upload documents',size: 24,),
-        // const SizedBox(height: 24,),
+
         Row(
           children: [
             Expanded(child: Field(controller: adhaarController, hintText: 'Aadhaar Number',),),
@@ -232,23 +206,7 @@ class _AddDriverDialogBoxState extends State<AddDriverDialogBox> {
 
         const SizedBox(height: 24,),
         const Spacer(),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     BorderBtn(title: "Back", onTap: (){
-        //       pageController.animateToPage(1, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 150,),
-        //
-        //     ColorBtn(title: "Save", onTap: (){
-        //       Navigator.pop(context);
-        //       showSnackBar(context, "Driver Added Successfully");
-        //      // pageController.animateToPage(3, duration:const  Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-        //
-        //     },width: 250,),
-        //
-        //   ],
-        // )
+
       ],
     );
   }

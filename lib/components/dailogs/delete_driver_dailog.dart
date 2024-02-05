@@ -26,7 +26,7 @@ class _DeleteDriverDialogBoxState extends State<DeleteDriverDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          TextUtil(text: 'Are you sure want to delete the Driver - Kiran',size: 22,),
+          const  TextUtil(text: 'Are you sure want to delete the Driver - Kiran',size: 22,),
           const SizedBox(height: 24,),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
