@@ -1,4 +1,4 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:flutter/material.dart';
 
 import 'dashboard_page.dart';
@@ -28,83 +28,113 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
-    final ColorScheme _colorScheme = Theme.of(context).colorScheme;
 
 
 
 
-    return Center(
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 10,
-        child: Container(
-          width: 400.0,
-         decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(20),
-           color: appColors.whiteColor
-         ),
-          padding: const EdgeInsets.symmetric(horizontal:  24.0,vertical: 50),
-          child: Form(
-            key: _loginFormKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome',
-                  style: _textTheme.titleSmall,
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 10,
+            child: Container(
+              width: 400.0,
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(20),
+               color: appColors.whiteColor
+             ),
+              padding: const EdgeInsets.symmetric(horizontal:  24.0,vertical: 50),
+              child: Form(
+                key: _loginFormKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome',
+                      style: _textTheme.titleSmall,
+                    ),
+                   const  SizedBox(height: 10,),
+                    Text(
+                      'FuelGenie Admin',
+                      style: _textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+
+                      decoration:  InputDecoration(
+                        focusedBorder:  OutlineInputBorder(
+                          borderSide:  BorderSide(color: appColors.blueColor, width: 1.0),
+                        ),
+                        border:const  OutlineInputBorder(
+
+                        ),
+                        hintText: 'Login ID',
+                        labelText:"Login ID",
+
+                        prefixIcon:const  Icon(Icons.person_2_outlined),
+                        isDense: true,
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        return null;
+                      },
+                      onFieldSubmitted: (value) => handleFormSubmit(),
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      decoration:  InputDecoration(
+                        focusedBorder:  OutlineInputBorder(
+                          borderSide:  BorderSide(color: appColors.blueColor, width: 1.0),
+                        ),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(onPressed: (){
+                          setState(() {
+                          _isHidden=!_isHidden;
+                          });
+                        }, icon:  Icon(_isHidden?Icons.visibility_outlined:Icons.visibility_off_outlined),),
+                        hintText: 'Password',
+                        labelText: "Password",
+                        prefixIcon:const  Icon(Icons.password_outlined),
+                       // isDense: true,
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                      obscureText: _isHidden,
+                      onFieldSubmitted: (value) => handleFormSubmit(),
+                    ),
+                    const SizedBox(height: 16.0),
+                    ColorBtn(title: "Login", onTap:handleFormSubmit )
+
+                  ],
                 ),
-               const  SizedBox(height: 10,),
-                Text(
-                  'FuelGenie Admin',
-                  style: _textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Username',
-                    prefixIcon: Icon(Icons.person_2_outlined),
-                    isDense: true,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (value) => handleFormSubmit(),
-                ),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  decoration:  InputDecoration(
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(onPressed: (){
-                      setState(() {
-                      _isHidden=!_isHidden;
-                      });
-                    }, icon:  Icon(_isHidden?Icons.visibility_outlined:Icons.visibility_off_outlined),),
-                    hintText: 'Password',
-                    prefixIcon:const  Icon(Icons.password_outlined),
-                   // isDense: true,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
-                  obscureText: _isHidden,
-                  onFieldSubmitted: (value) => handleFormSubmit(),
-                ),
-                const SizedBox(height: 16.0),
-                ColorBtn(title: "Login", onTap:handleFormSubmit )
-
-              ],
+              ),
             ),
           ),
         ),
-      ),
+       const  SizedBox(height: 40,),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'By continuing you agree with our\n ',
+            style: TextStyle(color:appColors.greyColor,fontSize: 14),
+            children:  <TextSpan>[
+              TextSpan(text: 'Terms & Conditions ', style: TextStyle(color: appColors.blueColor)),
+             const  TextSpan(text: 'and'),
+              TextSpan(text: ' Privacy Policy', style: TextStyle(color: appColors.blueColor)),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

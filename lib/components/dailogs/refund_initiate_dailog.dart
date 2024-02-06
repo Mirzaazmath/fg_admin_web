@@ -1,6 +1,8 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:flutter/material.dart';
+import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
+import '../widgets/bottons/border_btn.dart';
 import '../widgets/toast_widget.dart';
 class RefundInitiateDialogBox extends StatefulWidget {
   const RefundInitiateDialogBox({super.key});
@@ -27,6 +29,7 @@ class _RefundInitiateDialogBoxState extends State<RefundInitiateDialogBox> {
           const SizedBox(height: 16,),
           const TextUtil(text: 'Initiate refund',size: 24,),
           const SizedBox(height: 24,),
+
           GestureDetector(
             onTap: (){
               selectedIndex=1;
@@ -66,11 +69,27 @@ class _RefundInitiateDialogBoxState extends State<RefundInitiateDialogBox> {
             ),
           ),
           const SizedBox(height: 24,),
-          ColorBtn(title: "Initiate refund", onTap: (){
-            Navigator.pop(context);
-            showSnackBar(context,"Refund Initiate to customer");
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: BorderBtn(
+                    title: "Close", onTap: (){
+                  Navigator.pop(context);
+                }),
+              ),
+              const SizedBox(width: 16,),
+              Expanded(
+                child: ColorBtn(
+                  title: "Refund Initiate", onTap: (){
+                  Navigator.pop(context);
+                  showSnackBar(context,"Refund Initiate to customer");
 
-          },),
+                },),
+              ),
+            ],
+          ),
+
           const SizedBox(height: 16,),
 
         ],

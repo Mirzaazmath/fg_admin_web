@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/add_driver_dailog.dart';
 import '../components/dailogs/view_driver_dailog.dart';
+import '../components/widgets/bottons/create_btn.dart';
+import '../components/widgets/bottons/secondary_btn.dart';
+import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
 import '../components/widgets/toast_widget.dart';
@@ -38,41 +41,15 @@ class _DriverPage extends State<DriverPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Drivers",size: 28,),
+          title:const  TextUtil(text: "Drivers",size: 28,),
           actions: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: appColors.greyColor)
-              ),
-              child: const  Icon(Icons.settings_outlined),
-            ),
+            SettingBtn(onTap: (){}),
             const SizedBox(width: 10,),
-            Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: appColors.greyColor)
-                ),
-                alignment: Alignment.center,
-                child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
-            ),
+            SecondaryBtn(onTap: (){}),
             const  SizedBox(width: 10,),
-            SizedBox(
-              height: 40,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appColors.secondaryColor,
-                  ),
-                  onPressed: (){
-                    _showCreateDriverDialog();
-                    //showCustomDialog(context,"Add Driver");
-                  }, child: TextUtil(text: 'Add Driver',color: appColors.brownColor,size: 14,)),
-            ),
-
+            CreateBtn(onTap: (){
+              _showCreateDriverDialog();
+            }, title: "Add Driver"),
           ],
         ),
         body: Column(
@@ -132,17 +109,15 @@ class _DriverPage extends State<DriverPage> {
                       decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                       ),
-                      child: Row(
+                      child:const  Row(
                         children: [
-                          // SizedBox(width: 100,
-                          // child: TextUtil(text: "Avatar",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Name",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Phone number",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Truck",weight: true,size: 16,)),
-                          Expanded(child: TextUtil(text: "Blood group",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Out of office",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
+                          Expanded(child: HeadingText(text: "Name",)),
+                          Expanded(child:  HeadingText(text: "Phone number",),),
+                          Expanded(child: HeadingText(text: "Truck",)),
+                          Expanded(child: HeadingText(text: "Blood group",)),
+                          Expanded(child:  HeadingText(text: "Status",),),
+                          Expanded(child: HeadingText(text: "Out of office",)),
+                          Expanded(child:  HeadingText(text: "Actions",)),
 
                         ],
                       ),
@@ -159,11 +134,11 @@ class _DriverPage extends State<DriverPage> {
                             child: Row(
                               children: [
 
-                                Expanded(child: DescriptionText(text: "KIran Naik",)),
-                                Expanded(child:  DescriptionText(text: "9014355577",),),
-                                Expanded(child:  DescriptionText(text: "Allocated",),),
-                                Expanded(child:  DescriptionText(text: "B+",),),
-                                Expanded(child: Align(
+                             const    Expanded(child: DescriptionText(text: "KIran Naik",)),
+                              const   Expanded(child:  DescriptionText(text: "9014355577",),),
+                              const   Expanded(child:  DescriptionText(text: "Allocated",),),
+                             const    Expanded(child:  DescriptionText(text: "B+",),),
+                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child:
                                   Container(
@@ -179,7 +154,7 @@ class _DriverPage extends State<DriverPage> {
                                   ),
                                 )
                                 ),
-                                Expanded(child: DescriptionText(text: "Yes",)),
+                               const  Expanded(child: DescriptionText(text: "Yes",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child: Row(
@@ -197,7 +172,7 @@ class _DriverPage extends State<DriverPage> {
                                               child: Column(
                                                 children: [
                                                   for(int i=0;i<actionList.length;i++)...[
-                                                    GestureDetector(
+                                                    InkWell(
                                                       onTap:(){
                                                         Navigator.pop(context);
                                                         if(i==0){

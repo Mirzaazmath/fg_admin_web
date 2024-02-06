@@ -34,7 +34,7 @@ class _TransactionPage extends State<TransactionPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Transactions",size: 28,),
+          title: const TextUtil(text: "Transactions",size: 28,),
 
         ),
         body: Column(
@@ -94,16 +94,16 @@ class _TransactionPage extends State<TransactionPage> {
                       decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                       ),
-                      child: Row(
+                      child:const  Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Transactions ID",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Date",weight: true,size: 16,),),
-                          Expanded(child:  TextUtil(text: "Order ID",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Amount",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Kind",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Payment method",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,)),
+                          Expanded(child: HeadingText(text: "Transactions ID")),
+                          Expanded(child:  HeadingText(text: "Date",),),
+                          Expanded(child:  HeadingText(text: "Order ID",),),
+                          Expanded(child: HeadingText(text: "Amount",)),
+                          Expanded(child:  HeadingText(text: "Status",)),
+                          Expanded(child:  HeadingText(text: "Kind",)),
+                          Expanded(child:  HeadingText(text: "Payment method",)),
+                          Expanded(child:  HeadingText(text: "Actions",)),
 
                         ],
                       ),
@@ -119,13 +119,13 @@ class _TransactionPage extends State<TransactionPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "#123456789",)),
-                                Expanded(child:  DescriptionText(text: "25-Dec-2023",),),
-                                Expanded(child: DescriptionText(text: "#2433",)),
-                                Expanded(child: DescriptionText(text: "₹ 5,500",)),
-                                Expanded(child: DescriptionText(text: "Paid",)),
-                                Expanded(child: DescriptionText(text: "Sale",)),
-                                Expanded(child: DescriptionText(text: "FG Credit",)),
+                              const   Expanded(child: DescriptionText(text: "#123456789",)),
+                              const   Expanded(child:  DescriptionText(text: "25-Dec-2023",),),
+                             const    Expanded(child: DescriptionText(text: "#2433",)),
+                             const    Expanded(child: DescriptionText(text: "₹ 5,500",)),
+                             const    Expanded(child: DescriptionText(text: "Paid",)),
+                             const    Expanded(child: DescriptionText(text: "Sale",)),
+                             const    Expanded(child: DescriptionText(text: "FG Credit",)),
 
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
@@ -145,7 +145,7 @@ class _TransactionPage extends State<TransactionPage> {
                                               child: Column(
                                                 children: [
                                                   for(int i=0;i<actionList.length;i++)...[
-                                                    GestureDetector(
+                                                    InkWell(
                                                       onTap:(){
                                                         Navigator.pop(context);
                                                         showCustomDialog(context,"");

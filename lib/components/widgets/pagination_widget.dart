@@ -20,7 +20,8 @@ class _PaginationWidgetState extends State<PaginationWidget> {
       child: SizedBox(width: 270,
         child: Row(
           children: [
-            GestureDetector(
+            InkWell(
+              customBorder: const CircleBorder(),
               onTap:(){
                 if(selectedIndex==1){
 
@@ -48,7 +49,8 @@ class _PaginationWidgetState extends State<PaginationWidget> {
               child: Row(
                 children: [
                   for(int i=1;i<6;i++)...[
-                    GestureDetector(
+                    InkWell(
+                      customBorder: const CircleBorder(),
                       onTap: (){
                         setState(() {
                           selectedIndex=i;
@@ -72,7 +74,8 @@ class _PaginationWidgetState extends State<PaginationWidget> {
 
               ),
             ),
-            GestureDetector(
+            InkWell(
+              customBorder: const CircleBorder(),
               onTap:(){
                 if(selectedIndex==5){
 

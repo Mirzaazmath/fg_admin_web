@@ -1,7 +1,8 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
+import '../widgets/bottons/border_btn.dart';
 import '../widgets/toast_widget.dart';
 
 class ViewBowserDetailDialogBox extends StatefulWidget {
@@ -46,10 +47,23 @@ class _ViewBowserDetailDialogBoxState extends State<ViewBowserDetailDialogBox> {
               const SizedBox(height: 16,),
               Field(controller: insuranceController, hintText: 'Insurance Details',),
               const SizedBox(height: 40,),
-              widget.isEdit?  ColorBtn(title: "Save Edit", onTap: (){
-                Navigator.pop(context);
-                showSnackBar(context,"Edit Successfully");
-              }):const  SizedBox(),
+              widget.isEdit? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: BorderBtn(title: "Close", onTap: (){
+                      Navigator.pop(context);
+                    },),
+                  ),
+                  const  SizedBox(width: 16,),
+                 Expanded(child:  ColorBtn(title: "Save", onTap: (){
+                   Navigator.pop(context);
+                   showSnackBar(context,"Edit Successfully");
+                 },),)
+
+                ],
+              )
+             :const  SizedBox(),
             ],
           ),
         )

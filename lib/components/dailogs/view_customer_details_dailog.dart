@@ -1,13 +1,15 @@
 
-import 'package:admin_panel/components/widgets/border_btn.dart';
-import 'package:admin_panel/components/widgets/text_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../models/menu_model.dart';
+import '../../presentation/customer_page.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../provider/dialog_provider.dart';
 import '../../utils/text_feild_utils.dart';
-import '../widgets/color_btn.dart';
+import '../widgets/bottons/color_btn.dart';
 import '../widgets/global_custom_dailog.dart';
 import '../widgets/toast_widget.dart';
 
@@ -246,6 +248,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
     );
   }
   Widget orderHistoryInfo(){
+    List<MenuModel>actionListAll=menuItems("All");
     return Column(
       children: [
         Container(
@@ -304,42 +307,42 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                                showCustomDialog(context,"Confirm order");
                              }, icon:const  Icon(Icons.visibility_outlined)),
 
-                             // PopupMenuButton(
-                             //
-                             //   itemBuilder: (BuildContext context) => [
-                             //     PopupMenuItem(
-                             //
-                             //       enabled: false,
-                             //       child:Padding(
-                             //         padding: const EdgeInsets.symmetric(vertical: 8),
-                             //         child: Column(
-                             //           children: [
-                             //             for(int i=0;i<actionListAll.length;i++)...[
-                             //               GestureDetector(
-                             //                 onTap:(){
-                             //                   Navigator.pop(context);
-                             //                   showCustomDialog(context,actionListAll[i].title);
-                             //                 },
-                             //                 child: SizedBox(
-                             //                   height: 56,width: 200,
-                             //                   child: Row(
-                             //                     children: [
-                             //                       Icon(actionListAll[i].icon,color: appColors.blackColor,),
-                             //                       const  SizedBox(width: 12,),
-                             //                       TextUtil(text: actionListAll[i].title,size: 16,),
-                             //                     ],
-                             //                   ),
-                             //                 ),
-                             //               )
-                             //             ]
-                             //           ],
-                             //         ),
-                             //       ),
-                             //
-                             //     ),
-                             //   ],
-                             //
-                             // ),
+                             PopupMenuButton(
+
+                               itemBuilder: (BuildContext context) => [
+                                 PopupMenuItem(
+
+                                   enabled: false,
+                                   child:Padding(
+                                     padding: const EdgeInsets.symmetric(vertical: 8),
+                                     child: Column(
+                                       children: [
+                                         for(int i=0;i<actionListAll.length;i++)...[
+                                           InkWell(
+                                             onTap:(){
+                                               Navigator.pop(context);
+                                               showCustomDialog(context,actionListAll[i].title);
+                                             },
+                                             child: SizedBox(
+                                               height: 56,width: 200,
+                                               child: Row(
+                                                 children: [
+                                                   Icon(actionListAll[i].icon,color: appColors.blackColor,),
+                                                   const  SizedBox(width: 12,),
+                                                   TextUtil(text: actionListAll[i].title,size: 16,),
+                                                 ],
+                                               ),
+                                             ),
+                                           )
+                                         ]
+                                       ],
+                                     ),
+                                   ),
+
+                                 ),
+                               ],
+
+                             ),
                            ],
                          ),
                        ),)

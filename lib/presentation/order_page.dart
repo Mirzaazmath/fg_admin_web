@@ -1,3 +1,6 @@
+import 'package:admin_panel/components/widgets/bottons/create_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/secondary_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/setting_btn.dart';
 import 'package:flutter/material.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
@@ -36,36 +39,11 @@ appBar: AppBar(
   centerTitle: false,
   title:const  TextUtil(text: "Order",size: 28,),
   actions: [
-    Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: appColors.greyColor)
-      ),
-      child: const  Icon(Icons.settings_outlined),
-    ),
-    const SizedBox(width: 10,),
-    Container(
-      height: 40,
-     padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: appColors.greyColor)
-      ),
-      alignment: Alignment.center,
-      child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
-    ),
+    SettingBtn(onTap: (){}),
     const  SizedBox(width: 10,),
-    SizedBox(
-      height: 40,
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: appColors.secondaryColor,
-          ),
-          onPressed: (){}, child: TextUtil(text: 'Create Order',color: appColors.brownColor,size: 14,)),
-    )
-
+    SecondaryBtn(onTap: (){}),
+    const  SizedBox(width: 10,),
+    CreateBtn(onTap: (){}, title: "Create Order"),
   ],
  ),
        body: Column(
@@ -190,7 +168,7 @@ appBar: AppBar(
                                           child: Column(
                                             children: [
                                               for(int i=0;i<actionListAll.length;i++)...[
-                                                GestureDetector(
+                                                InkWell(
                                                   onTap:(){
                                                     Navigator.pop(context);
                                                     showCustomDialog(context,actionListAll[i].title);

@@ -1,5 +1,5 @@
 
-import 'package:admin_panel/components/widgets/border_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
 
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../provider/dialog_provider.dart';
 import '../../utils/text_feild_utils.dart';
-import '../widgets/color_btn.dart';
+import '../widgets/bottons/color_btn.dart';
 import '../widgets/toast_widget.dart';
 
 class ViewDriverDetailDialogBox extends StatefulWidget {

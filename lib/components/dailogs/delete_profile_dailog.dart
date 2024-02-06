@@ -1,9 +1,9 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
-import 'package:admin_panel/components/widgets/text_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
-import '../widgets/border_btn.dart';
+import '../widgets/bottons/border_btn.dart';
 import '../widgets/toast_widget.dart';
 class DeleteProfileDialogBox extends StatefulWidget {
   const DeleteProfileDialogBox({super.key});

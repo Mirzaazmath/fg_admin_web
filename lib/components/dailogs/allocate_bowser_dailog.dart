@@ -1,5 +1,6 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
-import 'package:admin_panel/components/widgets/text_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -88,9 +89,10 @@ class _AllocateBowserDialogBoxState extends State<AllocateBowserDialogBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextBtn(title: "Cancel", onTap: (){
+              BorderBtn(title: "Close", onTap: (){
                 Navigator.pop(context);
               },width: 150,),
+             const  SizedBox(width: 16,),
               ColorBtn(title: "Allocate", onTap: (){
                 Navigator.pop(context);
                 showSnackBar(context,"Bowser Allocated");

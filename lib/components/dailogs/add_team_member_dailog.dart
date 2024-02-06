@@ -1,4 +1,4 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
 import '../../utils/text_utils.dart';

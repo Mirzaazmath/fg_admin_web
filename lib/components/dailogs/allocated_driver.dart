@@ -1,5 +1,5 @@
-import 'package:admin_panel/components/widgets/color_btn.dart';
-import 'package:admin_panel/components/widgets/text_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 

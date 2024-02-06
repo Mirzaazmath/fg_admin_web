@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/view_bowser_details_dialog.dart';
+import '../components/widgets/bottons/create_btn.dart';
+import '../components/widgets/bottons/secondary_btn.dart';
+import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
 import '../models/menu_model.dart';
@@ -35,55 +38,16 @@ class _BowsersPageState extends State<BowsersPage> {
           backgroundColor: appColors.whiteColor,
           centerTitle: false,
 
-          title: TextUtil(text: "Bowsers",size: 28,),
+          title: const TextUtil(text: "Bowsers",size: 28,),
           actions: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: appColors.greyColor)
-              ),
-              child: const  Icon(Icons.settings_outlined),
-            ),
+            SettingBtn(onTap: (){}),
             const SizedBox(width: 10,),
-            Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: appColors.greyColor)
-                ),
-                alignment: Alignment.center,
-                child: TextUtil(text: 'Secondary action',color: appColors.blueColor,size: 14,)
-            ),
+            SecondaryBtn(onTap: (){}),
             const  SizedBox(width: 10,),
-            SizedBox(
-              height: 40,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appColors.secondaryColor,
-                  ),
-                  onPressed: (){
-                    showCustomDialog(context,"Add bowsers");
-                  }, child: TextUtil(text: 'New Customer',color: appColors.brownColor,size: 14,)),
-            ),
-            // GestureDetector(
-            //   onTap: (){
-            //     showCustomDialog(context,"Add bowsers");
-            //   },
-            //   child: Container(
-            //       height: 40,
-            //       padding: const EdgeInsets.symmetric(horizontal: 20),
-            //       decoration: BoxDecoration(
-            //         color: appColors.secondaryColor,
-            //         borderRadius: BorderRadius.circular(20),
-            //
-            //       ),
-            //       alignment: Alignment.center,
-            //       child: TextUtil(text: 'Add bowsers',color: appColors.greyColor,size: 14,)
-            //   ),
-            // ),
+            CreateBtn(onTap: (){
+              showCustomDialog(context,"Add bowsers");
+            }, title: "New Bowsers"),
+
           ],
         ),
         body: Column(
@@ -144,14 +108,14 @@ class _BowsersPageState extends State<BowsersPage> {
                       decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                       ),
-                      child: Row(
+                      child:const  Row(
                         children: [
-                          Expanded(child: TextUtil(text: "Vehicle number",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Allocated driver",weight: true,size: 16,),),
-                          Expanded(child:  TextUtil(text: "Fuel left",weight: true,size: 16,),),
-                          Expanded(child: TextUtil(text: "Active orders",weight: true,size: 16,)),
-                          Expanded(child: TextUtil(text: "Status",weight: true,size: 16,)),
-                          Expanded(child:  TextUtil(text: "Actions",weight: true,size: 16,))
+                          Expanded(child: HeadingText(text: "Vehicle number",)),
+                          Expanded(child:  HeadingText(text: "Allocated driver",),),
+                          Expanded(child:  HeadingText(text: "Fuel left",),),
+                          Expanded(child: HeadingText(text: "Active orders",)),
+                          Expanded(child: HeadingText(text: "Status",)),
+                          Expanded(child:  HeadingText(text: "Actions",))
 
                         ],
                       ),
@@ -167,10 +131,10 @@ class _BowsersPageState extends State<BowsersPage> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(child: DescriptionText(text: "1234567890",)),
-                                Expanded(child:  Expanded(child: DescriptionText(text: "Kiran Naik",),)),
-                                Expanded(child: DescriptionText(text: "500/2500 lt",)),
-                                Expanded(child: DescriptionText(text: "6",)),
+                              const   Expanded(child: DescriptionText(text: "1234567890",)),
+                              const   Expanded(child:  Expanded(child: DescriptionText(text: "Kiran Naik",),)),
+                              const   Expanded(child: DescriptionText(text: "500/2500 lt",)),
+                              const   Expanded(child: DescriptionText(text: "6",)),
                                 Expanded(child: Align(
                                   alignment:Alignment.centerLeft,
                                   child:
@@ -205,7 +169,7 @@ class _BowsersPageState extends State<BowsersPage> {
                                               child: Column(
                                                 children: [
                                                   for(int i=0;i<actionList.length;i++)...[
-                                                    GestureDetector(
+                                                    InkWell(
                                                       onTap:(){
                                                         Navigator.pop(context);
                                                         if(i==0){

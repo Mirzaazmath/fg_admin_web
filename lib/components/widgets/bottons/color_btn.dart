@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../presentation/dashboard_page.dart';
-import '../../utils/text_utils.dart';
+import '../../../presentation/dashboard_page.dart';
+import '../../../utils/text_utils.dart';
 class ColorBtn extends StatelessWidget {
   final String title;
   final double? width;

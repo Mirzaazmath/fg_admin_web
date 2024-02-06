@@ -1,5 +1,5 @@
-import 'package:admin_panel/components/widgets/border_btn.dart';
-import 'package:admin_panel/components/widgets/color_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/text_utils.dart';
@@ -30,18 +30,20 @@ class _CancelOrderDialogBoxState extends State<CancelOrderDialogBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              BorderBtn(
-                width: 150,
-                  title: "Cancel", onTap: (){
-                Navigator.pop(context);
-              }),
+              Expanded(
+                child: BorderBtn(
+                    title: "Close", onTap: (){
+                  Navigator.pop(context);
+                }),
+              ),
               const SizedBox(width: 16,),
-              ColorBtn(
-                width: 150,
-                title: "Cancel order", onTap: (){
-                Navigator.pop(context);
-                showSnackBar(context,"Order Cancelled");
-              },color: appColors.redColor,),
+              Expanded(
+                child: ColorBtn(
+                  title: "Cancel order", onTap: (){
+                  Navigator.pop(context);
+                  showSnackBar(context,"Order Cancelled");
+                },color: appColors.redColor,),
+              ),
             ],
           )
 

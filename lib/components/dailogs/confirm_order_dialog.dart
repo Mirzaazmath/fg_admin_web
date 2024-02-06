@@ -1,11 +1,11 @@
-import 'package:admin_panel/components/widgets/border_btn.dart';
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
 import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
-import '../widgets/color_btn.dart';
+import '../widgets/bottons/color_btn.dart';
 import '../widgets/global_custom_dailog.dart';
-import '../widgets/text_btn.dart';
+import '../widgets/bottons/text_btn.dart';
 
 class ConfirmOrderDialogBox extends StatefulWidget {
   const ConfirmOrderDialogBox({super.key});
