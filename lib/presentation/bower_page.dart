@@ -1,3 +1,4 @@
+import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import '../components/dailogs/view_bowser_details_dialog.dart';
 import '../components/widgets/bottons/create_btn.dart';
@@ -17,7 +18,7 @@ class BowsersPage extends StatefulWidget {
 
 class _BowsersPageState extends State<BowsersPage> {
 
-  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),];
+  //List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),];
   List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
@@ -30,6 +31,7 @@ class _BowsersPageState extends State<BowsersPage> {
     });}
   @override
   Widget build(BuildContext context) {
+    List<MenuModel>actionListAll=menuItems(selectedFilter);
     return Container(
       padding:const  EdgeInsets.only(left: 24,right: 24,bottom: 24),
       child: Scaffold(
@@ -168,16 +170,22 @@ class _BowsersPageState extends State<BowsersPage> {
                                               padding: const EdgeInsets.symmetric(vertical: 8),
                                               child: Column(
                                                 children: [
-                                                  for(int i=0;i<actionList.length;i++)...[
+                                                  for(int i=0;i<actionListAll.length;i++)...[
                                                     InkWell(
                                                       onTap:(){
                                                         Navigator.pop(context);
                                                         if(i==0){
                                                           _showCreateCustomerDialog(true);
-                                                        }else if(i==actionList.length-1) {
+                                                        }else if(actionListAll[i].title=="Allocate Driver") {
                                                           showCustomDialog(context,"Allocate Driver");
-                                                        }else{
-                                                          showCustomDialog(context,actionList[i].title);
+                                                        }else if(actionListAll[i].title=="Deactivate"){
+                                                          showSnackBar(context, "Bowser Deactivated");
+                                                        }
+                                                        else if(actionListAll[i].title=="Activate"){
+                                                          showSnackBar(context, "Bowser Activated");
+                                                        }
+                                                        else{
+                                                          showCustomDialog(context,actionListAll[i].title);
                                                         }
 
                                                       },
@@ -185,9 +193,9 @@ class _BowsersPageState extends State<BowsersPage> {
                                                         height: 56,width: 200,
                                                         child: Row(
                                                           children: [
-                                                            Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                            Icon(actionListAll[i].icon,color: appColors.blackColor,),
                                                             const  SizedBox(width: 12,),
-                                                            TextUtil(text: actionList[i].title,size: 16,),
+                                                            TextUtil(text: actionListAll[i].title,size: 16,),
                                                           ],
                                                         ),
                                                       ),
@@ -229,6 +237,26 @@ class _BowsersPageState extends State<BowsersPage> {
           );
         }
     );
+
+  }
+}
+List<MenuModel> menuItems(String filter ){
+  switch(filter){
+    case "All":{
+      return [MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),MenuModel(icon: Icons.do_not_disturb_on_outlined, title: "Deactivate"),];
+    }
+    case "Active":{
+
+      return [MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),MenuModel(icon: Icons.do_not_disturb_on_outlined, title: "Deactivate"),];
+    }
+    case "Inactive":{
+
+      return [MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.check_circle_outline, title: "Activate")];
+    }
+    default :{
+      return [MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),MenuModel(icon: Icons.person_2_outlined, title: "Allocate Driver"),MenuModel(icon: Icons.person_2_outlined, title: "Deactivate"),];
+    }
+
 
   }
 }

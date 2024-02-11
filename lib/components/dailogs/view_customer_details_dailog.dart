@@ -58,7 +58,15 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const SizedBox(height: 16,),
-                    TextUtil(text: 'Custom ID: #123456',size: 24,),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       const  TextUtil(text: 'Custom ID: #123456',size: 24,),
+                       IconButton(onPressed: (){
+                         Navigator.pop(context);
+                       }, icon:const  Icon( Icons.close))
+                     ],
+                   ),
                     const SizedBox(height: 24,),
                     Container(height: 48,
                       decoration: BoxDecoration(
@@ -225,7 +233,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                     mainAxisAlignment: MainAxisAlignment.end,
                      children: [
                        TextBtn(title: "Delete", onTap: (){},width: 100,color: Colors.transparent,),
-                       BorderBtn(title: "Edit", onTap: (){},width: 100,color: Colors.transparent,)
+                       BorderBtn(title: "Edit", onTap: (){},width: 100,color: Theme.of(context).primaryColor,)
                      ],
                    ),
 
@@ -248,7 +256,7 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
     );
   }
   Widget orderHistoryInfo(){
-    List<MenuModel>actionListAll=menuItems("All");
+    List<MenuModel>actionListAll=menuItems("AllList");
     return Column(
       children: [
         Container(
@@ -321,10 +329,14 @@ class _ViewCustomerDetailDialogBoxState extends State<ViewCustomerDetailDialogBo
                                            InkWell(
                                              onTap:(){
                                                Navigator.pop(context);
-                                               showCustomDialog(context,actionListAll[i].title);
+                                               if(actionListAll[i].title=="Download Invoice"){
+                                                 showSnackBar(context, "Invoice Downloaded");
+                                               }else{
+                                                 showCustomDialog(context,actionListAll[i].title);
+                                               }
                                              },
                                              child: SizedBox(
-                                               height: 56,width: 200,
+                                               height: 56,width: 250,
                                                child: Row(
                                                  children: [
                                                    Icon(actionListAll[i].icon,color: appColors.blackColor,),

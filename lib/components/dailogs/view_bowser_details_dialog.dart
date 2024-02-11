@@ -37,7 +37,16 @@ class _ViewBowserDetailDialogBoxState extends State<ViewBowserDetailDialogBox> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const SizedBox(height: 16,),
-              TextUtil(text: widget.isEdit?"Edit Bowser":'Bowser Details',size: 24,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextUtil(text: widget.isEdit?"Edit Bowser":'Bowser Details',size: 24,),
+                  IconButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, icon:const  Icon(Icons.close))
+                ],
+              ),
+
               const SizedBox(height: 24,),
               Field(controller: boswerNumberontroller, hintText: 'Bowser Number',),
               const SizedBox(height: 16,),

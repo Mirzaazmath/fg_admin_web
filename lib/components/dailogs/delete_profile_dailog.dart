@@ -31,18 +31,22 @@ class _DeleteProfileDialogBoxState extends State<DeleteProfileDialogBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              BorderBtn(
-                  width: 150,
-                  title: "Cancel", onTap: (){
-                Navigator.pop(context);
-              }),
+              Expanded(
+                child: BorderBtn(
+                    // width: 150,
+                    title: "Cancel", onTap: (){
+                  Navigator.pop(context);
+                }),
+              ),
               const SizedBox(width: 16,),
-              ColorBtn(
-                width: 150,
-                title: "Delete", onTap: (){
-                Navigator.pop(context);
-                showSnackBar(context,"Profile Deleted");
-              },color: appColors.redColor,),
+              Expanded(
+                child: ColorBtn(
+                  // width: 150,
+                  title: "Delete", onTap: (){
+                  Navigator.pop(context);
+                  showSnackBar(context,"Profile Deleted");
+                },color: appColors.redColor,),
+              ),
             ],
           )
           // ColorBtn(title: "Delete", onTap: (){},color: appColors.redColor,),

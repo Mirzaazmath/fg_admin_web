@@ -29,7 +29,15 @@ class _AddBowserDialogBoxBoxState extends State<AddBowserDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-        const   TextUtil(text: 'Add Bowser',size: 24,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const   TextUtil(text: 'Add Bowser',size: 24,),
+            IconButton(onPressed: (){
+              Navigator.pop(context);
+            }, icon:const  Icon(Icons.close))
+          ],
+        ),
           const SizedBox(height: 24,),
           Field(controller: boswerNumberontroller, hintText: 'Bowser Number',),
           const SizedBox(height: 16,),

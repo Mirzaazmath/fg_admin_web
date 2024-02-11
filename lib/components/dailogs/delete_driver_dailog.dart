@@ -31,18 +31,21 @@ class _DeleteDriverDialogBoxState extends State<DeleteDriverDialogBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Expanded(child:
               BorderBtn(
-                  width: 150,
+
                   title: "Cancel", onTap: (){
                 Navigator.pop(context);
-              }),
+              })),
               const SizedBox(width: 16,),
-              ColorBtn(
-                width: 150,
-                title: "Delete", onTap: (){
-                Navigator.pop(context);
-                showSnackBar(context,"Driver Deleted");
-              },color: appColors.redColor,),
+              Expanded(
+                child: ColorBtn(
+
+                  title: "Delete", onTap: (){
+                  Navigator.pop(context);
+                  showSnackBar(context,"Driver Deleted");
+                },color: appColors.redColor,),
+              ),
             ],
           )
         ],

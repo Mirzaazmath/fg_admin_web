@@ -1,3 +1,4 @@
+import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/utils/color_utils.dart';
@@ -109,9 +110,10 @@ class _AllocateDriverDialogBoxState extends State<AllocateDriverDialogBox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextBtn(title: "Cancel", onTap: (){
+              BorderBtn(title: "Cancel", onTap: (){
                 Navigator.pop(context);
               },width: 150,),
+             const  SizedBox(width: 20,),
               ColorBtn(title: "Allocate", onTap: (){
                 Navigator.pop(context);
                 showSnackBar(context,"Driver Allocated");

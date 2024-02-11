@@ -4,6 +4,7 @@ import '../components/widgets/bottons/create_btn.dart';
 import '../components/widgets/bottons/secondary_btn.dart';
 import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class TeamManagementPage extends StatefulWidget {
@@ -14,7 +15,8 @@ class TeamManagementPage extends StatefulWidget {
 }
 
 class _TeamManagementPage extends State<TeamManagementPage> {
-  List<String> actionList = <String>[ 'Edit Profile', 'Delete Profile', ];
+  //List<String> actionList = <String>[ 'Edit Profile', 'Delete Profile', ];
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit Profile"),MenuModel(icon: Icons.delete_outline, title: "Delete Profile"),];
   List<String> filterList = <String>['Team', 'Roles',];
   String selectedAction = "View Profile";
   String selectedFilter = "Team";
@@ -177,18 +179,39 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                                           onTap:(){
                                             Navigator.pop(context);
                                             if(i>=1){
-                                              showCustomDialog(context,actionList[i]);
+                                              showCustomDialog(context,actionList[i].title);
                                             }else{
                                               _showCreateCustomerDialog(true);
                                             }
+                                            },
 
-
-                                          },
                                           child: SizedBox(
                                             height: 56,width: 200,
-                                            child: TextUtil(text: actionList[i],size: 16,),
+                                            child: Row(
+                                              children: [
+                                                Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                const  SizedBox(width: 12,),
+                                                TextUtil(text: actionList[i].title,size: 16,),
+                                              ],
+                                            ),
                                           ),
                                         )
+                                        // InkWell(
+                                        //   onTap:(){
+                                        //     Navigator.pop(context);
+                                        //     if(i>=1){
+                                        //       showCustomDialog(context,actionList[i]);
+                                        //     }else{
+                                        //       _showCreateCustomerDialog(true);
+                                        //     }
+                                        //
+                                        //
+                                        //   },
+                                        //   child: SizedBox(
+                                        //     height: 56,width: 200,
+                                        //     child: TextUtil(text: actionList[i].title,size: 16,),
+                                        //   ),
+                                        // )
                                       ]
                                     ],
                                   ),
@@ -267,19 +290,35 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                                         InkWell(
                                           onTap:(){
                                             Navigator.pop(context);
-                                            if(i>=1){
-                                              showCustomDialog(context,actionList[i]);
-                                            }else{
-                                              _showCreateCustomerDialog(true);
-                                            }
-
-
+                                            showCustomDialog(context, "");
                                           },
                                           child: SizedBox(
                                             height: 56,width: 200,
-                                            child: TextUtil(text: actionList[i],size: 16,),
+                                            child: Row(
+                                              children: [
+                                                Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                const  SizedBox(width: 12,),
+                                                TextUtil(text: actionList[i].title,size: 16,),
+                                              ],
+                                            ),
                                           ),
                                         )
+                                        // InkWell(
+                                        //   onTap:(){
+                                        //     Navigator.pop(context);
+                                        //     if(i>=1){
+                                        //       showCustomDialog(context,actionList[i]);
+                                        //     }else{
+                                        //       _showCreateCustomerDialog(true);
+                                        //     }
+                                        //
+                                        //
+                                        //   },
+                                        //   child: SizedBox(
+                                        //     height: 56,width: 200,
+                                        //     child: TextUtil(text: actionList[i],size: 16,),
+                                        //   ),
+                                        // )
                                       ]
                                     ],
                                   ),

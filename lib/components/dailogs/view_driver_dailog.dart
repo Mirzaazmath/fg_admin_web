@@ -60,7 +60,15 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const SizedBox(height: 16,),
-                    TextUtil(text:widget.isEdit? 'Edit driver details':"Driver details",size: 24,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextUtil(text:widget.isEdit? 'Edit driver details':"Driver details",size: 24,),
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon:const  Icon(Icons.close)),
+                      ],
+                    ),
                     const SizedBox(height: 24,),
                     Container(height: 48,
                       decoration: BoxDecoration(
@@ -207,10 +215,11 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
   ///// Document  Info ///
 
   Widget documentInfoWidget(){
-    return  Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: widget.isEdit?
+      <Widget>[
         const SizedBox(height: 16,),
 
         Row(
@@ -252,7 +261,23 @@ class _ViewDriverDetailDialogBoxState extends State<ViewDriverDetailDialogBox> {
           ],
         ):const SizedBox(),
 
-      ],
+      ]:[
+       const  TitleText(text: "Aadhaar number"),
+      const  SizedBox(height: 10,),
+       const  DescriptionText(text: "9746 7363 7373"),
+        const  SizedBox(height: 20,),
+        const  TitleText(text: "Pan number"),
+        const  SizedBox(height: 10,),
+        const  DescriptionText(text: "CBG7373"),
+        const  SizedBox(height: 20,),
+        const  TitleText(text: "Driving License number"),
+        const  SizedBox(height: 10,),
+        const  DescriptionText(text: "D97467363"),
+        const  SizedBox(height: 20,),
+
+
+
+      ]
     );
   }
 

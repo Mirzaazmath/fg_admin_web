@@ -49,7 +49,15 @@ class _ViewProfileDetailDialogBoxState extends State<ViewProfileDetailDialogBox>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const SizedBox(height: 16,),
-                    TextUtil(text: widget.isEdit?"Edit Profile":'View Profile',size: 24,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextUtil(text: widget.isEdit?"Edit Member Profile":'View Member Profile',size: 24,),
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon:const  Icon(Icons.close))
+                      ],
+                    ),
                     const SizedBox(height: 24,),
 
                     personalInfo(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/add_bowser_dialog.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
+import '../models/menu_model.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 class TransactionPage extends StatefulWidget {
@@ -12,7 +13,8 @@ class TransactionPage extends StatefulWidget {
 }
 
 class _TransactionPage extends State<TransactionPage> {
-  List<String> actionList = <String>['View details', 'Edit details', 'Delete details', ];
+  //List<String> actionList = <String>['View details', 'Edit details', 'Delete details', ];
+  List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.visibility_outlined, title: "View details"),MenuModel(icon: Icons.edit, title: "Edit details"),MenuModel(icon: Icons.delete_outline, title: "Delete details"),];
   List<String> filterList = <String>['All', 'Credited', 'Debit/Refund Initiate',];
   String selectedAction = "View details";
   String selectedFilter = "All";
@@ -148,11 +150,17 @@ class _TransactionPage extends State<TransactionPage> {
                                                     InkWell(
                                                       onTap:(){
                                                         Navigator.pop(context);
-                                                        showCustomDialog(context,"");
-                                                      },
+                                                        showCustomDialog(context, "");
+                                                        },
                                                       child: SizedBox(
                                                         height: 56,width: 200,
-                                                        child: TextUtil(text: actionList[i],size: 16,),
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                            const  SizedBox(width: 12,),
+                                                            TextUtil(text: actionList[i].title,size: 16,),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                   ]

@@ -32,7 +32,15 @@ class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-          const TextUtil(text: 'Add customer',size: 24,),
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const  TextUtil(text: 'Add customer',size: 24,),
+              IconButton(onPressed: (){
+                Navigator.pop(context);
+              }, icon: const Icon(Icons.close))
+            ],
+          ),
           const SizedBox(height: 24,),
           Row(
             children: [
@@ -63,8 +71,24 @@ class _CreateCustomerDialogBoxState extends State<CreateCustomerDialogBox> {
           // ),
           const SizedBox(height: 40,),
           ColorBtn(title: "Create Customer", onTap: (){
-            Navigator.pop(context);
-            showSnackBar(context,"New Customer Created");
+
+            if(firstNameController.text==""){
+              showSnackBar(context,"Please Enter First Name");
+            }else  if(lastNameController.text==""){
+              showSnackBar(context,"Please Enter Last Name");
+            } else if(mobileController.text==""){
+              showSnackBar(context,"Please Enter Mobile Number");
+            }else  if(emailController.text==""){
+              showSnackBar(context,"Please Enter Email Address");
+            }else  if(passwordController.text==""){
+              showSnackBar(context,"Please Enter Password");
+            }
+            else{
+              Navigator.pop(context);
+              showSnackBar(context,"New Customer Created");
+            }
+
+
 
           }),
         ],

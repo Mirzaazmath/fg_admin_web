@@ -186,7 +186,7 @@ class _CustomerPageState extends State<CustomerPage> {
 
                                                       },
                                                       child: SizedBox(
-                                                        height: 56,width: 200,
+                                                        height: 56,width: 250,
                                                         child: Row(
                                                           children: [
                                                             Icon(actionList[i].icon,color: appColors.blackColor,),
@@ -240,16 +240,19 @@ class _CustomerPageState extends State<CustomerPage> {
 List<MenuModel> menuItems(String filter ){
   switch(filter){
     case "All":{
-      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Deactivate customer"),];
     }
     case "Active":{
-      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Deactivate customer"),];
     }
     case "Inactive":{
-      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_outlined, title: "Active customer"),];
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_outlined, title: "Activate customer"),];
+    }
+    case "AllList":{
+      return [MenuModel(icon: Icons.check, title: "Confirm order"),MenuModel(icon: Icons.fire_truck_outlined, title: "Allocate bowser"),MenuModel(icon: Icons.cancel_outlined, title: "Cancel order"),MenuModel(icon: Icons.credit_card_outlined, title: "Initiate refund"),MenuModel(icon: Icons.receipt_long_outlined, title: "Download Invoice")];
     }
     default:{
-      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Inactive customer"),];
+      return [MenuModel(icon: Icons.edit, title: "Edit customer"),MenuModel(icon: Icons.person_off_outlined, title: "Deactivate customer"),];
     }
 
   }

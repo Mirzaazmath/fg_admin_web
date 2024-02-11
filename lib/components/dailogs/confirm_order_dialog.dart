@@ -30,7 +30,15 @@ class _ConfirmOrderDialogBoxState extends State<ConfirmOrderDialogBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 16,),
-        const   TextUtil(text: 'Order: #123456789',size: 24,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const   TextUtil(text: 'Order: #123456789',size: 24,),
+            IconButton(onPressed: (){
+              Navigator.pop(context);
+            }, icon:const  Icon( Icons.close))
+          ],
+        ),
           const SizedBox(height: 24,),
           Expanded(
             child: Row(

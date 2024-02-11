@@ -15,6 +15,7 @@ class Field extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
+
      readOnly:isEnable ??false,
       controller:controller ,
       decoration: InputDecoration(
@@ -22,7 +23,7 @@ class Field extends StatelessWidget {
           labelText:hintText,
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(4)),
-            borderSide: BorderSide(width: 1,color: appColors.blueColor),
+            borderSide: BorderSide(width: 1,color:isEnable==true?appColors.greyColor: appColors.blueColor),
           ),
 
           border: const OutlineInputBorder()

@@ -1,6 +1,7 @@
 import 'package:admin_panel/components/widgets/bottons/create_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/secondary_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/setting_btn.dart';
+import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
@@ -154,7 +155,7 @@ appBar: AppBar(
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){
-                                  showCustomDialog(context,"Confirm order");
+                                  showCustomDialog(context,selectedFilter=="All"||selectedFilter=="New"?"Confirm order":"View Order");
                                 }, icon:const  Icon(Icons.visibility_outlined)),
 
                                 PopupMenuButton(
@@ -171,7 +172,12 @@ appBar: AppBar(
                                                 InkWell(
                                                   onTap:(){
                                                     Navigator.pop(context);
-                                                    showCustomDialog(context,actionListAll[i].title);
+                                                    if(actionListAll[i].title=="Download Invoice"){
+                                                      showSnackBar(context, "Invoice Downloaded");
+                                                    }else{
+                                                      showCustomDialog(context,actionListAll[i].title);
+                                                    }
+
                                                     },
                                                   child: SizedBox(
                                                     height: 56,width: 200,
