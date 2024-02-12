@@ -12,10 +12,10 @@ class ViewBowserDetailDialogBox extends StatefulWidget {
   _ViewBowserDetailDialogBoxState createState() => _ViewBowserDetailDialogBoxState();
 }
 class _ViewBowserDetailDialogBoxState extends State<ViewBowserDetailDialogBox> {
-  TextEditingController boswerNumberontroller=TextEditingController();
-  TextEditingController loadCapacityController=TextEditingController();
-  TextEditingController manufactureCompanyController=TextEditingController();
-  TextEditingController insuranceController=TextEditingController();
+  TextEditingController boswerNumberontroller=TextEditingController(text: "1233455975");
+  TextEditingController loadCapacityController=TextEditingController(text: "25000");
+  TextEditingController manufactureCompanyController=TextEditingController(text: "BharatBenz");
+  TextEditingController insuranceController=TextEditingController(text: "Tata");
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -48,13 +48,13 @@ class _ViewBowserDetailDialogBoxState extends State<ViewBowserDetailDialogBox> {
               ),
 
               const SizedBox(height: 24,),
-              Field(controller: boswerNumberontroller, hintText: 'Bowser Number',),
+              Field(controller: boswerNumberontroller, hintText: 'Bowser Number',isEnable: widget.isEdit==false,),
               const SizedBox(height: 16,),
-              Field(controller: loadCapacityController, hintText: 'Load Capacity',isNumberType: true,),
+              Field(controller: loadCapacityController, hintText: 'Load Capacity',isNumberType: true,isEnable: widget.isEdit==false),
               const SizedBox(height: 16,),
-              Field(controller: manufactureCompanyController, hintText: 'Manufacture Company',),
+              Field(controller: manufactureCompanyController, hintText: 'Manufacture Company',isEnable: widget.isEdit==false),
               const SizedBox(height: 16,),
-              Field(controller: insuranceController, hintText: 'Insurance Details',),
+              Field(controller: insuranceController, hintText: 'Insurance Details',isEnable: widget.isEdit==false),
               const SizedBox(height: 40,),
               widget.isEdit? Row(
                 mainAxisAlignment: MainAxisAlignment.end,

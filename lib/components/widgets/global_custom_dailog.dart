@@ -15,6 +15,7 @@ import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
 
 import '../dailogs/view_order_dailog.dart';
+import '../dailogs/view_role.dart';
 
 
 showCustomDialog(context,selectedOption){
@@ -102,6 +103,11 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return   const DeleteBowserDialogBox();
         }
+      case "Show Role":
+        {
+          return    ViewRoleDetailDialogBox();
+        }
+
 
 
 

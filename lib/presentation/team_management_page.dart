@@ -273,7 +273,7 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                         mainAxisAlignment:MainAxisAlignment.end,
                         children: [
                           IconButton(onPressed: (){
-                            _showCreateCustomerDialog(false);
+                            showCustomDialog(context, "Show Role");
                             //View Profile
                             //View details
                           }, icon:const  Icon(Icons.visibility_outlined)),
