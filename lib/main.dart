@@ -3,6 +3,7 @@ import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:admin_panel/presentation/logiin_page.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
+import 'package:admin_panel/routes/router_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 void main(){
@@ -19,14 +20,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=>DialogProvider()),
 
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: "FG-Admin Panel",
         theme: ThemeData(
           primaryColor: const Color(0xffF6F2F7),
           scaffoldBackgroundColor: Colors.white
         ),
-        home:const  LoginPage()
+        routerConfig: routerConfig,
+       // home:const  LoginPage()
         //const DashBoardPage(),
 
       ),

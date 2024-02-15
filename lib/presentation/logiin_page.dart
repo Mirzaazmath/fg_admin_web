@@ -1,5 +1,7 @@
 import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:admin_panel/routes/route_names.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'dashboard_page.dart';
 
@@ -16,9 +18,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleFormSubmit() {
     if (_loginFormKey.currentState!.validate()) {
+
+      context.go(RouteNames.ordersPagePath);
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const DashBoardPage()));
+     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const DashBoardPage()));
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('Processing Data')),
       // );
