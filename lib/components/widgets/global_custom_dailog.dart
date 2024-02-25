@@ -1,7 +1,7 @@
 import 'package:admin_panel/components/dailogs/add_bowser_dialog.dart';
 import 'package:admin_panel/components/dailogs/allocate_bowser_dailog.dart';
 import 'package:admin_panel/components/dailogs/cancel_order_dailog.dart';
-import 'package:admin_panel/components/dailogs/confirm_order_dialog.dart';
+import 'package:admin_panel/depricated/confirm_order_dialog.dart';
 import 'package:admin_panel/components/dailogs/create_customer_dailog.dart';
 import 'package:admin_panel/components/dailogs/delete_profile_dailog.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
@@ -14,7 +14,7 @@ import '../dailogs/delete_driver_dailog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
 
-import '../dailogs/view_order_dailog.dart';
+import '../../depricated/view_order_dailog.dart';
 import '../dailogs/view_role.dart';
 
 
@@ -49,10 +49,10 @@ class GlobalCustomDialogBox extends StatelessWidget {
 
     switch(option) {
 
-      case "Confirm order":
-      {
-      return const  ConfirmOrderDialogBox();
-      }
+      // case "Confirm order":
+      // {
+      // return const  ConfirmOrderDialogBox();
+      // }
 
       case "Allocate bowser":
         {

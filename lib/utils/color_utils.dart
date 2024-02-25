@@ -11,6 +11,7 @@ class AppColors{
   final whiteColor=Colors.white;
   final blueColor=const  Color(0xff2F45F3);
   final lightPurple=const Color(0xffBCC2FF);
- // final darkBlue=const Color(0xff0961A4);
+  final darkBlue=const Color(0xff00169D);
   final redColor=const Color(0xffBA1A1A);
+  final transparent=Colors.transparent;
 }

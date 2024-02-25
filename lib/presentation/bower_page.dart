@@ -2,7 +2,7 @@ import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import '../components/dailogs/view_bowser_details_dialog.dart';
 import '../components/widgets/bottons/create_btn.dart';
-import '../components/widgets/bottons/secondary_btn.dart';
+import '../depricated/secondary_btn.dart';
 import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
@@ -42,7 +42,7 @@ class _BowsersPageState extends State<BowsersPage> {
 
           title: const TextUtil(text: "Bowsers",size: 28,),
           actions: [
-            SettingBtn(onTap: (){}),
+            DownloadBtn(onTap: (){}),
             const SizedBox(width: 10,),
             SecondaryBtn(onTap: (){}),
             const  SizedBox(width: 10,),

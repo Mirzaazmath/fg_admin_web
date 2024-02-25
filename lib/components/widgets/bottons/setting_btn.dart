@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../presentation/dashboard_page.dart';
 
-class SettingBtn extends StatelessWidget {
+class DownloadBtn extends StatelessWidget {
   final  VoidCallback onTap;
-  const SettingBtn({super.key, required this.onTap,});
+  const DownloadBtn({super.key, required this.onTap,});
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
@@ -14,7 +14,7 @@ class SettingBtn extends StatelessWidget {
           side: const BorderSide(color: Colors.grey),
           shape:const  CircleBorder(),),
         onPressed: onTap,
-        child: const  Icon(Icons.settings_outlined,color: Colors.black,),),
+        child: const  Icon(Icons.file_download_outlined,color: Colors.black,),),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:admin_panel/components/dailogs/view_profile_dailog.dart';
 import 'package:flutter/material.dart';
 import '../components/widgets/bottons/create_btn.dart';
-import '../components/widgets/bottons/secondary_btn.dart';
+import '../depricated/secondary_btn.dart';
 import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../models/menu_model.dart';
@@ -32,7 +32,7 @@ class _TeamManagementPage extends State<TeamManagementPage> {
 
           title:const  TextUtil(text: "Team Management",size: 28,),
           actions: [
-            SettingBtn(onTap: (){}),
+            DownloadBtn(onTap: (){}),
             const SizedBox(width: 10,),
             SecondaryBtn(onTap: (){}),
             const  SizedBox(width: 10,),

@@ -1,6 +1,3 @@
-
-import 'package:admin_panel/presentation/dashboard_page.dart';
-import 'package:admin_panel/presentation/logiin_page.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
 import 'package:admin_panel/routes/router_config.dart';
@@ -18,7 +15,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=>SideBarProvider()),
         ChangeNotifierProvider(create: (_)=>DialogProvider()),
-
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

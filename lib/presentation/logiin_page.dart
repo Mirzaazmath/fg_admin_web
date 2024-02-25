@@ -70,7 +70,11 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
 
                       decoration:  InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
+                        suffixIcon:const IconButton(
+                          onPressed: null,
+                         icon:  Icon(Icons.visibility_outlined,color: Colors.transparent,),
+                       ),
+                        //contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
                         focusedBorder:  OutlineInputBorder(
                           borderSide:  BorderSide(color: appColors.blueColor, width: 1.0),
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/dailogs/view_customer_details_dailog.dart';
 import '../components/widgets/bottons/create_btn.dart';
-import '../components/widgets/bottons/secondary_btn.dart';
+import '../depricated/secondary_btn.dart';
 import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
@@ -43,7 +43,7 @@ class _CustomerPageState extends State<CustomerPage> {
 
           title:const  TextUtil(text: "Customers",size: 28,),
           actions: [
-            SettingBtn(onTap: (){}),
+            DownloadBtn(onTap: (){}),
             const SizedBox(width: 10,),
             SecondaryBtn(onTap: (){}),
             const  SizedBox(width: 10,),

@@ -1,8 +1,11 @@
 import 'package:admin_panel/components/widgets/bottons/create_btn.dart';
-import 'package:admin_panel/components/widgets/bottons/secondary_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/setting_btn.dart';
 import 'package:admin_panel/components/widgets/toast_widget.dart';
+import 'package:admin_panel/utils/color_utils.dart';
 import 'package:flutter/material.dart';
+import '../components/dailogs/Order_detail_dailog.dart';
+import '../components/widgets/chip_filter.dart';
+import '../components/widgets/chip_filter_with_search.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
 import '../models/menu_model.dart';
@@ -19,7 +22,11 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> {
 
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
+  List<String> durationList = <String>['Today',"Last 30days", 'This month', 'This Quarter',"Last Quarter",];
   String selectedFilter = "All";
+  String searchFilter="All";
+  String selectedDuration="Today";
+  bool newestSelect=false;
   bool isLoad=false;
   void updateFilter(){
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -40,9 +47,7 @@ appBar: AppBar(
   centerTitle: false,
   title:const  TextUtil(text: "Order",size: 28,),
   actions: [
-    SettingBtn(onTap: (){}),
-    const  SizedBox(width: 10,),
-    SecondaryBtn(onTap: (){}),
+    DownloadBtn(onTap: (){}),
     const  SizedBox(width: 10,),
     CreateBtn(onTap: (){}, title: "Create Order"),
   ],
@@ -62,39 +67,61 @@ appBar: AppBar(
              ),
            ),
           const  SizedBox(height: 32,),
-           Container(
+           SizedBox(
              height: 48,
              width: MediaQuery.of(context).size.width,
-             padding:const  EdgeInsets.symmetric(horizontal: 52),
-             decoration: BoxDecoration(
-               color: Theme.of(context).primaryColor,
-             ),
-             child: SingleChildScrollView(
-               scrollDirection: Axis.horizontal,
-               child: Row(
-                 children: [
-                 for(int i=0;i<filterList.length;i++)...[
-                   InkWell(
-                     onTap:(){
-                       setState(() {
-                         selectedFilter=filterList[i];
-                         isLoad=true;
-                         updateFilter();
-                       });
-                       },
-                     child: Container(
-                       height: 48,
-                       padding:const  EdgeInsets.symmetric(horizontal: 32),
-                     decoration: BoxDecoration(
-                       border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
-                     ),
-                     alignment: Alignment.center,
-                     child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
-                                      ),
-                   )]
-                 ],
-               ),
-             ),
+             child:Row(
+               children: [
+                 ChipFilterBtn(
+                   selectedFilter: selectedDuration,
+                   filterList: durationList, onChange: (val) {
+                   setState(() {
+                     selectedDuration=val!;
+                   });
+                 }, constantValue: "Today",
+                 ),
+               const  Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child:  VerticalDivider(width: 32,),
+                ),
+                 ChipFilterBtn(
+                   selectedFilter: selectedFilter,
+                   filterList: filterList, onChange: (val) {
+                   setState(() {
+                     selectedFilter=val!;
+                     isLoad=true;
+                   });
+                   updateFilter();
+                 }, constantValue: "All",
+                 ),
+                 ChipFilterBtnWithSearch(
+                   selectedFilter: searchFilter,
+                   filterList: filterList, onChange: (val) {
+                   setState(() {
+                     searchFilter=val!;
+                   });
+                 }, constantValue: "All",
+                 ),
+
+                const  Expanded(child: SizedBox()),
+                 const  Padding(
+                   padding: EdgeInsets.symmetric(vertical: 5),
+                   child:  VerticalDivider(width: 32,),
+                 ),
+                 FilterChip(
+                   selected: newestSelect,
+                     selectedColor: AppColors().secondaryColor,
+                     label:const  Text("Newest first"), onSelected: (value){
+                     setState(() {
+                       newestSelect=value;
+                     });
+
+                 })
+
+               ],
+
+             )
+
            ),
            const  SizedBox(height: 32,),
           Expanded(
@@ -155,7 +182,8 @@ appBar: AppBar(
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){
-                                  showCustomDialog(context,selectedFilter=="All"||selectedFilter=="New"?"Confirm order":"View Order");
+                                  _showOrderDetailDialog(selectedFilter);
+                                //  showCustomDialog(context,selectedFilter=="All"||selectedFilter=="New"?"Confirm order":"View Order");
                                 }, icon:const  Icon(Icons.visibility_outlined)),
 
                                 PopupMenuButton(
@@ -174,7 +202,10 @@ appBar: AppBar(
                                                     Navigator.pop(context);
                                                     if(actionListAll[i].title=="Download Invoice"){
                                                       showSnackBar(context, "Invoice Downloaded");
-                                                    }else{
+                                                    }else if(actionListAll[i].title=="Confirm order"){
+                                                      showSnackBar(context, "Order Confirmed");
+                                                    }
+                                                    else{
                                                       showCustomDialog(context,actionListAll[i].title);
                                                     }
 
@@ -220,7 +251,20 @@ appBar: AppBar(
 
     );
   }
+  _showOrderDetailDialog(String value){
+    showDialog(context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return OrderDetailsDialogBox(state: value,);
+        }
+    );
+
+  }
 }
+
+
+
+
 List<MenuModel> menuItems(String filter ){
   switch(filter){
     case "All":{
