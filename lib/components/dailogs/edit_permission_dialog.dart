@@ -2,6 +2,7 @@
 import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/utils/text_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/menu_model.dart';
@@ -13,14 +14,14 @@ import '../widgets/bottons/color_btn.dart';
 import '../widgets/global_custom_dailog.dart';
 import '../widgets/toast_widget.dart';
 
-class ViewRoleDetailDialogBox extends StatefulWidget {
+class EditPermissionsDialogBox extends StatefulWidget {
 
-  ViewRoleDetailDialogBox({super.key,});
+  EditPermissionsDialogBox({super.key,});
   @override
-  _ViewRoleDetailDialogBoxState createState() => _ViewRoleDetailDialogBoxState();
+  _EditPermissionsDialogBoxState createState() => _EditPermissionsDialogBoxState();
 }
 
-class _ViewRoleDetailDialogBoxState extends State<ViewRoleDetailDialogBox> {
+class _EditPermissionsDialogBoxState extends State<EditPermissionsDialogBox> {
   Widget build(BuildContext context) {
     return Dialog(
         shape: RoundedRectangleBorder(
@@ -31,14 +32,15 @@ class _ViewRoleDetailDialogBoxState extends State<ViewRoleDetailDialogBox> {
         child: Consumer<DialogProvider>(
             builder: (BuildContext context, provider, Widget? child) {
               return Container(
-                width: 777,
-                padding: const  EdgeInsets.all(36),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child:  bodyWidget()
+                  width: 478,
+                  height: 780,
+                  padding: const  EdgeInsets.all(36),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child:  bodyWidget()
 
               );
             }
@@ -61,7 +63,7 @@ class _ViewRoleDetailDialogBoxState extends State<ViewRoleDetailDialogBox> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           const  TextUtil(text: 'Admin role',size: 24,),
+            const  TextUtil(text: 'Edit role',size: 24,),
             IconButton(onPressed: (){
               Navigator.pop(context);
             }, icon:const  Icon(Icons.close))
@@ -77,15 +79,14 @@ class _ViewRoleDetailDialogBoxState extends State<ViewRoleDetailDialogBox> {
           child:const Row(
             children: [
               Expanded(child: TextUtil(text: "Permission",weight: true,size: 16,)),
-              Expanded(child: TextUtil(text: "Des",weight: true,size: 16,)),
+
               Expanded(child:  TextUtil(text: "Status",weight: true,size: 16,),),
-             
+
 
             ],
           ),
         ),
-        SizedBox(
-          height: 300,
+        Expanded(
           child: ListView.builder(
               shrinkWrap: true,
               itemCount: 100,
@@ -95,26 +96,37 @@ class _ViewRoleDetailDialogBoxState extends State<ViewRoleDetailDialogBox> {
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
                   ),
-                  child: Row(
+                  child:  Row(
                     children: [
-                      const  Expanded(child: DescriptionText(text: "Permissions",)),
-                      const  Expanded(child:  DescriptionText(text: "Description",),),
-                      const  Expanded(child:  Align(
+                      const   Expanded(child: DescriptionText(text: "Permissions",)),
+
+                        Expanded(
+                            child:  Align(
                           alignment: Alignment.centerLeft,
-                          child: Icon(Icons.check_circle_outline))),
-                     
+                          child:CupertinoSwitch(
+                            activeColor: appColors.blueColor,
+                              value: true, onChanged: (value){}))),
+
                     ],
                   ),
                 );
               }),
         ),
+          const SizedBox(height: 50,),
+              Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:[
+              BorderBtn(
+                  width: 200,
+                  title: "Cancel", onTap: (){
+                Navigator.pop(context);
+              }),
 
-        // Align(
-        //     alignment: Alignment.centerRight,
-        //     child: ColorBtn(title: "Save Edit",width: 200, onTap: (){
-        //       Navigator.pop(context);
-        //       showSnackBar(context,"Edit Successfully");
-        //     },)): const  SizedBox(),
+              ColorBtn(title: "Save Edit",width: 200, onTap: (){
+              Navigator.pop(context);
+              showSnackBar(context,"Edit Successfully");
+            },)]
+        )
       ],
     );
   }

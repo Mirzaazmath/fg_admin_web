@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../components/dailogs/add_driver_dailog.dart';
 import '../components/dailogs/view_driver_dailog.dart';
 import '../components/widgets/bottons/create_btn.dart';
+import '../components/widgets/chip_filter.dart';
+import '../components/widgets/chip_filter_with_search.dart';
 import '../depricated/secondary_btn.dart';
 import '../components/widgets/bottons/setting_btn.dart';
 import '../components/widgets/global_custom_dailog.dart';
@@ -23,6 +25,8 @@ class _DriverPage extends State<DriverPage> {
   List<String> filterList = <String>['All', 'Active', 'Inactive',];
   String selectedAction = "View details";
   String selectedFilter = "All";
+  String searchFilter="All";
+  bool newestSelect=false;
   bool isLoad=false;
   void updateFilter(){
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -67,36 +71,51 @@ class _DriverPage extends State<DriverPage> {
               ),
             ),
             const  SizedBox(height: 32,),
-            Container(
-              height: 48,
-              padding:const  EdgeInsets.symmetric(horizontal: 52),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+            SizedBox(
+                height: 48,
+                width: MediaQuery.of(context).size.width,
+                child:Row(
+                  children: [
+                    ChipFilterBtn(
+                      selectedFilter: selectedFilter,
+                      filterList: filterList, onChange: (val) {
+                      setState(() {
+                        selectedFilter=val!;
+                        isLoad=true;
+                      });
+                      updateFilter();
+                    }, constantValue: "All",
+                    ),
+                    ChipFilterBtnWithSearch(
+                      selectedFilter: searchFilter,
+                      filterList: filterList, onChange: (val) {
+                      setState(() {
+                        searchFilter=val!;
+                      });
 
-              ),
-              child: Row(
-                children: [
-                  for(int i=0;i<filterList.length;i++)...[
-                    InkWell(
-                      onTap:(){
-                        setState(() {
-                          selectedFilter=filterList[i];
-                          isLoad=true;
-                          updateFilter();
-                        });
-                      },
-                      child: Container(
-                        height: 48,
-                        padding:const  EdgeInsets.symmetric(horizontal: 32),
-                        decoration: BoxDecoration(
-                            border: Border(bottom: BorderSide(color:selectedFilter==filterList[i]? appColors.blueColor:Colors.transparent,width: 2))
-                        ),
-                        alignment: Alignment.center,
-                        child: TextUtil(text: filterList[i],color: selectedFilter==filterList[i]?Colors.black: const Color(0xff46464F),size: 16),
-                      ),
-                    )]
-                ],
-              ),
+                    }, constantValue: "All",
+                      hintText: "Search by name/phone number",
+                    ),
+
+                    const  Expanded(child: SizedBox()),
+                    const  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child:  VerticalDivider(width: 32,),
+                    ),
+                    FilterChip(
+                        selected: newestSelect,
+                        selectedColor: appColors.secondaryColor,
+                        label:const  Text("Newest first"), onSelected: (value){
+                      setState(() {
+                        newestSelect=value;
+                      });
+
+                    })
+
+                  ],
+
+                )
+
             ),
             const  SizedBox(height: 32,),
             Expanded(

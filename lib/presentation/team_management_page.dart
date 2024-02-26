@@ -15,8 +15,9 @@ class TeamManagementPage extends StatefulWidget {
 }
 
 class _TeamManagementPage extends State<TeamManagementPage> {
-  //List<String> actionList = <String>[ 'Edit Profile', 'Delete Profile', ];
+
   List<MenuModel>actionList=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit Profile"),MenuModel(icon: Icons.delete_outline, title: "Delete Profile"),];
+  List<MenuModel>actionListForRole=<MenuModel>[MenuModel(icon: Icons.edit, title: "Edit Permission"),MenuModel(icon: Icons.delete_outline, title: "Delete Profile"),];
   List<String> filterList = <String>['Team', 'Roles',];
   String selectedAction = "View Profile";
   String selectedFilter = "Team";
@@ -274,8 +275,6 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                         children: [
                           IconButton(onPressed: (){
                             showCustomDialog(context, "Show Role");
-                            //View Profile
-                            //View details
                           }, icon:const  Icon(Icons.visibility_outlined)),
                           PopupMenuButton(
 
@@ -286,39 +285,24 @@ class _TeamManagementPage extends State<TeamManagementPage> {
                                   padding: const EdgeInsets.symmetric(vertical: 8),
                                   child: Column(
                                     children: [
-                                      for(int i=0;i<actionList.length;i++)...[
+                                      for(int i=0;i<actionListForRole.length;i++)...[
                                         InkWell(
                                           onTap:(){
                                             Navigator.pop(context);
-                                            showCustomDialog(context, "");
+                                            showCustomDialog(context, actionListForRole[i].title);
                                           },
                                           child: SizedBox(
                                             height: 56,width: 200,
                                             child: Row(
                                               children: [
-                                                Icon(actionList[i].icon,color: appColors.blackColor,),
+                                                Icon(actionListForRole[i].icon,color: appColors.blackColor,),
                                                 const  SizedBox(width: 12,),
-                                                TextUtil(text: actionList[i].title,size: 16,),
+                                                TextUtil(text: actionListForRole[i].title,size: 16,),
                                               ],
                                             ),
                                           ),
                                         )
-                                        // InkWell(
-                                        //   onTap:(){
-                                        //     Navigator.pop(context);
-                                        //     if(i>=1){
-                                        //       showCustomDialog(context,actionList[i]);
-                                        //     }else{
-                                        //       _showCreateCustomerDialog(true);
-                                        //     }
-                                        //
-                                        //
-                                        //   },
-                                        //   child: SizedBox(
-                                        //     height: 56,width: 200,
-                                        //     child: TextUtil(text: actionList[i],size: 16,),
-                                        //   ),
-                                        // )
+
                                       ]
                                     ],
                                   ),

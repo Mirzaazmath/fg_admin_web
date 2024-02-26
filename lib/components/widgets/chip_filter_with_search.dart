@@ -6,36 +6,29 @@ class ChipFilterBtnWithSearch extends StatefulWidget {
   final String selectedFilter;
   final String constantValue;
   final List<String>filterList;
+  final String hintText;
   final Function(dynamic) onChange;
-  const ChipFilterBtnWithSearch({super.key,required this.selectedFilter,required this.filterList,required this.onChange,required this.constantValue});
+  const ChipFilterBtnWithSearch({super.key,required this.selectedFilter,required this.filterList,required this.onChange,required this.constantValue,required this.hintText});
 
   @override
   State<ChipFilterBtnWithSearch> createState() => _ChipFilterBtnWithSearchState();
 }
 
 class _ChipFilterBtnWithSearchState extends State<ChipFilterBtnWithSearch> {
-  final TextEditingController _searchController =TextEditingController();
   List<String>searchList=[];
   List<String> itemList=[];
 
-   searchFunction(String val){
-    setState(() {
-      searchList = widget.filterList.where((item) =>item.toLowerCase().contains(val.toLowerCase())).toList();
-    });
 
-  }
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _searchController.dispose();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    itemList.addAll(widget.filterList);
   }
   @override
   Widget build(BuildContext context) {
-    itemList= searchList.isEmpty?widget.filterList:searchList;
-
-
     return  PopupMenuButton(
+      tooltip: "Search",
       offset: const Offset(10,40),
       icon: Container(
         height: 32,
@@ -60,31 +53,52 @@ class _ChipFilterBtnWithSearchState extends State<ChipFilterBtnWithSearch> {
           ],
         ),
       ),
-      //  initialValue: selectedFilter,
       onSelected:widget.onChange,
       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
         PopupMenuItem(
-            child: Container(
-              margin:const  EdgeInsets.only(bottom: 10),
-              width: 360,
-              child: TextFormField(
-                onChanged:  searchFunction,
-                controller: _searchController,
-                decoration:const  InputDecoration(
-                  hintText: "Search",
-                  prefixIcon: Icon(Icons.search),
-                ),
-              ),
+          enabled: false,
+            child: StatefulBuilder(
+              builder: (context,setStates) {
+                return SizedBox(
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin:const  EdgeInsets.only(bottom: 10),
+                        width: 360,
+                        child: TextFormField(
+                          onChanged:  (val){
+                            setStates(() {
+                              searchList = widget.filterList.where((item) =>item.toLowerCase().contains(val.toLowerCase())).toList();
+                              itemList=searchList;
+                            });
+                            },
+                          decoration:  InputDecoration(
+                            hintText: widget.hintText,
+                            prefixIcon:const  Icon(Icons.search),
+                          ),
+                        ),
+                      ),
+                      itemList.isEmpty?const  Center(child: TextUtil(text: "No Match Found",),): Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                           for(int i=0;i<itemList.length;i++)...[
+                             ListTile(
+                                 leading: CircleAvatar(child: Text(itemList[i].substring(0,1)),),
+                                 title: TextUtil( text:itemList[i],size: 16,)
+                             ),
+                           ]
+                                               ],
+                                             ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
             )),
-        for(int i=0;i<itemList.length;i++)...[
-          PopupMenuItem(
-            value:itemList[i],
-            child: ListTile(
-             leading: CircleAvatar(child: Text(itemList[i].substring(0,1)),),
-              title: Text(itemList[i],)
-            ),
-          ),
-        ]
+
       ],
     );
   }

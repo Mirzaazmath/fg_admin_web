@@ -100,7 +100,9 @@ appBar: AppBar(
                    setState(() {
                      searchFilter=val!;
                    });
+
                  }, constantValue: "All",
+                   hintText: "Search for order ID",
                  ),
 
                 const  Expanded(child: SizedBox()),

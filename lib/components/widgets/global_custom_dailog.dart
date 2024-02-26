@@ -11,6 +11,7 @@ import '../dailogs/add_team_member_dailog.dart';
 import '../dailogs/allocated_driver.dart';
 import '../dailogs/delete_bowser_dailog.dart';
 import '../dailogs/delete_driver_dailog.dart';
+import '../dailogs/edit_permission_dialog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
 
@@ -107,10 +108,10 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return    ViewRoleDetailDialogBox();
         }
-
-
-
-
+      case "Edit Permission":
+        {
+          return   EditPermissionsDialogBox();
+        }
         default: {
         return Container(
           width: 484,

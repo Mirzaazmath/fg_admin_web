@@ -251,7 +251,7 @@ class _OrderDetailsDialogBoxState extends State<OrderDetailsDialogBox> {
                 ],
               ),
             ),
-            const Divider(
+            widget.state=="Out for delivery"?const  SizedBox(height: 48,): const Divider(
               height: 48,
             ),
             btnRow(widget.state),
