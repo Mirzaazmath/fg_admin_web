@@ -7,6 +7,7 @@ import 'package:admin_panel/components/dailogs/delete_profile_dailog.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:flutter/material.dart';
 import '../dailogs/add_driver_dailog.dart';
+import '../dailogs/add_product_dailog.dart';
 import '../dailogs/add_team_member_dailog.dart';
 import '../dailogs/allocated_driver.dart';
 import '../dailogs/delete_bowser_dailog.dart';
@@ -112,6 +113,11 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return   EditPermissionsDialogBox();
         }
+      case "Add New Product":
+        {
+          return  const  AddProductDialogBox();
+        }
+        //AddProductDialogBox
         default: {
         return Container(
           width: 484,

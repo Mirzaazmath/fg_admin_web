@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../presentation/dashboard_page.dart';
 import '../presentation/logiin_page.dart';
 
-List<String>routesNameList=[RouteNames.ordersPagePath,RouteNames.customersPagePath,RouteNames.businessProfilePagePath,RouteNames.partnerPagePath,RouteNames.bowsersPagePath,RouteNames.driversPagePath,RouteNames.transactionsPagePath,RouteNames.appSettingPagePath,RouteNames.rolePermissionsPagePath,RouteNames.teamPagePath,RouteNames.paymentMethodPagePath];
+List<String>routesNameList=[RouteNames.ordersPagePath,RouteNames.customersPagePath,RouteNames.businessProfilePagePath,RouteNames.storePagePath,RouteNames.categoryPagePath, RouteNames.partnerPagePath,RouteNames.bowsersPagePath,RouteNames.driversPagePath,RouteNames.transactionsPagePath,RouteNames.appSettingPagePath,RouteNames.rolePermissionsPagePath,RouteNames.teamPagePath,RouteNames.paymentMethodPagePath];
 
 final GoRouter routerConfig = GoRouter(
   initialLocation: RouteNames.loginPagePath,

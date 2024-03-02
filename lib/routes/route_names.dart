@@ -11,4 +11,7 @@ class RouteNames {
   static const String rolePermissionsPagePath = '/rolePermission';
   static const String teamPagePath = '/team';
   static const String transactionsPagePath = '/transactions';
+  static const String storePagePath = '/store';
+  static const String categoryPagePath = '/category';
+
 }

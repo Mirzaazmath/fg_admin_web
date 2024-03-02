@@ -1,8 +1,10 @@
 import 'package:admin_panel/presentation/bower_page.dart';
+import 'package:admin_panel/presentation/category_page.dart';
 import 'package:admin_panel/presentation/customer_page.dart';
 import 'package:admin_panel/presentation/partner_page.dart';
 import 'package:admin_panel/presentation/payment_method_page.dart';
 import 'package:admin_panel/presentation/role_permission_page.dart';
+import 'package:admin_panel/presentation/product_page.dart';
 import 'package:admin_panel/presentation/team_management_page.dart';
 import 'package:admin_panel/presentation/transaction_page.dart';
 import 'package:admin_panel/provider/siderbar_provider.dart';
@@ -18,7 +20,7 @@ import 'driver_page.dart';
 import 'order_page.dart';
 
 var appColors=AppColors();
-List<Widget>pageList=[const OrderPage(),const CustomerPage(),const BusinessPage(),const PartnersPage(),const BowsersPage(),const DriverPage(),const TransactionPage(),const AppSettingPage(),const RoleAndPermissionPage(),const TeamManagementPage(),const PaymentMethodPage()];
+List<Widget>pageList=[const OrderPage(),const CustomerPage(),const BusinessPage(),const StorePage(),const CategoryPage(),const PartnersPage(),const BowsersPage(),const DriverPage(),const TransactionPage(),const AppSettingPage(),const RoleAndPermissionPage(),const TeamManagementPage(),const PaymentMethodPage()];
 
 class DashBoardPage extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
