@@ -20,7 +20,7 @@ import 'driver_page.dart';
 import 'order_page.dart';
 
 var appColors=AppColors();
-List<Widget>pageList=[const OrderPage(),const CustomerPage(),const BusinessPage(),const StorePage(),const CategoryPage(),const PartnersPage(),const BowsersPage(),const DriverPage(),const TransactionPage(),const AppSettingPage(),const RoleAndPermissionPage(),const TeamManagementPage(),const PaymentMethodPage()];
+List<Widget>pageList=[const OrderPage(),const CustomerPage(),const BusinessPage(),const ProductsPage(),const CategoryPage(),const PartnersPage(),const BowsersPage(),const DriverPage(),const TransactionPage(),const AppSettingPage(),const RoleAndPermissionPage(),const TeamManagementPage(),const PaymentMethodPage()];
 
 class DashBoardPage extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
