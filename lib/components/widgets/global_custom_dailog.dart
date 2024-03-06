@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../dailogs/add_driver_dailog.dart';
 import '../dailogs/add_product_dailog.dart';
 import '../dailogs/add_team_member_dailog.dart';
+import '../dailogs/add_variant_dailog.dart';
 import '../dailogs/allocated_driver.dart';
 import '../dailogs/delete_bowser_dailog.dart';
 import '../dailogs/delete_driver_dailog.dart';
@@ -117,7 +118,11 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return  const  AddProductDialogBox();
         }
-        //AddProductDialogBox
+      // case "Add Variant":
+      //   {
+      //     return  const  AddVariantDialogBox();
+      //   }
+       //AddVariantDialogBox
         default: {
         return Container(
           width: 484,
