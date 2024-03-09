@@ -12,13 +12,8 @@ class NetworkServices  {
   // Main Url
   final String domainUrl = "";
 
-
-
-
   Future<String?> get authorizationToken async {
     final prefs = await SharedPreferences.getInstance();
-
-
     String authToken = prefs.getString("authToken") ?? '';
 
     if (authToken.length > 4) {

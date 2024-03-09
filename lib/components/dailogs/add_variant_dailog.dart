@@ -8,7 +8,10 @@ import '../../utils/text_feild_utils.dart';
 
 
 class AddVariantDialogBox extends StatefulWidget {
-  const AddVariantDialogBox({super.key});
+  VariantModel? variantData;
+  int index;
+  bool isEdit;
+   AddVariantDialogBox({super.key,required this.variantData,required this.isEdit,required this.index});
   @override
   _AddVariantDialogBoxState createState() => _AddVariantDialogBoxState();
 }
@@ -17,6 +20,21 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
   List<TextEditingController> _controllers = [];
   List<Field>valueField=[];
   List<SubVariantModel>?values=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(widget.isEdit){
+      optionNameController.text=widget.variantData!.title;
+      for(int i =0;i<widget.variantData!.values!.length;i++){
+        final controller = TextEditingController(text: widget.variantData!.values![i].subtitle);
+        final field =  Field(controller: controller, hintText: "",);
+        _controllers.add(controller);
+        valueField.add(field);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -103,7 +121,9 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [TextBtn(
                     width: 100,
-                      title: "Cancel", onTap: (){}),
+                      title: "Cancel", onTap: (){
+                      Navigator.pop(context);
+                  }),
                     BorderBtn(
                       width: 120,
                         title: "Save", onTap: (){
@@ -115,8 +135,10 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
 
                           }
                         }
+
                         final variant=VariantModel(title:optionNameController.text,values:values);
-                       Navigator.of(context).pop(variant);
+                        final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
+                       Navigator.of(context).pop(returnObject);
 
                     })
                   ],
@@ -131,7 +153,13 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
     );
   }
 }
+class ReturnObject{
+  final int index;
+  final bool isEdit;
+  final VariantModel variant;
+  ReturnObject({required this.variant,required this.index,required this.isEdit});
 
+}
 class VariantModel{
   final String title;
   final List<SubVariantModel>? values;

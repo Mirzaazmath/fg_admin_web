@@ -24,7 +24,10 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
   TextEditingController skuController=TextEditingController();
   List<String> unitList = <String>['1L', '2L', '3L', '4L',"5L","10L","20L"];
   String selectedUnit = "1L";
-  VariantModel? variantData;
+  List<String> statusList = <String>['Active', 'Inactive',];
+  String selectedStatus = "Active";
+  List<VariantModel>variantDataList=[];
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,122 +104,200 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
 
                    const  TitleText(text: "Variants"),
                    const SizedBox(height: 16,),
-                   variantData==null?const SizedBox():Container(
-                     padding:const  EdgeInsets.all(16),
+                   variantDataList.isEmpty?const SizedBox():
+                       ListView.builder(
+                         shrinkWrap: true,
+                           itemCount:variantDataList.length,
+                           itemBuilder: (context,index){
+                         return    Container(
+                           padding:const  EdgeInsets.all(16),
+                           margin:const  EdgeInsets.only(bottom: 16),
+                           decoration: BoxDecoration(
+                             border: Border.all(),
+                             borderRadius: BorderRadius.circular(16),
+                           ),
+                           child: Column(
+                             children: [
+                               Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   DescriptionText(text: variantDataList[index].title),
+                                   TextBtn(
+                                       width: 100,
+                                       title: "Edit", onTap: (){
+                                     //Edit Variant
+                                     _showOrderDetailDialog(true,index);
 
-                   decoration: BoxDecoration(
-                     border: Border.all(),
-                     borderRadius: BorderRadius.circular(16),
-                   ),
-                   child: Column(
-                     children: [
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           DescriptionText(text: variantData!.title),
-                           TextBtn(
-                             width: 100,
-                               title: "Edit", onTap: (){
-
-                           }),
+                                   }),
 
 
-                         ],
-                       ),
-                       const  SizedBox(height: 24,),
-                       Wrap(
-                        runSpacing: 10,
-                         children: [
-                           for(int i=0;i<variantData!.values!.length;i++)
-                             Padding(
-                               padding: const EdgeInsets.only(right: 10),
-                               child: Chip(
-                                 backgroundColor: appColors.chipColor,
-                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                   label:Text(variantData!.values![i].subtitle) ),
-                             )
+                                 ],
+                               ),
+                               const  SizedBox(height: 24,),
+                               Wrap(
+                                 runSpacing: 10,
+                                 children: [
+                                   for(int i=0;i<variantDataList[index].values!.length;i++)
+                                     Padding(
+                                       padding: const EdgeInsets.only(right: 10),
+                                       child: Chip(
+                                           backgroundColor: appColors.chipColor,
+                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                           label:Text(variantDataList[index].values![i].subtitle) ),
+                                     )
 
-                         ],
-                       )
-                     ],
+                                 ],
+                               )
+                             ],
 
-                     
-                   ),),
+
+                           ),);
+                       }),
+
                  const  Divider(
-                   height: 48,
+
 
                   ),
                    TextBtn(
                        width: 160,
                        title: "+ Add option", onTap: (){
                         //Add Variant
-                     _showOrderDetailDialog();
+                     _showOrderDetailDialog(false,0);
                    }),
                    const SizedBox(height: 24,),
 
-                   const  TitleText(text: "Variant List"),
-                   const SizedBox(height: 24,),
-                    Row(
+                   variantDataList.isEmpty?const SizedBox():
+                   Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       Expanded(
-                         flex:2,
-                           child:  DescriptionText (text: "Variant",color: appColors.blackColor,)),
-                       Expanded(
-                           flex:1,
-                           child:  DescriptionText (text: "Price",color: appColors.blackColor)),
-                       Expanded(
-                           flex:1,
-                           child:  DescriptionText (text: "Available",color: appColors.blackColor)),
+                       const  TitleText(text: "Variant List"),
+                       const SizedBox(height: 24,),
+                       Row(
+                         children: [
+                           Expanded(
+                               flex:2,
+                               child:  DescriptionText (text: "Variant",color: appColors.blackColor,)),
+                           Expanded(
+                               flex:1,
+                               child:  DescriptionText (text: "Price",color: appColors.blackColor)),
+                           Expanded(
+                               flex:1,
+                               child:  DescriptionText (text: "Available",color: appColors.blackColor)),
+                         ],
+                       ),
+                       const Divider(
+                         height: 32,
+                       ),
+                       ListView.builder(
+                           shrinkWrap: true,
+                           itemCount: variantDataList[0].values!.length,
+                           itemBuilder: (context,index){
+                             final controller1 = TextEditingController();
+                             final controller2 = TextEditingController();
+
+                             return   Theme(
+                               data: ThemeData(dividerColor: Colors.transparent),
+                               child: IgnorePointer(
+                                 ignoring:variantDataList.length>1? false: true,
+                                 child: ExpansionTile(
+                                   tilePadding: EdgeInsets.zero,
+
+                                   trailing:const  SizedBox(),
+
+                                   title: Container(
+                                   height: 88,
+                                   padding: const EdgeInsets.symmetric(vertical: 10),
+                                   decoration: BoxDecoration(
+                                       border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                                   ),
+                                   child:  Row(
+                                     children: [
+                                       Expanded(
+                                         flex:2,
+                                         child: ListTile(
+                                           contentPadding: EdgeInsets.zero,
+                                           leading:Container(
+                                             height: 56,
+                                             width: 56,
+                                             color: appColors.lightGreyColor,
+                                           ) ,
+                                           title: DescriptionText (text: variantDataList[0].values![index].subtitle,color: appColors.blackColor),
+                                           subtitle:
+                                                  DescriptionText (text:variantDataList.length>1? "Variant":"",color: appColors.blueColor)),
+ ),
+                                       Expanded(
+                                         flex:1,
+                                         child:  Padding(
+                                             padding:const  EdgeInsets.only(right: 10,),
+                                             child:Field(controller: controller1, hintText: '00.00',isNumberType: true,)),
+                                       ),
+                                       Expanded(
+                                         flex:1,
+                                         child:  Padding(
+                                             padding:const  EdgeInsets.only(left: 10,),
+                                             child:Field(controller: controller2, hintText: '0',isNumberType: true,)),
+                                       )
+                                     ],
+                                   ),
+                                                              ),
+                                   ///// children for Variant
+                                   children: [variantDataList.length>1?
+                                      Padding(
+                                       padding: const EdgeInsets.symmetric(horizontal: 20),
+                                       child: ListView.builder(
+                                           shrinkWrap: true,
+                                           itemCount: variantDataList[1].values!.length,
+                                           itemBuilder: (context,index){
+                                             final controller1 = TextEditingController();
+                                             final controller2 = TextEditingController();
+
+                                             return    Container(
+                                               height: 88,
+                                               padding: const EdgeInsets.symmetric(vertical: 10),
+                                               decoration: BoxDecoration(
+                                                   border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
+                                               ),
+                                               child:  Row(
+                                                 children: [
+                                                   Expanded(
+                                                     flex:2,
+                                                     child: ListTile(
+                                                         contentPadding: EdgeInsets.zero,
+                                                         leading:Container(
+                                                           height: 56,
+                                                           width: 56,
+                                                           color: appColors.lightGreyColor,
+                                                         ) ,
+                                                         title: DescriptionText (text: variantDataList[1].values![index].subtitle,color: appColors.blackColor),
+                                                         subtitle:
+                                                         DescriptionText (text:variantDataList.length>1? "Variant":"",color: appColors.blueColor)),
+                                                   ),
+                                                   Expanded(
+                                                     flex:1,
+                                                     child:  Padding(
+                                                         padding:const  EdgeInsets.only(right: 10,),
+                                                         child:Field(controller: controller1, hintText: '00.00',isNumberType: true,)),
+                                                   ),
+                                                   Expanded(
+                                                     flex:1,
+                                                     child:  Padding(
+                                                         padding:const  EdgeInsets.only(left: 10,),
+                                                         child:Field(controller: controller2, hintText: '0',isNumberType: true,)),
+                                                   )
+                                                 ],
+                                               ),
+                                             );}),
+                                     ):const SizedBox(),
+                                   ],
+                                 ),
+                               ),
+                             );}),
                      ],
                    ),
-                   const Divider(
-                     height: 32,
-                   ),
-                   Container(
-                     height: 88,
-                     padding: const EdgeInsets.symmetric(vertical: 10),
-                     decoration: BoxDecoration(
-                       border: Border(bottom: BorderSide(color: appColors.lightGreyColor))
-                     ),
-                     child:  Row(
-                       children: [
-                         Expanded(
-                             flex:2,
-                             child: ListTile(
-                               contentPadding: EdgeInsets.zero,
-                               leading:Container(
-                                 height: 56,
-                                 width: 56,
-                                 color: appColors.lightGreyColor,
-                               ) ,
-                               title: DescriptionText (text: "Large",color: appColors.blackColor),
-                               subtitle:DescriptionText (text: "Variant",color: appColors.blueColor),
-                             ),
 
 
-                             ),
-                         Expanded(
-                             flex:1,
-                             child:  Padding(
-                               padding:const  EdgeInsets.only(right: 10,),
-                               child:Field(controller: skuController, hintText: '',)),
-                             ),
-                         Expanded(
-                           flex:1,
-                           child:  Padding(
-                               padding:const  EdgeInsets.only(left: 10,),
-                               child:Field(controller: skuController, hintText: '',)),
-                         )
-                       ],
-                     ),
-                     ),
 
 
-                   const SizedBox(height: 40,),
-                   ColorBtn(title: "Save Bowser", onTap: (){
-                     Navigator.pop(context);
-                     showSnackBar(context,"Bowser Added Successfully");
-                   })
                  ],
                ),
              ),),
@@ -229,15 +310,28 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                crossAxisAlignment: CrossAxisAlignment.start,
                mainAxisAlignment: MainAxisAlignment.start,
                children: <Widget>[ const SizedBox(height: 16,),
-                 const  TitleText(text: "Pricing"),
+                 const  TitleText(text: "Status"),
                  const SizedBox(height: 16,),
-                 Row(
-                   children: [
-                     Expanded(child: Field(controller: priceController, hintText: 'Price',isNumberType: true,)),
-                     const  SizedBox(width: 16,),
-                     Expanded(child: Field(controller: comparePriceController, hintText: 'Compare-at price',isNumberType: true,)),
-                   ],
-                 ),
+                 DropField(selectValue: selectedStatus, valueList: statusList, onChange: (String value) {
+                   setState(() {selectedStatus=value;
+                   });
+                 },),
+                 const SizedBox(height: 24,),
+                 const  TitleText(text: "Product organisation"),
+                 const SizedBox(height: 16,),
+                 DropField(selectValue: selectedStatus, valueList: statusList, onChange: (String value) {
+                   setState(() {selectedStatus=value;
+                   });
+                 },),
+                 const SizedBox(height: 8,),
+                 const TextUtil(text: "Determines US tax rates",size: 11,),
+                 const SizedBox(height: 24,),
+                const  Divider(),
+                 TextBtn(
+                     width: 160,
+                     title: "+ Add Category", onTap: (){
+
+                 }),
 
 
 
@@ -269,21 +363,29 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
       ),
     );
   }
-  _showOrderDetailDialog()async{
+  _showOrderDetailDialog(bool isEdit,index)async{
    final dynamic variant= await  showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return const AddVariantDialogBox();
+          return  AddVariantDialogBox(variantData:isEdit? variantDataList[index]:null, isEdit: isEdit,index: index,);
         }
 
     );
+
    if(variant==null){
 
-   }else{
+   }else {
+     if(variant.isEdit==true){
+       variantDataList[variant.index]=variant.variant;
+     }else{
+       variantDataList.add(variant.variant);
+     }
+
+
      setState(() {
-       variantData=variant;
+
      });
-     print(variantData?.title);
+     print(variantDataList);
    }
 
   }
