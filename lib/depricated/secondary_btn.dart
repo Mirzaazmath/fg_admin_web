@@ -8,7 +8,7 @@ class SecondaryBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   SizedBox(
-      height: 40,
+      height: 42,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: appColors.whiteColor,
