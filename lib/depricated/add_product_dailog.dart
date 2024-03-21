@@ -10,12 +10,12 @@ import '../../utils/text_feild_utils.dart';
 import '../widgets/toast_widget.dart';
 import 'add_variant_dailog.dart';
 
-class AddProductDialogBox extends StatefulWidget {
-  const AddProductDialogBox({super.key});
+class AddProductDialogBox1 extends StatefulWidget {
+  const AddProductDialogBox1({super.key});
   @override
   _AddProductDialogBoxState createState() => _AddProductDialogBoxState();
 }
-class _AddProductDialogBoxState extends State<AddProductDialogBox> {
+class _AddProductDialogBoxState extends State<AddProductDialogBox1> {
   TextEditingController productNameController=TextEditingController();
   TextEditingController descriptionController=TextEditingController();
   TextEditingController priceController=TextEditingController();
