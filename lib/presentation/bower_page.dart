@@ -184,7 +184,7 @@ class _BowsersPageState extends State<BowsersPage> {
                             child: Row(
                               children: [
                               const   Expanded(child: DescriptionText(text: "1234567890",)),
-                              const   Expanded(child:  Expanded(child: DescriptionText(text: "Kiran Naik",),)),
+                              const   Expanded(child:  DescriptionText(text: "Kiran Naik",)),
                               const   Expanded(child: DescriptionText(text: "500/2500 lt",)),
                               const   Expanded(child: DescriptionText(text: "6",)),
                                 Expanded(child: Align(
