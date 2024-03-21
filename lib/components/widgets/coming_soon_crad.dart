@@ -1,3 +1,4 @@
+import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/text_utils.dart';
@@ -19,7 +20,7 @@ final  String title;
             children: [
               TextUtil( text: title,size: 22,weight: true,),
               const  Icon(Icons.hourglass_top,size: 100,color: Colors.grey,),
-              TextUtil( text: 'Coming soon...',size: 20,),
+               TextUtil( text: 'Coming soon...',size: 20,color: appColors.redColor,),
             ],
           ),
 
