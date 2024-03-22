@@ -1,34 +1,34 @@
 import 'package:admin_panel/components/dailogs/add_bowser_dialog.dart';
 import 'package:admin_panel/components/dailogs/allocate_bowser_dailog.dart';
 import 'package:admin_panel/components/dailogs/cancel_order_dailog.dart';
-import 'package:admin_panel/depricated/confirm_order_dialog.dart';
+
 import 'package:admin_panel/components/dailogs/create_customer_dailog.dart';
 import 'package:admin_panel/components/dailogs/delete_profile_dailog.dart';
 import 'package:admin_panel/provider/dialog_provider.dart';
 import 'package:flutter/material.dart';
+import '../dailogs/add_category.dart';
 import '../dailogs/add_driver_dailog.dart';
-import '../dailogs/add_product_dailog.dart';
+import '../dailogs/add_new_product.dart';
+
 import '../dailogs/add_team_member_dailog.dart';
-import '../dailogs/add_variant_dailog.dart';
 import '../dailogs/allocated_driver.dart';
 import '../dailogs/delete_bowser_dailog.dart';
 import '../dailogs/delete_driver_dailog.dart';
 import '../dailogs/edit_permission_dialog.dart';
 import '../dailogs/refund_initiate_dailog.dart';
 import 'package:provider/provider.dart';
-
 import '../../depricated/view_order_dailog.dart';
 import '../dailogs/view_role.dart';
 
-
-showCustomDialog(context,selectedOption){
-  Provider.of<DialogProvider>(context,listen: false).updateOption(selectedOption);
-  showDialog(context: context,
+showCustomDialog(context, selectedOption) {
+  Provider.of<DialogProvider>(context, listen: false)
+      .updateOption(selectedOption);
+  showDialog(
+      context: context,
       barrierDismissible: true,
-      builder: (BuildContext context){
-        return  const GlobalCustomDialogBox();
-  }
-  );
+      builder: (BuildContext context) {
+        return const GlobalCustomDialogBox();
+      });
 }
 
 class GlobalCustomDialogBox extends StatelessWidget {
@@ -36,22 +36,19 @@ class GlobalCustomDialogBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      child: Consumer<DialogProvider>(
-     builder: (BuildContext context, provider, Widget? child) {
-      return dialogWidget(provider.selectOption);
-    }
-      )
-    );
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Consumer<DialogProvider>(
+            builder: (BuildContext context, provider, Widget? child) {
+          return dialogWidget(provider.selectOption);
+        }));
   }
-  Widget dialogWidget(String option){
 
-    switch(option) {
-
+  Widget dialogWidget(String option) {
+    switch (option) {
       // case "Confirm order":
       // {
       // return const  ConfirmOrderDialogBox();
@@ -59,84 +56,88 @@ class GlobalCustomDialogBox extends StatelessWidget {
 
       case "Allocate bowser":
         {
-          return const  AllocateBowserDialogBox();
+          return const AllocateBowserDialogBox();
         }
       case "Cancel order":
         {
-          return const  CancelOrderDialogBox();
+          return const CancelOrderDialogBox();
         }
       case "Initiate refund":
         {
-          return const  RefundInitiateDialogBox();
+          return const RefundInitiateDialogBox();
         }
       case "New Customer":
         {
-          return const   CreateCustomerDialogBox();
+          return const CreateCustomerDialogBox();
         }
       case "Add bowsers":
         {
-          return const   AddBowserDialogBox();
+          return const AddBowserDialogBox();
         }
 
       case "Add Driver":
         {
-          return const   AddDriverDialogBox();
+          return const AddDriverDialogBox();
         }
       case "Delete Profile":
         {
-          return const  DeleteProfileDialogBox();
+          return const DeleteProfileDialogBox();
         }
       case "Add team member":
         {
-          return   const AddTeamMemberDialogBox();
+          return const AddTeamMemberDialogBox();
         }
       case "View Order":
         {
-          return   const ViewOrderDialogBox();
+          return const ViewOrderDialogBox();
         }
       case "Allocate Driver":
         {
-          return   const AllocateDriverDialogBox();
+          return const AllocateDriverDialogBox();
         }
       case "Delete Driver":
         {
-          return   const DeleteDriverDialogBox();
+          return const DeleteDriverDialogBox();
         }
       case "Delete details":
         {
-          return   const DeleteBowserDialogBox();
+          return const DeleteBowserDialogBox();
         }
       case "Show Role":
         {
-          return    ViewRoleDetailDialogBox();
+          return ViewRoleDetailDialogBox();
         }
       case "Edit Permission":
         {
-          return   EditPermissionsDialogBox();
+          return EditPermissionsDialogBox();
         }
       case "Add New Product":
         {
-          return  const  AddProductDialogBox();
+          return const AddProductDialogBox();
         }
+      // case "Add Category":
+      //   {
+      //     return const AddCategoryDialogBox();
+      //   }
+
       // case "Add Variant":
       //   {
       //     return  const  AddVariantDialogBox();
       //   }
-       //AddVariantDialogBox
-        default: {
-        return Container(
-          width: 484,
-          height: 500,
-          padding: const  EdgeInsets.all(36),
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-        );
-      }
-
+      //AddVariantDialogBox
+      default:
+        {
+          return Container(
+            width: 484,
+            height: 500,
+            padding: const EdgeInsets.all(36),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          );
+        }
     }
-
   }
 }

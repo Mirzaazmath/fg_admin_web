@@ -4,11 +4,11 @@ import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:admin_panel/utils/text_utils.dart';
 import 'package:flutter/material.dart';
-import '../../utils/drop_down_utils.dart';
-import '../../utils/text_feild_utils.dart';
+import '../utils/drop_down_utils.dart';
+import '../utils/text_feild_utils.dart';
 
-import '../widgets/toast_widget.dart';
-import 'add_variant_dailog.dart';
+import '../components/widgets/toast_widget.dart';
+import '../components/dailogs/add_variant_dailog.dart';
 
 class AddProductDialogBox1 extends StatefulWidget {
   const AddProductDialogBox1({super.key});
@@ -367,7 +367,8 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox1> {
    final dynamic variant= await  showDialog(context: context,
         barrierDismissible: true,
         builder: (BuildContext context){
-          return  AddVariantDialogBox(variantData:isEdit? variantDataList[index]:null, isEdit: isEdit,index: index,);
+          return  SizedBox();
+          //  AddVariantDialogBox(variantData:isEdit? variantDataList[index]:null, isEdit: isEdit,index: index,);
         }
 
     );

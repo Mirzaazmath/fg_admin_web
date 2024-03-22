@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:admin_panel/components/widgets/bottons/border_btn.dart';
 import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/components/widgets/toast_widget.dart';
@@ -9,9 +11,11 @@ import '../../utils/text_feild_utils.dart';
 
 class AddVariantDialogBox extends StatefulWidget {
   VariantModel? variantData;
+  Function(VariantModel data) onSave;
+  Function() onCancel;
   int index;
   bool isEdit;
-   AddVariantDialogBox({super.key,required this.variantData,required this.isEdit,required this.index});
+   AddVariantDialogBox({super.key,required this.variantData,required this.isEdit,required this.index,required this.onSave,required this.onCancel});
   @override
   _AddVariantDialogBoxState createState() => _AddVariantDialogBoxState();
 }
@@ -37,16 +41,9 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
   }
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-
-      child: Container(
+    return Container(
         width: 484,
-        padding: const  EdgeInsets.all(26),
+
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           color: Colors.white,
@@ -57,16 +54,7 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const   TextUtil(text: 'Variants',size: 16,),
-                IconButton(onPressed: (){
-                  Navigator.pop(context);
-                }, icon:const  Icon(Icons.close))
-              ],
-            ),
-            const SizedBox(height: 24,),
+             const SizedBox(height: 16,),
            Container(
              padding: const EdgeInsets.all(16),
              decoration: BoxDecoration(
@@ -121,9 +109,13 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [TextBtn(
                     width: 100,
-                      title: "Cancel", onTap: (){
-                      Navigator.pop(context);
-                  }),
+                      title: "Cancel",
+                      onTap: widget.onCancel
+                      //     (){
+                      //
+                      // // Navigator.pop(context);
+                      //  }
+                  ),
                     BorderBtn(
                       width: 120,
                         title: "Save", onTap: (){
@@ -137,8 +129,9 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                         }
 
                         final variant=VariantModel(title:optionNameController.text,values:values);
-                        final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
-                       Navigator.of(context).pop(returnObject);
+                        widget.onSave(variant);
+                       // final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
+                      // Navigator.of(context).pop(returnObject);
 
                     })
                   ],
@@ -146,10 +139,11 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                ],
              )
              ,
-           )
+           ),
+            const SizedBox(height: 24,),
           ],
         ),
-      ),
+
     );
   }
 }
