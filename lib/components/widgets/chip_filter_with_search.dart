@@ -15,6 +15,7 @@ class ChipFilterBtnWithSearch extends StatefulWidget {
 }
 
 class _ChipFilterBtnWithSearchState extends State<ChipFilterBtnWithSearch> {
+  TextEditingController searchController =TextEditingController();
   List<String>searchList=[];
   List<String> itemList=[];
 
@@ -67,6 +68,7 @@ class _ChipFilterBtnWithSearchState extends State<ChipFilterBtnWithSearch> {
                         margin:const  EdgeInsets.only(bottom: 10),
                         width: 360,
                         child: TextFormField(
+                          controller: searchController,
                           onChanged:  (val){
                             setStates(() {
                               searchList = widget.filterList.where((item) =>item.toLowerCase().contains(val.toLowerCase())).toList();
@@ -79,12 +81,16 @@ class _ChipFilterBtnWithSearchState extends State<ChipFilterBtnWithSearch> {
                           ),
                         ),
                       ),
+
                       itemList.isEmpty?const  Center(child: TextUtil(text: "No Match Found",),): Expanded(
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
                            for(int i=0;i<itemList.length;i++)...[
                              ListTile(
+                                 onTap: (){
+                                   searchController.text=itemList[i];
+                                 },
                                  leading: CircleAvatar(child: Text(itemList[i].substring(0,1)),),
                                  title: TextUtil( text:itemList[i],size: 16,)
                              ),

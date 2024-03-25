@@ -5,6 +5,7 @@ import 'package:admin_panel/components/widgets/bottons/text_btn.dart';
 import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:admin_panel/presentation/dashboard_page.dart';
 import 'package:admin_panel/utils/text_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../utils/text_feild_utils.dart';
 
@@ -12,10 +13,11 @@ import '../../utils/text_feild_utils.dart';
 class AddVariantDialogBox extends StatefulWidget {
   VariantModel? variantData;
   Function(VariantModel data) onSave;
+  Function(VariantModel data) onDelete;
   Function() onCancel;
   int index;
   bool isEdit;
-   AddVariantDialogBox({super.key,required this.variantData,required this.isEdit,required this.index,required this.onSave,required this.onCancel});
+   AddVariantDialogBox({super.key,required this.variantData,required this.isEdit,required this.index,required this.onSave,required this.onCancel,required this.onDelete});
   @override
   _AddVariantDialogBoxState createState() => _AddVariantDialogBoxState();
 }
@@ -42,7 +44,7 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 484,
+
 
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -106,36 +108,54 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                }),
                  const SizedBox(height: 16,),
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [TextBtn(
-                    width: 100,
-                      title: "Cancel",
-                      onTap: widget.onCancel
-                      //     (){
-                      //
-                      // // Navigator.pop(context);
-                      //  }
-                  ),
-                    BorderBtn(
-                      width: 120,
-                        title: "Save", onTap: (){
-                        for(int i=0;i<_controllers.length;i++){
-                          if(_controllers[i].text==""){
-                            showSnackBar(context, "Please Enter Value at Value$i");
-                          }else{
-                            values?.add(SubVariantModel(subtitle:_controllers[i].text ));
+                    children: [
+                      valueField.isEmpty?const SizedBox():BorderBtn(
+                        color: Colors.red,
+                          width: 120,
+                          title: "Delete", onTap:widget.isEdit?(){
+                        widget.onDelete(widget.variantData!);
 
-                          }
-                        }
+                      }:widget.onCancel,),
 
-                        final variant=VariantModel(title:optionNameController.text,values:values);
-                        widget.onSave(variant);
-                       // final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
-                      // Navigator.of(context).pop(returnObject);
 
-                    })
-                  ],
-                )
+
+
+
+
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [TextBtn(
+                              width: 100,
+                              title: "Cancel",
+                              onTap: widget.onCancel
+
+                          ),
+                            BorderBtn(
+                                width: 120,
+                                title: "Save", onTap: (){
+                              for(int i=0;i<_controllers.length;i++){
+                                if(_controllers[i].text==""){
+                                  showSnackBar(context, "Please Enter Value at Value$i");
+                                }else{
+                                  values?.add(SubVariantModel(subtitle:_controllers[i].text ));
+
+                                }
+                              }
+
+                              final variant=VariantModel(title:optionNameController.text,values:values);
+                              widget.onSave(variant);
+                              // final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
+                              // Navigator.of(context).pop(returnObject);
+
+                            })
+                          ],
+                        ),
+                      )
+
+                    ],
+                  )
+
                ],
              )
              ,

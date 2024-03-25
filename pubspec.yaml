@@ -38,6 +38,8 @@ dependencies:
   http: ^1.2.0
   # For Handling Routes
   go_router: ^13.2.0
+  # For File pick
+  file_picker: ^8.0.0+1
 
 
 

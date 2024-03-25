@@ -6,7 +6,8 @@ class BorderBtn extends StatelessWidget {
   final  VoidCallback onTap;
   final double? width;
   final Color? color;
-  const BorderBtn({super.key,required this.title, required this.onTap,this.width,this.color});
+  final Widget? child;
+  const BorderBtn({super.key,required this.title, required this.onTap,this.width,this.color,this.child});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,11 +15,11 @@ class BorderBtn extends StatelessWidget {
       width:width?? double.infinity,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor:color?? appColors.whiteColor,
-            side: const BorderSide(color: Colors.grey),
+            backgroundColor:appColors.whiteColor,
+            side:  BorderSide(color:color??  Colors.grey),
           ),
           onPressed: onTap,
-          child: TextUtil(text: title,color: appColors.blueColor,size: 14,)),
+          child:child?? TextUtil(text: title,color:color??  appColors.blueColor,size: 14,)),
     );
 
     //   InkWell(

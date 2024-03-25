@@ -23,6 +23,7 @@ class _OrderPageState extends State<OrderPage> {
 
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   List<String> durationList = <String>['Today',"Last 30days", 'This month', 'This Quarter',"Last Quarter",];
+
   String selectedFilter = "All";
   String searchFilter="All";
   String selectedDuration="Today";

@@ -1,4 +1,7 @@
+
+
 import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/drop_down_utils.dart';
@@ -6,6 +9,7 @@ import '../../utils/text_feild_utils.dart';
 import '../../utils/text_utils.dart';
 import '../widgets/bottons/border_btn.dart';
 import '../widgets/bottons/text_btn.dart';
+import '../widgets/toast_widget.dart';
 import 'add_category.dart';
 import 'add_variant_dailog.dart';
 
@@ -30,6 +34,33 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
     'Active',
     'Inactive',
   ];
+  // suggesstion list
+  static const List<String> _fruitOptions = <String>[
+    'apple',
+    'banana',
+    'orange',
+    'mango',
+    'grapes',
+    'watermelon',
+    'kiwi',
+    'strawberry',
+    'sugarcane',
+  ];
+
+void newNameOption(List<VariantModel> list){
+  List<String>name=[];
+  for(int i=0;i<list.length;i++){
+    for(int j=0;j<list[i].values!.length;j++){
+      //ƒname.add(value)
+    }
+
+  }
+
+}
+
+
+  List<PlatformFile> files = [];
+  String _fruit = "apple";
   String selectedStatus = "Active";
   List<String> categoryList = [];
   bool showAddVariantSection = false;
@@ -71,7 +102,7 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
             ),
             const TitleText(text: "Product name"),
             const SizedBox(
-              height: 24,
+              height: 16,
             ),
             Field(
               controller: productNameController,
@@ -86,33 +117,46 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
               maxLine: 5,
             ),
             const SizedBox(
-              height: 16,
+              height: 24,
             ),
-            const TitleText(text: "Product organisation"),
+            const TitleText(text: "Product category"),
             const SizedBox(
               height: 16,
             ),
-            Field(
-              controller: productCategory,
-              hintText: 'Product Category',
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              child: TextUtil(
-                text: "Determines US tax rates",
-                size: 12,
-              ),
-            ),
-            const Divider(),
-            TextBtn(
-                width: 160,
-                title: "+ Add Category",
-                onTap: () {
-                  _showOrderDetailDialog();
-                  // showCustomDialog(context,"Add Category");
-                  //Add Category
-                }),
-            const SizedBox(
+            // DropField(
+            //   selectValue: _fruit,
+            //   valueList: _fruitOptions,
+            //   onChange: (String value) {
+            //     setState(() {
+            //       _fruit = value;
+            //     });
+            //   },
+            // ),
+                Autocomplete<String>(
+
+                  optionsBuilder: (TextEditingValue fruitTextEditingValue) {
+
+                    // if user is input nothing
+                    if (fruitTextEditingValue.text == '') {
+                      return const Iterable<String>.empty();
+                    }
+
+                    // if user is input something the build
+                    // suggestion based on the user input
+                    return _fruitOptions.where((String option) {
+                      return option
+                          .contains(fruitTextEditingValue.text.toLowerCase());
+                    });
+                  },
+
+                  // when user click on the suggested
+                  // item this function calls
+                  onSelected: (String value) {
+                    debugPrint('You just selected $value');
+                  },
+                ),
+
+                const SizedBox(
               height: 24,
             ),
             const TitleText(text: "Pricing"),
@@ -178,7 +222,60 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
             const SizedBox(
               height: 16,
             ),
-            BorderBtn(width: 160, title: "Upload", onTap: () {}),
+            files.isEmpty
+                ? BorderBtn(
+                    width: 200,
+                    title: "Upload",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.file_upload_outlined,size: 20,color: appColors.blueColor),
+                        TextUtil(text: "Upload Images",color: appColors.blueColor,size: 14,)
+                      ],
+                    ),
+                    onTap: () {
+                      pickFileFromDevice();
+                    })
+                : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (int i = 0; i < files.length; i++) ...[
+                        Row(
+                          children: [
+                            Container(
+                              margin:const  EdgeInsets.only(bottom: 10),
+                              width: 200,
+                              child: Chip(
+                                shape:  RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100)
+                                ),
+                                  label: Text(files[i].name,)),
+                            ),
+                            const SizedBox(width: 50,),
+                            IconButton(onPressed: (){
+                             setState(() {
+                               files.remove(files[i]);
+                             });
+                            }, icon: Icon(Icons.delete_forever,color: appColors.redColor,))
+                          ],
+                        )
+                      ],
+                      const SizedBox(height: 20,),
+                      BorderBtn(
+                          width: 160,
+                          title: "Add More",
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.file_upload_outlined,size: 20,color: appColors.blueColor),
+                              TextUtil(text: "Add More",color: appColors.blueColor,size: 14,)
+                            ],
+                          ),
+                          onTap: () {
+                            pickFileFromDevice();
+                          })
+                    ],
+                  ),
             const SizedBox(
               height: 24,
             ),
@@ -246,7 +343,7 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                         ),
                       );
                     }),
-            const Divider(),
+           // const Divider(),
             showAddVariantSection
                 ? const SizedBox()
                 : Column(
@@ -269,13 +366,13 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                     variantData: selectedVariant,
                     isEdit: isEdit,
                     index: selectedIndex,
-                    onCancel: (){
-                     setState(() {
-                       showAddVariantSection = false;
-                       selectedIndex = 0;
-                       isEdit = false;
-                       selectedVariant = null;
-                     });
+                    onCancel: () {
+                      setState(() {
+                        showAddVariantSection = false;
+                        selectedIndex = 0;
+                        isEdit = false;
+                        selectedVariant = null;
+                      });
                     },
                     onSave: (VariantModel data) {
                       setState(() {
@@ -289,7 +386,16 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                         isEdit = false;
                         selectedVariant = null;
                       });
-                    },
+                    }, onDelete: (VariantModel data) {
+
+                     setState(() {
+                       variantDataList.remove(data);
+                       showAddVariantSection = false;
+                       selectedIndex = 0;
+                       isEdit = false;
+                       selectedVariant = null;
+                     });
+            },
                   )
                 : const SizedBox(),
             variantDataList.isEmpty
@@ -447,14 +553,7 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                                                                     .subtitle,
                                                                 color: appColors
                                                                     .blackColor),
-                                                            // subtitle: DescriptionText(
-                                                            //     text: variantDataList
-                                                            //                 .length >
-                                                            //             1
-                                                            //         ? "Variant"
-                                                            //         : "",
-                                                            //     color: appColors
-                                                            //         .blueColor)
+
                                                           ),
                                                         ),
                                                         Expanded(
@@ -503,6 +602,7 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                           }),
                     ],
                   ),
+          const   SizedBox(height: 30,),
             Row(
               children: [
                 SizedBox(
@@ -533,7 +633,10 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
                     const SizedBox(
                       width: 20,
                     ),
-                    ColorBtn(width: 100, title: "Save", onTap: () {})
+                    ColorBtn(width: 100, title: "Save", onTap: () {
+                      showSnackBar(context, "Product Added");
+                      Navigator.pop(context);
+                    })
                   ],
                 ))
               ],
@@ -541,6 +644,23 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
           ]),
         ));
   }
+
+  void pickFileFromDevice() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      if (files.isEmpty) {
+        files = result.files;
+      } else {
+        files.addAll(result.files);
+      }
+
+      setState(() {});
+    } else {
+      // User canceled the picker
+    }
+  }
+
 
   _showOrderDetailDialog() async {
     final dynamic category = await showDialog(
