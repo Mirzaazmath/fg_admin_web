@@ -1,4 +1,5 @@
 import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
+import 'package:admin_panel/components/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/text_feild_utils.dart';
@@ -63,7 +64,12 @@ class _AddCategoryDialogBoxState extends State<AddCategoryDialogBox> {
                 Expanded(
                   child: ColorBtn(
                     title: "Save", onTap: (){
-                    Navigator.pop(context);
+                      if(productTypeController.text==""){
+                        showSnackBar(context, "Enter Product Category");
+                      }else{
+                        Navigator.pop(context,productTypeController.text);
+                      }
+
 
 
                   },),

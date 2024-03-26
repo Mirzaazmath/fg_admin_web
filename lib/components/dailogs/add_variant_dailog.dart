@@ -134,17 +134,31 @@ class _AddVariantDialogBoxState extends State<AddVariantDialogBox> {
                             BorderBtn(
                                 width: 120,
                                 title: "Save", onTap: (){
-                              for(int i=0;i<_controllers.length;i++){
-                                if(_controllers[i].text==""){
-                                  showSnackBar(context, "Please Enter Value at Value$i");
-                                }else{
-                                  values?.add(SubVariantModel(subtitle:_controllers[i].text ));
+                                  if(optionNameController.text==""){
+                                    showSnackBar(context, "Please Enter Option Name");
+                                  }else{
 
-                                }
-                              }
+                                    if(_controllers.isEmpty){
+                                      showSnackBar(context, "Please Add One Option");
+                                    }else{
+                                      for(int i=0;i<_controllers.length;i++){
+                                        if(_controllers[i].text==""){
+                                          showSnackBar(context, "Please Enter Value at Value$i");
+                                        }else{
+                                          values?.add(SubVariantModel(subtitle:_controllers[i].text ));
 
-                              final variant=VariantModel(title:optionNameController.text,values:values);
-                              widget.onSave(variant);
+                                        }
+                                      }
+                                      final variant=VariantModel(title:optionNameController.text,values:values);
+                                      widget.onSave(variant);
+                                    }
+
+                                  }
+
+
+
+
+
                               // final  returnObject=ReturnObject(variant: variant,index: widget.index,isEdit: widget.isEdit);
                               // Navigator.of(context).pop(returnObject);
 

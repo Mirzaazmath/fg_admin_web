@@ -29,7 +29,7 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Text(text,
 
-      style:  TextStyle(color:color?? const Color(0xff43474E),fontSize:14,
+      style:  TextStyle(color:color?? const Color(0xff43474E),fontSize:16,
           fontWeight:FontWeight.w500, fontFamily: "Poppins"
       ),
       maxLines: 2,

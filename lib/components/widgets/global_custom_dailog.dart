@@ -115,10 +115,10 @@ class GlobalCustomDialogBox extends StatelessWidget {
         {
           return const AddProductDialogBox();
         }
-      // case "Add Category":
-      //   {
-      //     return const AddCategoryDialogBox();
-      //   }
+      case "Add Category":
+        {
+          return const AddCategoryDialogBox();
+        }
 
       // case "Add Variant":
       //   {

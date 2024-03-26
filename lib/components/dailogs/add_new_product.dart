@@ -1,14 +1,14 @@
-
-
 import 'package:admin_panel/components/widgets/bottons/color_btn.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/dashboard_page.dart';
 import '../../utils/drop_down_utils.dart';
+import '../../utils/search_text_field.dart';
 import '../../utils/text_feild_utils.dart';
 import '../../utils/text_utils.dart';
 import '../widgets/bottons/border_btn.dart';
 import '../widgets/bottons/text_btn.dart';
+import '../widgets/global_custom_dailog.dart';
 import '../widgets/toast_widget.dart';
 import 'add_category.dart';
 import 'add_variant_dailog.dart';
@@ -29,10 +29,11 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
   TextEditingController quantityController = TextEditingController();
   TextEditingController unitPriceController = TextEditingController();
   TextEditingController skuController = TextEditingController();
-  List<VariantModel> variantDataList = [];
+  List<VariantModel> variantDataList =[];
   List<String> statusList = <String>[
-    'Active',
-    'Inactive',
+    'In draft',
+    'Published',
+    "Unpublished"
   ];
   // suggesstion list
   static const List<String> _fruitOptions = <String>[
@@ -46,26 +47,29 @@ class _AddProductDialogBoxState extends State<AddProductDialogBox> {
     'strawberry',
     'sugarcane',
   ];
+  List<String>subVariantList=[];
 
-void newNameOption(List<VariantModel> list){
-  List<String>name=[];
-  for(int i=0;i<list.length;i++){
-    for(int j=0;j<list[i].values!.length;j++){
-      //ƒname.add(value)
+  void getSubVariantList(List<VariantModel> list) {
+    for(int i=0;i<list[0].values!.length;i++){
+      for(int j=0;j<list[1].values!.length;j++){
+        print("${list[0].values![i]} ${list[1].values![j]}");
+        subVariantList.add("${list[0].values![i]} ${list[1].values![j]}");
+
+      }
     }
+    setState(() {
+
+    });
 
   }
 
-}
-
-
   List<PlatformFile> files = [];
   String _fruit = "apple";
-  String selectedStatus = "Active";
+  String selectedStatus = "In draft";
   List<String> categoryList = [];
   bool showAddVariantSection = false;
   VariantModel? selectedVariant;
-  int selectedIndex = 0;
+  int selectedIndex = -1;
   bool isEdit = false;
 
   @override
@@ -123,40 +127,23 @@ void newNameOption(List<VariantModel> list){
             const SizedBox(
               height: 16,
             ),
-            // DropField(
-            //   selectValue: _fruit,
-            //   valueList: _fruitOptions,
-            //   onChange: (String value) {
-            //     setState(() {
-            //       _fruit = value;
-            //     });
-            //   },
-            // ),
-                Autocomplete<String>(
 
-                  optionsBuilder: (TextEditingValue fruitTextEditingValue) {
+            FieldWithSearch(
+              controller: productCategory,
+              hintText: 'Product Category',
+              list: _fruitOptions,
+              noDataFound: ()async {
+                print("hello S1");
+               var value = await showCustomDialog(context,"Add Category");
+               if(value!=null){
+                 setState(() {
+                   _fruitOptions.add(value);
+                 });
+               }
+              },
+            ),
 
-                    // if user is input nothing
-                    if (fruitTextEditingValue.text == '') {
-                      return const Iterable<String>.empty();
-                    }
-
-                    // if user is input something the build
-                    // suggestion based on the user input
-                    return _fruitOptions.where((String option) {
-                      return option
-                          .contains(fruitTextEditingValue.text.toLowerCase());
-                    });
-                  },
-
-                  // when user click on the suggested
-                  // item this function calls
-                  onSelected: (String value) {
-                    debugPrint('You just selected $value');
-                  },
-                ),
-
-                const SizedBox(
+            const SizedBox(
               height: 24,
             ),
             const TitleText(text: "Pricing"),
@@ -229,46 +216,66 @@ void newNameOption(List<VariantModel> list){
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(Icons.file_upload_outlined,size: 20,color: appColors.blueColor),
-                        TextUtil(text: "Upload Images",color: appColors.blueColor,size: 14,)
+                        Icon(Icons.file_upload_outlined,
+                            size: 20, color: appColors.blueColor),
+                        TextUtil(
+                          text: "Upload Images",
+                          color: appColors.blueColor,
+                          size: 14,
+                        )
                       ],
                     ),
                     onTap: () {
                       pickFileFromDevice();
                     })
                 : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (int i = 0; i < files.length; i++) ...[
                         Row(
                           children: [
                             Container(
-                              margin:const  EdgeInsets.only(bottom: 10),
+                              margin: const EdgeInsets.only(bottom: 10),
                               width: 200,
                               child: Chip(
-                                shape:  RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100)
-                                ),
-                                  label: Text(files[i].name,)),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100)),
+                                  label: Text(
+                                    files[i].name,
+                                  )),
                             ),
-                            const SizedBox(width: 50,),
-                            IconButton(onPressed: (){
-                             setState(() {
-                               files.remove(files[i]);
-                             });
-                            }, icon: Icon(Icons.delete_forever,color: appColors.redColor,))
+                            const SizedBox(
+                              width: 50,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    files.remove(files[i]);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.delete_forever,
+                                  color: appColors.redColor,
+                                ))
                           ],
                         )
                       ],
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       BorderBtn(
                           width: 160,
                           title: "Add More",
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(Icons.file_upload_outlined,size: 20,color: appColors.blueColor),
-                              TextUtil(text: "Add More",color: appColors.blueColor,size: 14,)
+                              Icon(Icons.file_upload_outlined,
+                                  size: 20, color: appColors.blueColor),
+                              TextUtil(
+                                text: "Add More",
+                                color: appColors.blueColor,
+                                size: 14,
+                              )
                             ],
                           ),
                           onTap: () {
@@ -289,7 +296,7 @@ void newNameOption(List<VariantModel> list){
                     shrinkWrap: true,
                     itemCount: variantDataList.length,
                     itemBuilder: (context, index) {
-                      return Container(
+                      return showAddVariantSection&&selectedIndex==index?const SizedBox(): Container(
                         padding: const EdgeInsets.all(16),
                         margin: const EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
@@ -343,19 +350,19 @@ void newNameOption(List<VariantModel> list){
                         ),
                       );
                     }),
-           // const Divider(),
+            // const Divider(),
             showAddVariantSection
                 ? const SizedBox()
                 : Column(
                     children: [
-                      TextBtn(
+                    variantDataList.length<3?  TextBtn(
                           width: 160,
                           title: "+ Add option",
                           onTap: () {
                             setState(() {
                               showAddVariantSection = true;
                             });
-                          }),
+                          }):const  SizedBox(),
                       const SizedBox(
                         height: 24,
                       ),
@@ -369,7 +376,7 @@ void newNameOption(List<VariantModel> list){
                     onCancel: () {
                       setState(() {
                         showAddVariantSection = false;
-                        selectedIndex = 0;
+                        selectedIndex = -1;
                         isEdit = false;
                         selectedVariant = null;
                       });
@@ -382,20 +389,20 @@ void newNameOption(List<VariantModel> list){
                           variantDataList.add(data);
                         }
                         showAddVariantSection = false;
-                        selectedIndex = 0;
+                        selectedIndex = -1;
                         isEdit = false;
                         selectedVariant = null;
                       });
-                    }, onDelete: (VariantModel data) {
-
-                     setState(() {
-                       variantDataList.remove(data);
-                       showAddVariantSection = false;
-                       selectedIndex = 0;
-                       isEdit = false;
-                       selectedVariant = null;
-                     });
-            },
+                    },
+                    onDelete: (VariantModel data) {
+                      setState(() {
+                        variantDataList.remove(data);
+                        showAddVariantSection = false;
+                        selectedIndex = -1;
+                        isEdit = false;
+                        selectedVariant = null;
+                      });
+                    },
                   )
                 : const SizedBox(),
             variantDataList.isEmpty
@@ -471,12 +478,18 @@ void newNameOption(List<VariantModel> list){
                                                       .values![index]
                                                       .subtitle,
                                                   color: appColors.blackColor),
-                                              subtitle: DescriptionText(
-                                                  text:
-                                                      variantDataList.length > 1
-                                                          ? "Variant"
-                                                          : "",
-                                                  color: appColors.blueColor)),
+                                              subtitle: Row(
+                                                children: [
+                                                  DescriptionText(
+                                                      text:
+                                                          variantDataList.length > 1
+                                                              ? "Variant"
+                                                              : "",
+                                                      color: appColors.blueColor),
+                                                  const SizedBox(width: 10,),
+                                                  variantDataList.length > 1? Icon(Icons.expand_more,color: appColors.blueColor):const SizedBox()
+                                                ],
+                                              )),
                                         ),
                                         Expanded(
                                           flex: 1,
@@ -505,6 +518,16 @@ void newNameOption(List<VariantModel> list){
                                       ],
                                     ),
                                   ),
+                                  onExpansionChanged: (value){
+                                  //   if( variantDataList.length < 2){
+                                  //
+                                  //   }else{
+                                  //   List<VariantModel> newList=  variantDataList;
+                                  //   newList.removeAt(0);
+                                  //     getSubVariantList(newList);
+                                  //   }
+                                  //
+                                  },
                                   ///// children for Variant
                                   children: [
                                     variantDataList.length > 1
@@ -513,9 +536,9 @@ void newNameOption(List<VariantModel> list){
                                                 horizontal: 20),
                                             child: ListView.builder(
                                                 shrinkWrap: true,
-                                                itemCount: variantDataList[1]
+                                                itemCount:subVariantList.isEmpty? variantDataList[1]
                                                     .values!
-                                                    .length,
+                                                    .length:subVariantList.length,
                                                 itemBuilder: (context, index) {
                                                   final controller1 =
                                                       TextEditingController();
@@ -546,14 +569,13 @@ void newNameOption(List<VariantModel> list){
                                                                   .lightGreyColor,
                                                             ),
                                                             title: DescriptionText(
-                                                                text: variantDataList[
+                                                                text:subVariantList.isEmpty? variantDataList[
                                                                         1]
                                                                     .values![
                                                                         index]
-                                                                    .subtitle,
+                                                                    .subtitle:subVariantList[index],
                                                                 color: appColors
                                                                     .blackColor),
-
                                                           ),
                                                         ),
                                                         Expanded(
@@ -602,7 +624,9 @@ void newNameOption(List<VariantModel> list){
                           }),
                     ],
                   ),
-          const   SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             Row(
               children: [
                 SizedBox(
@@ -633,10 +657,13 @@ void newNameOption(List<VariantModel> list){
                     const SizedBox(
                       width: 20,
                     ),
-                    ColorBtn(width: 100, title: "Save", onTap: () {
-                      showSnackBar(context, "Product Added");
-                      Navigator.pop(context);
-                    })
+                    ColorBtn(
+                        width: 100,
+                        title: "Save",
+                        onTap: () {
+                          showSnackBar(context, "Product Added");
+                          Navigator.pop(context);
+                        })
                   ],
                 ))
               ],
@@ -660,7 +687,6 @@ void newNameOption(List<VariantModel> list){
       // User canceled the picker
     }
   }
-
 
   _showOrderDetailDialog() async {
     final dynamic category = await showDialog(

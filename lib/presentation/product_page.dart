@@ -7,6 +7,7 @@ import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
 import '../depricated/secondary_btn.dart';
 import '../models/menu_model.dart';
+import '../utils/filter_chip_with_drop_down.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 
@@ -25,7 +26,7 @@ class _ProductsPageState extends State<ProductsPage> {
     MenuModel(icon: Icons.delete_outline, title: "Delete product"),
   ];
   List<String> filterList = <String>[
-    'Status',
+
     'In Draft',
     'Published',
     'Un published',
@@ -37,7 +38,7 @@ class _ProductsPageState extends State<ProductsPage> {
     'Diesel',
   ];
   String selectedAction = "View details";
-  String selectedFilter = "Status";
+  String selectedFilter = "";
   String searchFilter = "All";
   bool newestSelect = true;
   bool isLoad = false;
@@ -67,7 +68,6 @@ class _ProductsPageState extends State<ProductsPage> {
             const SizedBox(
               width: 10,
             ),
-
             const SizedBox(
               width: 10,
             ),
@@ -114,19 +114,34 @@ class _ProductsPageState extends State<ProductsPage> {
                 height: 48,
                 width: MediaQuery.of(context).size.width,
                 child: Row(
-                  children: [
-                    ChipFilterBtn(
-                      selectedFilter: selectedFilter,
-                      filterList: filterList,
-                      onChange: (val) {
-                        setState(() {
-                          selectedFilter = val!;
-                          isLoad = true;
-                        });
-                        updateFilter();
-                      },
-                      constantValue: "Status",
-                    ),
+                  children: [CustomFilterChipWithDropDown(
+                    filterList: filterList,
+                    selectedFilter: selectedFilter,
+                    onSelect: (String value) {
+                      setState(() {
+                        selectedFilter=value;
+                      });
+                    },
+                    onDelete: () {
+                      setState(() {
+                        selectedFilter="";
+                      });
+                    },
+                    title: 'Status',
+                  ),
+
+                    // ChipFilterBtn(
+                    //   selectedFilter: selectedFilter,
+                    //   filterList: filterList,
+                    //   onChange: (val) {
+                    //     setState(() {
+                    //       selectedFilter = val!;
+                    //       isLoad = true;
+                    //     });
+                    //     updateFilter();
+                    //   },
+                    //   constantValue: "Status",
+                    // ),
                     ChipFilterBtnWithSearch(
                       selectedFilter: searchFilter,
                       filterList: searchList,
@@ -138,6 +153,11 @@ class _ProductsPageState extends State<ProductsPage> {
                       constantValue: "All",
                       hintText: "Search by name/phone number",
                     ),
+                    TextButton(onPressed: (){
+                      setState(() {
+                        selectedFilter="";
+                      });
+                    }, child:const  TextUtil(text: "Clear Filter",size: 14,), ),
                     const Expanded(child: SizedBox()),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -251,7 +271,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                             child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
-                                            width: 64,
+                                            width: 90,
                                             height: 20,
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
@@ -259,13 +279,13 @@ class _ProductsPageState extends State<ProductsPage> {
                                                     ? appColors.redColor
                                                     : index.isEven &&
                                                             selectedFilter ==
-                                                                "All"
+                                                                ""
                                                         ? appColors.redColor
                                                         : appColors.blueColor,
                                                 borderRadius:
                                                     BorderRadius.circular(100)),
                                             child: TextUtil(
-                                              text: selectedFilter,
+                                              text: selectedFilter==""?"All":selectedFilter,
                                               color: appColors.whiteColor,
                                               size: 11,
                                             ),

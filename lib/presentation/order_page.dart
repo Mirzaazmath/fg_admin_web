@@ -9,6 +9,7 @@ import '../components/widgets/chip_filter_with_search.dart';
 import '../components/widgets/global_custom_dailog.dart';
 import '../components/widgets/pagination_widget.dart';
 import '../models/menu_model.dart';
+import '../utils/filter_chip_with_drop_down.dart';
 import '../utils/text_utils.dart';
 import 'dashboard_page.dart';
 
@@ -23,8 +24,7 @@ class _OrderPageState extends State<OrderPage> {
 
   List<String> filterList = <String>['All',"New", 'Confirmed', 'Truck allocated',"Out for delivery","Delivered","Cancelled"];
   List<String> durationList = <String>['Today',"Last 30days", 'This month', 'This Quarter',"Last Quarter",];
-
-  String selectedFilter = "All";
+  String selectedFilter = "";
   String searchFilter="All";
   String selectedDuration="Today";
   bool newestSelect=false;
@@ -85,16 +85,31 @@ appBar: AppBar(
                   padding: EdgeInsets.symmetric(vertical: 5),
                   child:  VerticalDivider(width: 32,),
                 ),
-                 ChipFilterBtn(
+                 CustomFilterChipWithDropDown(
+                   filterList: filterList,
                    selectedFilter: selectedFilter,
-                   filterList: filterList, onChange: (val) {
-                   setState(() {
-                     selectedFilter=val!;
-                     isLoad=true;
-                   });
-                   updateFilter();
-                 }, constantValue: "All",
+                   onSelect: (String value) {
+                     setState(() {
+                       selectedFilter=value;
+                     });
+                   },
+                   onDelete: () {
+                     setState(() {
+                       selectedFilter="";
+                     });
+                   },
+                   title: 'Type',
                  ),
+                 // ChipFilterBtn(
+                 //   selectedFilter: selectedFilter,
+                 //   filterList: filterList, onChange: (val) {
+                 //   setState(() {
+                 //     selectedFilter=val!;
+                 //     isLoad=true;
+                 //   });
+                 //   updateFilter();
+                 // }, constantValue: "All",
+                 // ),
                  ChipFilterBtnWithSearch(
                    selectedFilter: searchFilter,
                    filterList: filterList, onChange: (val) {
